@@ -3,7 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SensCalc — Real DPI Converter</title>
+
+  <!-- SEO -->
+  <title>RealDPI — Real Mouse DPI Converter | Gaming Mouse Sensitivity Calculator</title>
+  <meta name="description" content="Convert your gaming mouse sensitivity accurately using real measured DPI data. Switch mice without losing your feel. Free mouse DPI converter and sensitivity calculator.">
+  <meta name="keywords" content="mouse DPI converter, real DPI, gaming mouse sensitivity, DPI calculator, sens converter, mouse sensitivity converter, 마우스 감도, 마우스 DPI, 실측 DPI, 게이밍 마우스, 마우스 감도 변환, DPI 계산기, 마우스 감도 계산기">
+  <meta name="author" content="RealDPI">
+  <meta property="og:title" content="RealDPI — Real Mouse DPI Converter">
+  <meta property="og:description" content="Convert your gaming mouse sensitivity accurately using real measured DPI data. Switch mice without losing your feel.">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://realdpi.com">
+
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,17 +41,21 @@
       color: var(--text);
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* ── HEADER ── */
-    header {
-      text-align: center;
-      padding: 64px 20px 48px;
+    /* ── TOP BAR ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      padding: 20px 32px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .logo {
+    .topbar h1 {
       font-family: 'Orbitron', monospace;
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-size: 1.3rem;
       font-weight: 900;
       letter-spacing: 0.12em;
       background: linear-gradient(120deg, var(--cyan) 0%, var(--purple) 100%);
@@ -50,8 +64,22 @@
       background-clip: text;
     }
 
+    .topbar-sub {
+      margin-left: 14px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      padding-left: 14px;
+      border-left: 1px solid var(--border);
+    }
+
+    /* ── HEADER ── */
+    header {
+      text-align: center;
+      padding: 48px 20px 36px;
+    }
+
     .tagline {
-      margin-top: 10px;
       font-size: 0.82rem;
       color: var(--muted);
       letter-spacing: 0.12em;
@@ -62,7 +90,8 @@
     .container {
       max-width: 860px;
       margin: 0 auto;
-      padding: 0 20px 80px;
+      padding: 0 20px 60px;
+      flex: 1;
     }
 
     /* ── CARD ── */
@@ -78,12 +107,13 @@
       display: grid;
       grid-template-columns: 1fr 48px 1fr;
       gap: 16px;
-      align-items: center;
+      align-items: start;
     }
 
     @media (max-width: 600px) {
       .converter-grid { grid-template-columns: 1fr; }
-      .arrow-col { transform: rotate(90deg); }
+      .arrow-col { transform: rotate(90deg); margin: 4px auto; }
+      .topbar-sub { display: none; }
     }
 
     /* ── PANELS ── */
@@ -134,7 +164,7 @@
       margin-bottom: 7px;
     }
 
-    select, input[type="number"] {
+    input[type="number"] {
       width: 100%;
       background: var(--bg);
       border: 1px solid var(--border);
@@ -149,22 +179,97 @@
       appearance: none;
     }
 
-    select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 36px;
-      cursor: pointer;
-    }
-
-    select:focus, input[type="number"]:focus {
+    input[type="number"]:focus {
       border-color: var(--cyan);
       box-shadow: 0 0 0 3px rgba(0,212,255,0.08);
     }
 
-    select option, select optgroup { background: #0d1117; }
-
     input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+    /* ── SEARCHABLE SELECT ── */
+    .searchable-select {
+      position: relative;
+    }
+
+    .searchable-select input[type="text"] {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--text);
+      padding: 11px 36px 11px 14px;
+      font-size: 0.92rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+    }
+
+    .searchable-select input[type="text"]:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(0,212,255,0.08);
+      border-radius: 9px 9px 0 0;
+    }
+
+    .searchable-select input[type="text"]::placeholder { color: var(--muted); }
+
+    .select-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #0d1117;
+      border: 1px solid var(--cyan);
+      border-top: none;
+      border-radius: 0 0 9px 9px;
+      max-height: 220px;
+      overflow-y: auto;
+      z-index: 200;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .select-dropdown.open { display: block; }
+
+    .select-dropdown::-webkit-scrollbar { width: 4px; }
+    .select-dropdown::-webkit-scrollbar-track { background: transparent; }
+    .select-dropdown::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .dropdown-group {
+      padding: 7px 14px 3px;
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-top: 1px solid var(--border);
+    }
+
+    .dropdown-group:first-child { border-top: none; }
+
+    .dropdown-item {
+      padding: 9px 14px 9px 20px;
+      font-size: 0.88rem;
+      color: var(--subtle);
+      cursor: pointer;
+      transition: background 0.1s, color 0.1s;
+    }
+
+    .dropdown-item:hover,
+    .dropdown-item.highlighted {
+      background: rgba(0,212,255,0.08);
+      color: var(--cyan);
+    }
+
+    .dropdown-empty {
+      padding: 14px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
 
     /* ── ARROW ── */
     .arrow-col {
@@ -173,6 +278,7 @@
       justify-content: center;
       color: var(--muted);
       font-size: 1.4rem;
+      padding-top: 58px;
       pointer-events: none;
       user-select: none;
     }
@@ -273,7 +379,7 @@
       vertical-align: middle;
     }
 
-    /* ── FOOTER NOTE ── */
+    /* ── NOTE ── */
     .note {
       margin-top: 20px;
       padding: 14px 18px;
@@ -285,9 +391,6 @@
       text-align: center;
       line-height: 1.6;
     }
-
-    .note a { color: var(--purple); text-decoration: none; }
-    .note a:hover { text-decoration: underline; }
 
     /* ── ERROR ── */
     .error-msg {
@@ -303,12 +406,36 @@
     }
 
     .error-msg.visible { display: block; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover { color: var(--subtle); }
   </style>
 </head>
 <body>
 
+  <!-- TOP BAR (h1 for SEO, top-left) -->
+  <div class="topbar">
+    <h1>RealDPI</h1>
+    <span class="topbar-sub">Real Mouse DPI Converter</span>
+  </div>
+
   <header>
-    <div class="logo">SENSCALC</div>
     <p class="tagline">Real DPI Converter &nbsp;·&nbsp; Based on Measured Data</p>
   </header>
 
@@ -322,9 +449,10 @@
           <div class="panel-badge">Current Setup</div>
           <div class="form-group">
             <label class="form-label">Mouse Model</label>
-            <select id="fromMouse">
-              <option value="">Select your mouse...</option>
-            </select>
+            <div class="searchable-select" id="fromMouseWrapper">
+              <input type="text" id="fromMouseInput" placeholder="Search mouse..." autocomplete="off">
+              <div class="select-dropdown" id="fromMouseDropdown"></div>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-label">DPI Setting</label>
@@ -340,13 +468,14 @@
           <div class="panel-badge">New Mouse</div>
           <div class="form-group">
             <label class="form-label">Mouse Model</label>
-            <select id="toMouse">
-              <option value="">Select your mouse...</option>
-            </select>
+            <div class="searchable-select" id="toMouseWrapper">
+              <input type="text" id="toMouseInput" placeholder="Search mouse..." autocomplete="off">
+              <div class="select-dropdown" id="toMouseDropdown"></div>
+            </div>
           </div>
         </div>
 
-      </div><!-- /grid -->
+      </div>
 
       <div class="error-msg" id="errorMsg"></div>
 
@@ -365,16 +494,20 @@
 
       <div class="note">
         ★ Real DPI data sourced from community measurements (<strong>Lego Method</strong>).<br>
-        Logitech is used as the reference baseline. Data is updated as new measurements become available.
+        Data is updated as new measurements become available.
       </div>
 
-    </div><!-- /card -->
-  </div><!-- /container -->
+    </div>
+  </div>
+
+  <footer>
+    <span>© RealDPI</span>
+    <a href="mailto:jasingod@gmail.com">jasingod@gmail.com</a>
+  </footer>
 
   <script>
     // ─────────────────────────────────────────────────────────────
     //  MOUSE DATA — Real measured DPI (Lego Method)
-    //  Format: measurements = [{ set: stated DPI, real: measured DPI }, ...]
     // ─────────────────────────────────────────────────────────────
     const miceData = {
 
@@ -749,73 +882,135 @@
     };
 
     // ─────────────────────────────────────────────────────────────
-    //  POPULATE DROPDOWNS
+    //  SEARCHABLE SELECT
     // ─────────────────────────────────────────────────────────────
-    function populateDropdowns() {
-      const fromSel = document.getElementById('fromMouse');
-      const toSel   = document.getElementById('toMouse');
+    class SearchableSelect {
+      constructor(inputId, dropdownId) {
+        this.input      = document.getElementById(inputId);
+        this.dropdown   = document.getElementById(dropdownId);
+        this.value      = '';
+        this.hlIndex    = -1;
 
-      const brands = {};
-      Object.keys(miceData).forEach(model => {
-        const b = miceData[model].brand;
-        if (!brands[b]) brands[b] = [];
-        brands[b].push(model);
-      });
-
-      [fromSel, toSel].forEach(sel => {
-        Object.keys(brands).sort().forEach(brand => {
-          const grp = document.createElement('optgroup');
-          grp.label = brand;
-          brands[brand].forEach(model => {
-            const opt = document.createElement('option');
-            opt.value = model;
-            opt.textContent = model;
-            grp.appendChild(opt);
-          });
-          sel.appendChild(grp);
+        this.input.addEventListener('focus', () => this.open());
+        this.input.addEventListener('input', () => { this.value = ''; this.renderList(); });
+        this.input.addEventListener('keydown', e => this.onKey(e));
+        document.addEventListener('click', e => {
+          if (!this.input.closest('.searchable-select').contains(e.target)) this.close();
         });
-      });
+      }
+
+      open() {
+        this.renderList();
+        this.dropdown.classList.add('open');
+      }
+
+      close() {
+        this.dropdown.classList.remove('open');
+        this.input.value = this.value || '';
+        this.hlIndex = -1;
+      }
+
+      renderList() {
+        const q = this.input.value.toLowerCase().trim();
+        this.dropdown.innerHTML = '';
+        this.hlIndex = -1;
+
+        const brands = {};
+        Object.keys(miceData).forEach(model => {
+          if (!q || model.toLowerCase().includes(q)) {
+            const b = miceData[model].brand;
+            if (!brands[b]) brands[b] = [];
+            brands[b].push(model);
+          }
+        });
+
+        const sortedBrands = Object.keys(brands).sort();
+        if (sortedBrands.length === 0) {
+          const empty = document.createElement('div');
+          empty.className = 'dropdown-empty';
+          empty.textContent = 'No mouse found';
+          this.dropdown.appendChild(empty);
+          return;
+        }
+
+        sortedBrands.forEach(brand => {
+          const grp = document.createElement('div');
+          grp.className = 'dropdown-group';
+          grp.textContent = brand;
+          this.dropdown.appendChild(grp);
+
+          brands[brand].forEach(model => {
+            const item = document.createElement('div');
+            item.className = 'dropdown-item';
+            item.textContent = model;
+            item.addEventListener('mousedown', e => { e.preventDefault(); this.select(model); });
+            this.dropdown.appendChild(item);
+          });
+        });
+      }
+
+      select(model) {
+        this.value = model;
+        this.input.value = model;
+        this.dropdown.classList.remove('open');
+        this.hlIndex = -1;
+      }
+
+      onKey(e) {
+        const items = [...this.dropdown.querySelectorAll('.dropdown-item')];
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          this.hlIndex = Math.min(this.hlIndex + 1, items.length - 1);
+          this.updateHighlight(items);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          this.hlIndex = Math.max(this.hlIndex - 1, 0);
+          this.updateHighlight(items);
+        } else if (e.key === 'Enter') {
+          if (this.hlIndex >= 0 && items[this.hlIndex]) {
+            this.select(items[this.hlIndex].textContent);
+          }
+        } else if (e.key === 'Escape') {
+          this.close();
+        }
+      }
+
+      updateHighlight(items) {
+        items.forEach((el, i) => {
+          el.classList.toggle('highlighted', i === this.hlIndex);
+          if (i === this.hlIndex) el.scrollIntoView({ block: 'nearest' });
+        });
+      }
+
+      getValue() { return this.value; }
     }
 
     // ─────────────────────────────────────────────────────────────
-    //  INTERPOLATION HELPERS
+    //  INTERPOLATION
     // ─────────────────────────────────────────────────────────────
-
-    // Given a stated DPI setting, return the real DPI for that mouse
     function getRealDPI(measurements, setDPI) {
-      const sorted = [...measurements].sort((a, b) => a.set - b.set);
-      const exact = sorted.find(m => m.set === setDPI);
+      const s = [...measurements].sort((a, b) => a.set - b.set);
+      const exact = s.find(m => m.set === setDPI);
       if (exact) return exact.real;
-
-      if (setDPI <= sorted[0].set)
-        return setDPI * (sorted[0].real / sorted[0].set);
-
-      if (setDPI >= sorted[sorted.length - 1].set)
-        return setDPI * (sorted[sorted.length - 1].real / sorted[sorted.length - 1].set);
-
-      for (let i = 0; i < sorted.length - 1; i++) {
-        if (setDPI >= sorted[i].set && setDPI <= sorted[i + 1].set) {
-          const t = (setDPI - sorted[i].set) / (sorted[i + 1].set - sorted[i].set);
-          return sorted[i].real + t * (sorted[i + 1].real - sorted[i].real);
+      if (setDPI <= s[0].set) return setDPI * (s[0].real / s[0].set);
+      if (setDPI >= s[s.length-1].set) return setDPI * (s[s.length-1].real / s[s.length-1].set);
+      for (let i = 0; i < s.length - 1; i++) {
+        if (setDPI >= s[i].set && setDPI <= s[i+1].set) {
+          const t = (setDPI - s[i].set) / (s[i+1].set - s[i].set);
+          return s[i].real + t * (s[i+1].real - s[i].real);
         }
       }
       return setDPI;
     }
 
-    // Given a target real DPI, return the stated DPI setting to use
     function getSetDPI(measurements, targetReal) {
-      const sorted = [...measurements].sort((a, b) => a.real - b.real);
-
-      if (targetReal <= sorted[0].real)
-        return targetReal * (sorted[0].set / sorted[0].real);
-
-      if (targetReal >= sorted[sorted.length - 1].real)
-        return targetReal * (sorted[sorted.length - 1].set / sorted[sorted.length - 1].real);
-
-      for (let i = 0; i < sorted.length - 1; i++) {
-        if (targetReal >= sorted[i].real && targetReal <= sorted[i + 1].real) {
-          const t = (targetReal - sorted[i].real) / (sorted[i + 1].real - sorted[i].real);
-          return sorted[i].set + t * (sorted[i + 1].set - sorted[i].set);
+      const s = [...measurements].sort((a, b) => a.real - b.real);
+      if (targetReal <= s[0].real) return targetReal * (s[0].set / s[0].real);
+      if (targetReal >= s[s.length-1].real) return targetReal * (s[s.length-1].set / s[s.length-1].real);
+      for (let i = 0; i < s.length - 1; i++) {
+        if (targetReal >= s[i].real && targetReal <= s[i+1].real) {
+          const t = (targetReal - s[i].real) / (s[i+1].real - s[i].real);
+          return s[i].set + t * (s[i+1].set - s[i].set);
         }
       }
       return targetReal;
@@ -838,27 +1033,19 @@
       hideError();
       document.getElementById('resultWrap').classList.remove('visible');
 
-      const fromModel = document.getElementById('fromMouse').value;
+      const fromModel = fromSelect.getValue();
       const fromDPI   = parseFloat(document.getElementById('fromDPI').value);
-      const toModel   = document.getElementById('toMouse').value;
+      const toModel   = toSelect.getValue();
 
-      if (!fromModel)        return showError('Please select your current mouse.');
-      if (!fromDPI || fromDPI <= 0) return showError('Please enter a valid DPI value.');
-      if (!toModel)          return showError('Please select your new mouse.');
-      if (fromModel === toModel)    return showError('You selected the same mouse on both sides!');
+      if (!fromModel)             return showError('Please select your current mouse.');
+      if (!fromDPI || fromDPI<=0) return showError('Please enter a valid DPI value.');
+      if (!toModel)               return showError('Please select your new mouse.');
+      if (fromModel === toModel)  return showError('You selected the same mouse on both sides!');
 
-      const fromMeasurements = miceData[fromModel].measurements;
-      const toMeasurements   = miceData[toModel].measurements;
+      const realDPI     = getRealDPI(miceData[fromModel].measurements, fromDPI);
+      const recommended = Math.round(getSetDPI(miceData[toModel].measurements, realDPI));
 
-      // 1. Get real DPI of old mouse at the user's setting
-      const realDPI = getRealDPI(fromMeasurements, fromDPI);
-
-      // 2. Find the setting on the new mouse that gives the same real DPI
-      const recommended = Math.round(getSetDPI(toMeasurements, realDPI));
-
-      // Display
       document.getElementById('resultNumber').textContent = recommended.toLocaleString();
-
       document.getElementById('resultDetail').innerHTML =
         `Your <strong>${fromModel}</strong> at <strong>${fromDPI.toLocaleString()} DPI</strong> ` +
         `actually moves at <strong>~${Math.round(realDPI).toLocaleString()} real DPI</strong>. ` +
@@ -866,16 +1053,19 @@
         `To feel <strong>identical</strong> on your <strong>${toModel}</strong>, ` +
         `set it to <strong>${recommended.toLocaleString()} DPI</strong>.`;
 
-      document.getElementById('resultWrap').classList.add('visible');
-      document.getElementById('resultWrap').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      const wrap = document.getElementById('resultWrap');
+      wrap.classList.add('visible');
+      wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
-    // Allow Enter key on DPI input
-    document.addEventListener('DOMContentLoaded', () => {
-      populateDropdowns();
-      document.getElementById('fromDPI').addEventListener('keydown', e => {
-        if (e.key === 'Enter') calculate();
-      });
+    // ─────────────────────────────────────────────────────────────
+    //  INIT
+    // ─────────────────────────────────────────────────────────────
+    const fromSelect = new SearchableSelect('fromMouseInput', 'fromMouseDropdown');
+    const toSelect   = new SearchableSelect('toMouseInput',   'toMouseDropdown');
+
+    document.getElementById('fromDPI').addEventListener('keydown', e => {
+      if (e.key === 'Enter') calculate();
     });
   </script>
 </body>
