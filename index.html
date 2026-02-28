@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SensCalc — Real DPI Converter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:        #07090f;
+      --bg-card:   #0d1117;
+      --bg-input:  #070a10;
+      --border:    #1a2333;
+      --border-hl: #00d4ff44;
+      --cyan:      #00d4ff;
+      --purple:    #8b5cf6;
+      --green:     #00ff88;
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+      --subtle:    #94a3b8;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      text-align: center;
+      padding: 64px 20px 48px;
+    }
+
+    .logo {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      background: linear-gradient(120deg, var(--cyan) 0%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      margin-top: 10px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ── CONTAINER ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: clamp(24px, 5vw, 44px);
+    }
+
+    /* ── CONVERTER GRID ── */
+    .converter-grid {
+      display: grid;
+      grid-template-columns: 1fr 48px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    @media (max-width: 600px) {
+      .converter-grid { grid-template-columns: 1fr; }
+      .arrow-col { transform: rotate(90deg); }
+    }
+
+    /* ── PANELS ── */
+    .panel {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+
+    .panel:focus-within { border-color: var(--border-hl); }
+
+    .panel-badge {
+      display: inline-block;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    .panel-from .panel-badge {
+      background: rgba(0,212,255,0.1);
+      color: var(--cyan);
+      border: 1px solid rgba(0,212,255,0.25);
+    }
+
+    .panel-to .panel-badge {
+      background: rgba(139,92,246,0.1);
+      color: var(--purple);
+      border: 1px solid rgba(139,92,246,0.25);
+    }
+
+    /* ── FORM ── */
+    .form-group { margin-bottom: 16px; }
+    .form-group:last-child { margin-bottom: 0; }
+
+    .form-label {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    select, input[type="number"] {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--text);
+      padding: 11px 14px;
+      font-size: 0.92rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+
+    select:focus, input[type="number"]:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(0,212,255,0.08);
+    }
+
+    select option, select optgroup { background: #0d1117; }
+
+    input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+    /* ── ARROW ── */
+    .arrow-col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 1.4rem;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ── BUTTON ── */
+    .btn-calc {
+      display: block;
+      width: 100%;
+      margin-top: 28px;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--cyan), #0099cc);
+      border: none;
+      border-radius: 11px;
+      color: #07090f;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+    }
+
+    .btn-calc:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(0,212,255,0.28);
+    }
+
+    .btn-calc:active { transform: translateY(0); opacity: 0.85; }
+
+    /* ── RESULT ── */
+    .result-wrap {
+      margin-top: 28px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #0d2a1a;
+      background: linear-gradient(135deg, rgba(0,255,136,0.04), rgba(0,212,255,0.03));
+      display: none;
+    }
+
+    .result-wrap.visible { display: block; }
+
+    .result-inner {
+      padding: 32px;
+      text-align: center;
+    }
+
+    .result-eyebrow {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .result-number {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2.8rem, 8vw, 4.5rem);
+      font-weight: 900;
+      color: var(--green);
+      text-shadow: 0 0 40px rgba(0,255,136,0.35);
+      line-height: 1;
+    }
+
+    .result-unit {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 6px;
+      letter-spacing: 0.1em;
+    }
+
+    .result-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #1a2333, transparent);
+      margin: 20px 0;
+    }
+
+    .result-detail {
+      font-size: 0.84rem;
+      color: var(--subtle);
+      line-height: 1.75;
+    }
+
+    .result-detail strong { color: var(--text); }
+
+    .result-pill {
+      display: inline-block;
+      background: rgba(0,255,136,0.1);
+      border: 1px solid rgba(0,255,136,0.2);
+      color: var(--green);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    /* ── FOOTER NOTE ── */
+    .note {
+      margin-top: 20px;
+      padding: 14px 18px;
+      background: rgba(139,92,246,0.06);
+      border: 1px solid rgba(139,92,246,0.15);
+      border-radius: 10px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .note a { color: var(--purple); text-decoration: none; }
+    .note a:hover { text-decoration: underline; }
+
+    /* ── ERROR ── */
+    .error-msg {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: #f87171;
+      text-align: center;
+      display: none;
+    }
+
+    .error-msg.visible { display: block; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">SENSCALC</div>
+    <p class="tagline">Real DPI Converter &nbsp;·&nbsp; Based on Measured Data</p>
+  </header>
+
+  <div class="container">
+    <div class="card">
+
+      <div class="converter-grid">
+
+        <!-- FROM -->
+        <div class="panel panel-from">
+          <div class="panel-badge">Current Setup</div>
+          <div class="form-group">
+            <label class="form-label">Mouse Model</label>
+            <select id="fromMouse">
+              <option value="">Select your mouse...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">DPI Setting</label>
+            <input type="number" id="fromDPI" placeholder="e.g. 1600" min="100" max="32000" step="50">
+          </div>
+        </div>
+
+        <!-- ARROW -->
+        <div class="arrow-col">→</div>
+
+        <!-- TO -->
+        <div class="panel panel-to">
+          <div class="panel-badge">New Mouse</div>
+          <div class="form-group">
+            <label class="form-label">Mouse Model</label>
+            <select id="toMouse">
+              <option value="">Select your mouse...</option>
+            </select>
+          </div>
+        </div>
+
+      </div><!-- /grid -->
+
+      <div class="error-msg" id="errorMsg"></div>
+
+      <button class="btn-calc" onclick="calculate()">Calculate Equivalent DPI →</button>
+
+      <!-- RESULT -->
+      <div class="result-wrap" id="resultWrap">
+        <div class="result-inner">
+          <div class="result-eyebrow">Set your new mouse to</div>
+          <div class="result-number" id="resultNumber">—</div>
+          <div class="result-unit">DPI</div>
+          <div class="result-divider"></div>
+          <div class="result-detail" id="resultDetail"></div>
+        </div>
+      </div>
+
+      <div class="note">
+        ★ Real DPI data sourced from community measurements (<strong>Lego Method</strong>).<br>
+        Logitech is used as the reference baseline. Data is updated as new measurements become available.
+      </div>
+
+    </div><!-- /card -->
+  </div><!-- /container -->
+
+  <script>
+    // ─────────────────────────────────────────────────────────────
+    //  MOUSE DATA — Real measured DPI (Lego Method)
+    //  Format: measurements = [{ set: stated DPI, real: measured DPI }, ...]
+    // ─────────────────────────────────────────────────────────────
+    const miceData = {
+
+      // ── LOGITECH ──
+      "Logitech G Pro Wireless": {
+        brand: "Logitech",
+        measurements: [
+          { set: 400,  real: 406  },
+          { set: 800,  real: 815  },
+          { set: 1600, real: 1627 },
+          { set: 3200, real: 3263 },
+        ]
+      },
+      "Logitech G Pro": {
+        brand: "Logitech",
+        measurements: [
+          { set: 400,   real: 400   },
+          { set: 800,   real: 800   },
+          { set: 1600,  real: 1600  },
+          { set: 3200,  real: 3198  },
+          { set: 12000, real: 11970 },
+        ]
+      },
+      "Logitech G305": {
+        brand: "Logitech",
+        measurements: [
+          { set: 400,  real: 392  },
+          { set: 800,  real: 784  },
+          { set: 1600, real: 1570 },
+          { set: 3200, real: 3142 },
+        ]
+      },
+      "Logitech G102": {
+        brand: "Logitech",
+        measurements: [
+          { set: 400,   real: 386  },
+          { set: 800,   real: 769  },
+          { set: 1600,  real: 1533 },
+          { set: 3200,  real: 3015 },
+          { set: 12000, real: 5722 },
+        ]
+      },
+      "Logitech G403": {
+        brand: "Logitech",
+        measurements: [
+          { set: 400,   real: 400   },
+          { set: 800,   real: 800   },
+          { set: 1600,  real: 1599  },
+          { set: 3200,  real: 3198  },
+          { set: 12000, real: 11975 },
+        ]
+      },
+      "Logitech G603": {
+        brand: "Logitech",
+        measurements: [
+          { set: 400,  real: 395  },
+          { set: 800,  real: 789  },
+          { set: 1600, real: 1574 },
+          { set: 3200, real: 3170 },
+        ]
+      },
+      "Logitech G900": {
+        brand: "Logitech",
+        measurements: [
+          { set: 400,   real: 400   },
+          { set: 800,   real: 800   },
+          { set: 1600,  real: 1601  },
+          { set: 3200,  real: 3203  },
+          { set: 16000, real: 16012 },
+        ]
+      },
+      "Logitech G303 Shroud Edition": {
+        brand: "Logitech",
+        measurements: [
+          { set: 400,  real: 418  },
+          { set: 800,  real: 833  },
+          { set: 1600, real: 1671 },
+          { set: 3200, real: 3344 },
+        ]
+      },
+      "Logitech MX518 Legendary": {
+        brand: "Logitech",
+        measurements: [
+          { set: 400,  real: 391  },
+          { set: 800,  real: 782  },
+          { set: 1600, real: 1584 },
+          { set: 3200, real: 3160 },
+        ]
+      },
+
+      // ── STEELSERIES ──
+      "SteelSeries Rival 100": {
+        brand: "SteelSeries",
+        measurements: [
+          { set: 500,  real: 485  },
+          { set: 1000, real: 971  },
+          { set: 2000, real: 1941 },
+          { set: 4000, real: 3879 },
+        ]
+      },
+      "SteelSeries Rival 110": {
+        brand: "SteelSeries",
+        measurements: [
+          { set: 400,  real: 403  },
+          { set: 800,  real: 808  },
+          { set: 1600, real: 1618 },
+          { set: 3200, real: 3235 },
+        ]
+      },
+      "SteelSeries Rival 300S": {
+        brand: "SteelSeries",
+        measurements: [
+          { set: 400,  real: 418  },
+          { set: 800,  real: 834  },
+          { set: 1600, real: 1662 },
+          { set: 3200, real: 3333 },
+        ]
+      },
+      "SteelSeries Rival 310": {
+        brand: "SteelSeries",
+        measurements: [
+          { set: 400,  real: 405  },
+          { set: 800,  real: 811  },
+          { set: 1600, real: 1628 },
+          { set: 3200, real: 3251 },
+        ]
+      },
+      "SteelSeries Aerox 3": {
+        brand: "SteelSeries",
+        measurements: [
+          { set: 400,  real: 419  },
+          { set: 800,  real: 892  },
+          { set: 1600, real: 1770 },
+          { set: 3200, real: 3458 },
+        ]
+      },
+      "SteelSeries Aerox 3 Wireless": {
+        brand: "SteelSeries",
+        measurements: [
+          { set: 400,  real: 417  },
+          { set: 800,  real: 829  },
+          { set: 1600, real: 1592 },
+          { set: 3200, real: 3270 },
+        ]
+      },
+
+      // ── ZOWIE ──
+      "Zowie EC2-A": {
+        brand: "Zowie",
+        measurements: [
+          { set: 400,  real: 386  },
+          { set: 800,  real: 773  },
+          { set: 1600, real: 1558 },
+          { set: 3200, real: 3071 },
+        ]
+      },
+      "Zowie EC2-B": {
+        brand: "Zowie",
+        measurements: [
+          { set: 400,  real: 393  },
+          { set: 800,  real: 787  },
+          { set: 1600, real: 1575 },
+          { set: 3200, real: 3155 },
+        ]
+      },
+      "Zowie FK1+": {
+        brand: "Zowie",
+        measurements: [
+          { set: 400,  real: 384  },
+          { set: 800,  real: 770  },
+          { set: 1600, real: 1538 },
+          { set: 3200, real: 3081 },
+        ]
+      },
+      "Zowie S1": {
+        brand: "Zowie",
+        measurements: [
+          { set: 400,  real: 390  },
+          { set: 800,  real: 774  },
+          { set: 1600, real: 1556 },
+          { set: 3200, real: 3121 },
+        ]
+      },
+      "Zowie S2": {
+        brand: "Zowie",
+        measurements: [
+          { set: 400,  real: 389  },
+          { set: 800,  real: 775  },
+          { set: 1600, real: 1551 },
+          { set: 3200, real: 3110 },
+        ]
+      },
+
+      // ── RAZER ──
+      "Razer Basilisk": {
+        brand: "Razer",
+        measurements: [
+          { set: 800,  real: 813  },
+          { set: 1600, real: 1625 },
+          { set: 3200, real: 3243 },
+          { set: 6400, real: 6477 },
+        ]
+      },
+      "Razer DeathAdder Elite": {
+        brand: "Razer",
+        measurements: [
+          { set: 800,   real: 825   },
+          { set: 1800,  real: 1852  },
+          { set: 4500,  real: 4617  },
+          { set: 9000,  real: 9246  },
+          { set: 16000, real: 16429 },
+        ]
+      },
+      "Razer Lancehead TE": {
+        brand: "Razer",
+        measurements: [
+          { set: 800,  real: 823  },
+          { set: 1800, real: 1837 },
+          { set: 4500, real: 4683 },
+          { set: 9000, real: 9181 },
+        ]
+      },
+
+      // ── COUGAR ──
+      "Cougar Revenger": {
+        brand: "Cougar",
+        measurements: [
+          { set: 400,  real: 407  },
+          { set: 800,  real: 813  },
+          { set: 1600, real: 1630 },
+          { set: 3200, real: 3065 },
+        ]
+      },
+      "Cougar Surpassion": {
+        brand: "Cougar",
+        measurements: [
+          { set: 400,  real: 430  },
+          { set: 800,  real: 866  },
+          { set: 1600, real: 1709 },
+          { set: 3200, real: 3402 },
+        ]
+      },
+
+      // ── PULSAR ──
+      "Pulsar Xlite V2 Wireless": {
+        brand: "Pulsar",
+        measurements: [
+          { set: 400,  real: 439  },
+          { set: 800,  real: 878  },
+          { set: 1600, real: 1756 },
+          { set: 3200, real: 3516 },
+        ]
+      },
+
+      // ── XTRFY ──
+      "Xtrfy M4 Wireless": {
+        brand: "Xtrfy",
+        measurements: [
+          { set: 400,  real: 410  },
+          { set: 800,  real: 825  },
+          { set: 1600, real: 1648 },
+          { set: 3200, real: 3279 },
+        ]
+      },
+      "Xtrfy M42 Wireless": {
+        brand: "Xtrfy",
+        measurements: [
+          { set: 400,  real: 414  },
+          { set: 800,  real: 825  },
+          { set: 1600, real: 1647 },
+          { set: 3200, real: 3315 },
+        ]
+      },
+
+      // ── ZET ──
+      "Zet Phantom (Wired)": {
+        brand: "Zet",
+        measurements: [
+          { set: 400,  real: 413  },
+          { set: 800,  real: 793  },
+          { set: 1600, real: 1525 },
+          { set: 3200, real: 2978 },
+        ]
+      },
+      "Zet Phantom (Wireless)": {
+        brand: "Zet",
+        measurements: [
+          { set: 400,  real: 433  },
+          { set: 800,  real: 854  },
+          { set: 1600, real: 1625 },
+          { set: 3200, real: 3370 },
+        ]
+      },
+
+      // ── OTHERS ──
+      "DreamMachines DM1 Pro S": {
+        brand: "DreamMachines",
+        measurements: [
+          { set: 400,   real: 397   },
+          { set: 800,   real: 793   },
+          { set: 1600,  real: 1590  },
+          { set: 4800,  real: 4755  },
+          { set: 12000, real: 11913 },
+        ]
+      },
+      "HyperX Pulsefire Surge": {
+        brand: "HyperX",
+        measurements: [
+          { set: 400,  real: 396  },
+          { set: 800,  real: 792  },
+          { set: 1600, real: 1585 },
+          { set: 3200, real: 3170 },
+        ]
+      },
+      "Mionix Naos": {
+        brand: "Mionix",
+        measurements: [
+          { set: 400,  real: 389  },
+          { set: 800,  real: 767  },
+          { set: 1600, real: 1512 },
+          { set: 7000, real: 6430 },
+        ]
+      },
+      "Nixeus Revel": {
+        brand: "Nixeus",
+        measurements: [
+          { set: 400,  real: 408  },
+          { set: 800,  real: 822  },
+          { set: 1200, real: 1234 },
+          { set: 1600, real: 1645 },
+          { set: 2000, real: 2054 },
+          { set: 3200, real: 3293 },
+        ]
+      },
+      "Roccat Kone Pure 2017": {
+        brand: "Roccat",
+        measurements: [
+          { set: 400,  real: 407  },
+          { set: 800,  real: 812  },
+          { set: 1200, real: 1217 },
+          { set: 1600, real: 1634 },
+          { set: 3200, real: 3263 },
+        ]
+      },
+      "Bloody J95": {
+        brand: "Bloody",
+        measurements: [
+          { set: 800,  real: 874  },
+          { set: 2000, real: 2166 },
+          { set: 3000, real: 3222 },
+          { set: 4000, real: 4298 },
+        ]
+      },
+      "CM MM520": {
+        brand: "Cooler Master",
+        measurements: [
+          { set: 400,  real: 416  },
+          { set: 800,  real: 832  },
+          { set: 1600, real: 1668 },
+          { set: 3200, real: 3307 },
+        ]
+      },
+      "Finalmouse Air58": {
+        brand: "Finalmouse",
+        measurements: [
+          { set: 400,  real: 419  },
+          { set: 800,  real: 838  },
+          { set: 1600, real: 1681 },
+          { set: 3200, real: 3355 },
+        ]
+      },
+    };
+
+    // ─────────────────────────────────────────────────────────────
+    //  POPULATE DROPDOWNS
+    // ─────────────────────────────────────────────────────────────
+    function populateDropdowns() {
+      const fromSel = document.getElementById('fromMouse');
+      const toSel   = document.getElementById('toMouse');
+
+      const brands = {};
+      Object.keys(miceData).forEach(model => {
+        const b = miceData[model].brand;
+        if (!brands[b]) brands[b] = [];
+        brands[b].push(model);
+      });
+
+      [fromSel, toSel].forEach(sel => {
+        Object.keys(brands).sort().forEach(brand => {
+          const grp = document.createElement('optgroup');
+          grp.label = brand;
+          brands[brand].forEach(model => {
+            const opt = document.createElement('option');
+            opt.value = model;
+            opt.textContent = model;
+            grp.appendChild(opt);
+          });
+          sel.appendChild(grp);
+        });
+      });
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    //  INTERPOLATION HELPERS
+    // ─────────────────────────────────────────────────────────────
+
+    // Given a stated DPI setting, return the real DPI for that mouse
+    function getRealDPI(measurements, setDPI) {
+      const sorted = [...measurements].sort((a, b) => a.set - b.set);
+      const exact = sorted.find(m => m.set === setDPI);
+      if (exact) return exact.real;
+
+      if (setDPI <= sorted[0].set)
+        return setDPI * (sorted[0].real / sorted[0].set);
+
+      if (setDPI >= sorted[sorted.length - 1].set)
+        return setDPI * (sorted[sorted.length - 1].real / sorted[sorted.length - 1].set);
+
+      for (let i = 0; i < sorted.length - 1; i++) {
+        if (setDPI >= sorted[i].set && setDPI <= sorted[i + 1].set) {
+          const t = (setDPI - sorted[i].set) / (sorted[i + 1].set - sorted[i].set);
+          return sorted[i].real + t * (sorted[i + 1].real - sorted[i].real);
+        }
+      }
+      return setDPI;
+    }
+
+    // Given a target real DPI, return the stated DPI setting to use
+    function getSetDPI(measurements, targetReal) {
+      const sorted = [...measurements].sort((a, b) => a.real - b.real);
+
+      if (targetReal <= sorted[0].real)
+        return targetReal * (sorted[0].set / sorted[0].real);
+
+      if (targetReal >= sorted[sorted.length - 1].real)
+        return targetReal * (sorted[sorted.length - 1].set / sorted[sorted.length - 1].real);
+
+      for (let i = 0; i < sorted.length - 1; i++) {
+        if (targetReal >= sorted[i].real && targetReal <= sorted[i + 1].real) {
+          const t = (targetReal - sorted[i].real) / (sorted[i + 1].real - sorted[i].real);
+          return sorted[i].set + t * (sorted[i + 1].set - sorted[i].set);
+        }
+      }
+      return targetReal;
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    //  CALCULATE
+    // ─────────────────────────────────────────────────────────────
+    function showError(msg) {
+      const el = document.getElementById('errorMsg');
+      el.textContent = msg;
+      el.classList.add('visible');
+    }
+
+    function hideError() {
+      document.getElementById('errorMsg').classList.remove('visible');
+    }
+
+    function calculate() {
+      hideError();
+      document.getElementById('resultWrap').classList.remove('visible');
+
+      const fromModel = document.getElementById('fromMouse').value;
+      const fromDPI   = parseFloat(document.getElementById('fromDPI').value);
+      const toModel   = document.getElementById('toMouse').value;
+
+      if (!fromModel)        return showError('Please select your current mouse.');
+      if (!fromDPI || fromDPI <= 0) return showError('Please enter a valid DPI value.');
+      if (!toModel)          return showError('Please select your new mouse.');
+      if (fromModel === toModel)    return showError('You selected the same mouse on both sides!');
+
+      const fromMeasurements = miceData[fromModel].measurements;
+      const toMeasurements   = miceData[toModel].measurements;
+
+      // 1. Get real DPI of old mouse at the user's setting
+      const realDPI = getRealDPI(fromMeasurements, fromDPI);
+
+      // 2. Find the setting on the new mouse that gives the same real DPI
+      const recommended = Math.round(getSetDPI(toMeasurements, realDPI));
+
+      // Display
+      document.getElementById('resultNumber').textContent = recommended.toLocaleString();
+
+      document.getElementById('resultDetail').innerHTML =
+        `Your <strong>${fromModel}</strong> at <strong>${fromDPI.toLocaleString()} DPI</strong> ` +
+        `actually moves at <strong>~${Math.round(realDPI).toLocaleString()} real DPI</strong>. ` +
+        `<span class="result-pill">Lego Measured</span><br><br>` +
+        `To feel <strong>identical</strong> on your <strong>${toModel}</strong>, ` +
+        `set it to <strong>${recommended.toLocaleString()} DPI</strong>.`;
+
+      document.getElementById('resultWrap').classList.add('visible');
+      document.getElementById('resultWrap').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Allow Enter key on DPI input
+    document.addEventListener('DOMContentLoaded', () => {
+      populateDropdowns();
+      document.getElementById('fromDPI').addEventListener('keydown', e => {
+        if (e.key === 'Enter') calculate();
+      });
+    });
+  </script>
+</body>
+</html>
