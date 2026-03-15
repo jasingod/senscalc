@@ -426,6 +426,56 @@
 
     .error-msg.visible { display: block; }
 
+    /* ── INFO SECTIONS ── */
+    .info-sections {
+      max-width: 640px;
+      margin: 48px auto 0;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 32px;
+    }
+    .info-card h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #e0e0e0;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .info-card ol, .info-card ul {
+      padding-left: 20px;
+      color: #888;
+      font-size: 0.88rem;
+      line-height: 1.9;
+    }
+    .info-card p {
+      color: #888;
+      font-size: 0.88rem;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+    .info-card p:last-child { margin-bottom: 0; }
+    .faq-item { margin-bottom: 18px; }
+    .faq-item:last-child { margin-bottom: 0; }
+    .faq-q {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #c0c0c0;
+      margin-bottom: 4px;
+    }
+    .faq-a {
+      font-size: 0.85rem;
+      color: #777;
+      line-height: 1.7;
+    }
+
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
@@ -521,6 +571,59 @@
       </div>
 
     </div>
+  </div>
+
+  <!-- HOW TO USE + FAQ -->
+  <div class="info-sections">
+
+    <div class="info-card">
+      <h2>How to Use</h2>
+      <ol>
+        <li>Select your <strong>current mouse</strong> from the left dropdown.</li>
+        <li>Enter the <strong>DPI setting</strong> you currently use.</li>
+        <li>Select your <strong>new mouse</strong> from the right dropdown.</li>
+        <li>Click <strong>Calculate Equivalent DPI</strong>.</li>
+        <li>Set your new mouse to the result — your sensitivity will feel identical.</li>
+      </ol>
+    </div>
+
+    <div class="info-card">
+      <h2>What is Real DPI?</h2>
+      <p>
+        The DPI value shown on a mouse is the <em>advertised</em> value — but the actual tracking speed often differs.
+        Every sensor is calibrated differently by the manufacturer, so a 800 DPI setting on one mouse
+        may track faster or slower than 800 DPI on another.
+      </p>
+      <p>
+        Real DPI is the <strong>measured</strong> tracking speed of a mouse at a given setting.
+        RealDPI uses these real measurements to calculate a conversion that feels accurate — not just mathematically equivalent.
+      </p>
+    </div>
+
+    <div class="info-card">
+      <h2>FAQ</h2>
+
+      <div class="faq-item">
+        <div class="faq-q">Why does my sensitivity feel different even at the same DPI?</div>
+        <div class="faq-a">Because the advertised DPI and the actual measured DPI of a mouse are not always the same. Sensor tuning varies by manufacturer and model, causing real differences in tracking speed.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">How accurate is the conversion?</div>
+        <div class="faq-a">The conversion is based on real measured DPI data from our own testing and insights from verified professional and former professional players. We make every effort to ensure the highest level of accuracy, though minor differences in feel can still occur due to hardware variation between individual units.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">My mouse isn't in the list. What should I do?</div>
+        <div class="faq-a">We are continuously adding new mice as data becomes available. If your mouse is not listed, feel free to contact us at jasingod@gmail.com and we'll look into adding it.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Is RealDPI free to use?</div>
+        <div class="faq-a">Yes, RealDPI is completely free. No account or registration required.</div>
+      </div>
+    </div>
+
   </div>
 
   <footer>
