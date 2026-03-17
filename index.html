@@ -476,6 +476,257 @@
       line-height: 1.7;
     }
 
+    /* ── STATIC SHARE SECTION ── */
+    .share-section {
+      max-width: 640px;
+      margin: 32px auto 0;
+      padding: 0 16px;
+    }
+
+    .share-card {
+      background: linear-gradient(135deg, rgba(0,212,255,0.04), rgba(139,92,246,0.04));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .share-card-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .share-card-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+
+    .share-card-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .share-card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 18px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--subtle);
+      font-size: 0.8rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .share-card-btn:hover { border-color: var(--border-hl); color: var(--text); background: rgba(0,212,255,0.05); }
+
+    .share-card-btn.copied { border-color: var(--green); color: var(--green); }
+
+    /* ── PRO SECTION ── */
+    .pro-section {
+      max-width: 860px;
+      margin: 0 auto 28px;
+      padding: 0 20px;
+    }
+
+    .pro-section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pro-section-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pro-section-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+    }
+
+    .pro-section-link {
+      font-size: 0.74rem;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+
+    .pro-section-link:hover { color: var(--cyan); }
+
+    .pro-chips-outer {
+      position: relative;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    }
+
+    .pro-chips-outer:hover .pro-chips-track { animation-play-state: paused; }
+
+    .pro-chips-track {
+      display: flex;
+      gap: 10px;
+      width: max-content;
+      animation: proScroll 36s linear infinite;
+    }
+
+    @keyframes proScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .pro-chips {
+      display: contents;
+    }
+
+    .pro-chip {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 11px 15px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      text-align: left;
+      min-width: 110px;
+    }
+
+    .pro-chip:hover {
+      border-color: rgba(0,212,255,0.4);
+      background: rgba(0,212,255,0.04);
+      transform: translateY(-1px);
+    }
+
+    .pro-chip:active { transform: translateY(0); }
+
+    .pro-chip-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .pro-chip-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .pro-chip-game {
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 2px 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .game-cs2   { background: rgba(255,165,0,0.12); color: #ffaa33; border: 1px solid rgba(255,165,0,0.2); }
+    .game-val   { background: rgba(255,70,84,0.12);  color: #ff6470; border: 1px solid rgba(255,70,84,0.2); }
+    .game-fn    { background: rgba(80,180,255,0.12); color: #50b4ff; border: 1px solid rgba(80,180,255,0.2); }
+    .game-apex  { background: rgba(255,100,0,0.12);  color: #ff7733; border: 1px solid rgba(255,100,0,0.2); }
+
+    .pro-chip-info {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .pro-chip-dpi {
+      color: var(--cyan);
+      font-family: 'Orbitron', monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    /* ── SHARE ── */
+    .share-wrap {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .share-label {
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .share-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 16px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--subtle);
+      font-size: 0.78rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .share-btn:hover { border-color: var(--border-hl); color: var(--text); background: rgba(0,212,255,0.05); }
+
+    .share-btn.copied { border-color: var(--green); color: var(--green); }
+
+    .share-btn svg { flex-shrink: 0; }
+
+    /* ── NAV ── */
+    .topbar-nav { margin-left: auto; display: flex; gap: 6px; }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.08em; padding: 6px 12px; border-radius: 7px; border: 1px solid transparent; transition: all 0.2s; }
+    .nav-link:hover { color: var(--text); border-color: var(--border); }
+    .nav-link-active { color: var(--cyan) !important; border-color: rgba(0,212,255,0.3) !important; }
+
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
@@ -506,11 +757,112 @@
   <div class="topbar">
     <h1><a href="/" style="text-decoration:none;background:inherit;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-image:linear-gradient(120deg,var(--cyan) 0%,var(--purple) 100%);background-clip:text;">RealDPI</a></h1>
     <span class="topbar-sub">Real Mouse DPI Converter</span>
+    <nav class="topbar-nav">
+      <a href="/" class="nav-link nav-link-active">Calculator</a>
+      <a href="pros.html" class="nav-link">Pro Setups</a>
+    </nav>
   </div>
 
   <header>
     <p class="tagline">Real DPI Converter &nbsp;·&nbsp; Based on Measured Data</p>
   </header>
+
+  <!-- PRO SECTION -->
+  <div class="pro-section">
+    <div class="pro-section-head">
+      <span class="pro-section-label">Start from a Pro's Setup</span>
+      <a href="pros.html" class="pro-section-link">
+        Browse all pros
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="pro-chips-outer">
+      <div class="pro-chips-track">
+        <!-- set 1 -->
+        <button class="pro-chip" onclick="loadPro('Zowie EC2-A', 800)">
+          <div class="pro-chip-top"><span class="pro-chip-name">donk</span><span class="pro-chip-game game-cs2">CS2</span></div>
+          <div class="pro-chip-info">ZOWIE · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Pulsar Zywoo The Chosen One', 400)">
+          <div class="pro-chip-top"><span class="pro-chip-name">ZywOo</span><span class="pro-chip-game game-cs2">CS2</span></div>
+          <div class="pro-chip-info">Pulsar · <span class="pro-chip-dpi">400 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Zowie U2', 800)">
+          <div class="pro-chip-top"><span class="pro-chip-name">sh1ro</span><span class="pro-chip-game game-cs2">CS2</span></div>
+          <div class="pro-chip-info">ZOWIE U2 · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Razer DeathAdder V3 Pro', 800)">
+          <div class="pro-chip-top"><span class="pro-chip-name">NiKo</span><span class="pro-chip-game game-cs2">CS2</span></div>
+          <div class="pro-chip-info">DeathAdder V4 · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Logitech Pro X Superlight 2', 800)">
+          <div class="pro-chip-top"><span class="pro-chip-name">aspas</span><span class="pro-chip-game game-val">VAL</span></div>
+          <div class="pro-chip-info">G Pro X SL2 · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Logitech Pro X Superlight 2', 400)">
+          <div class="pro-chip-top"><span class="pro-chip-name">Derke</span><span class="pro-chip-game game-val">VAL</span></div>
+          <div class="pro-chip-info">G Pro X SL2 · <span class="pro-chip-dpi">400 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Razer Viper V3 Pro', 800)">
+          <div class="pro-chip-top"><span class="pro-chip-name">Bugha</span><span class="pro-chip-game game-fn">FN</span></div>
+          <div class="pro-chip-info">Viper V3 Pro · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Logitech Pro X Superlight 2', 800)">
+          <div class="pro-chip-top"><span class="pro-chip-name">MrSavage</span><span class="pro-chip-game game-fn">FN</span></div>
+          <div class="pro-chip-info">G Pro X SL2 · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Logitech Pro X Superlight 2', 800)">
+          <div class="pro-chip-top"><span class="pro-chip-name">m0NESY</span><span class="pro-chip-game game-cs2">CS2</span></div>
+          <div class="pro-chip-info">G Pro X SL2 · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Razer Viper V3 Pro', 800)">
+          <div class="pro-chip-top"><span class="pro-chip-name">ImperialHal</span><span class="pro-chip-game game-apex">APEX</span></div>
+          <div class="pro-chip-info">FinalMouse · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+        <!-- set 2 (duplicate for seamless loop) -->
+        <button class="pro-chip" onclick="loadPro('Zowie EC2-A', 800)" aria-hidden="true" tabindex="-1">
+          <div class="pro-chip-top"><span class="pro-chip-name">donk</span><span class="pro-chip-game game-cs2">CS2</span></div>
+          <div class="pro-chip-info">ZOWIE · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Pulsar Zywoo The Chosen One', 400)" aria-hidden="true" tabindex="-1">
+          <div class="pro-chip-top"><span class="pro-chip-name">ZywOo</span><span class="pro-chip-game game-cs2">CS2</span></div>
+          <div class="pro-chip-info">Pulsar · <span class="pro-chip-dpi">400 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Zowie U2', 800)" aria-hidden="true" tabindex="-1">
+          <div class="pro-chip-top"><span class="pro-chip-name">sh1ro</span><span class="pro-chip-game game-cs2">CS2</span></div>
+          <div class="pro-chip-info">ZOWIE U2 · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Razer DeathAdder V3 Pro', 800)" aria-hidden="true" tabindex="-1">
+          <div class="pro-chip-top"><span class="pro-chip-name">NiKo</span><span class="pro-chip-game game-cs2">CS2</span></div>
+          <div class="pro-chip-info">DeathAdder V4 · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Logitech Pro X Superlight 2', 800)" aria-hidden="true" tabindex="-1">
+          <div class="pro-chip-top"><span class="pro-chip-name">aspas</span><span class="pro-chip-game game-val">VAL</span></div>
+          <div class="pro-chip-info">G Pro X SL2 · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Logitech Pro X Superlight 2', 400)" aria-hidden="true" tabindex="-1">
+          <div class="pro-chip-top"><span class="pro-chip-name">Derke</span><span class="pro-chip-game game-val">VAL</span></div>
+          <div class="pro-chip-info">G Pro X SL2 · <span class="pro-chip-dpi">400 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Razer Viper V3 Pro', 800)" aria-hidden="true" tabindex="-1">
+          <div class="pro-chip-top"><span class="pro-chip-name">Bugha</span><span class="pro-chip-game game-fn">FN</span></div>
+          <div class="pro-chip-info">Viper V3 Pro · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Logitech Pro X Superlight 2', 800)" aria-hidden="true" tabindex="-1">
+          <div class="pro-chip-top"><span class="pro-chip-name">MrSavage</span><span class="pro-chip-game game-fn">FN</span></div>
+          <div class="pro-chip-info">G Pro X SL2 · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Logitech Pro X Superlight 2', 800)" aria-hidden="true" tabindex="-1">
+          <div class="pro-chip-top"><span class="pro-chip-name">m0NESY</span><span class="pro-chip-game game-cs2">CS2</span></div>
+          <div class="pro-chip-info">G Pro X SL2 · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+        <button class="pro-chip" onclick="loadPro('Razer Viper V3 Pro', 800)" aria-hidden="true" tabindex="-1">
+          <div class="pro-chip-top"><span class="pro-chip-name">ImperialHal</span><span class="pro-chip-game game-apex">APEX</span></div>
+          <div class="pro-chip-info">FinalMouse · <span class="pro-chip-dpi">800 DPI</span></div>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <div class="container">
     <div class="card">
@@ -562,6 +914,26 @@
           <div class="result-unit">DPI</div>
           <div class="result-divider"></div>
           <div class="result-detail" id="resultDetail"></div>
+
+          <!-- SHARE -->
+          <div class="share-wrap">
+            <div class="share-label">Share your result</div>
+            <div class="share-buttons">
+              <a class="share-btn" id="shareTwitter" href="#" target="_blank" rel="noopener">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"/></svg>
+                Share on X
+              </a>
+              <a class="share-btn" id="shareReddit" href="#" target="_blank" rel="noopener">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+                Share on Reddit
+              </a>
+              <button class="share-btn" id="copyLinkBtn" onclick="copyShareLink()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                <span id="copyLinkText">Copy Link</span>
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -624,6 +996,35 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- STATIC SHARE SECTION -->
+  <div class="share-section">
+    <div class="share-card">
+      <div class="share-card-title">Share RealDPI</div>
+      <div class="share-card-desc">
+        Found this useful? Share it with your teammates or the gaming community.<br>
+        RealDPI is free — help others find accurate sensitivity conversions.
+      </div>
+      <div class="share-card-buttons">
+        <a class="share-card-btn" id="staticShareTwitter"
+           href="https://twitter.com/intent/tweet?text=Free%20mouse%20DPI%20converter%20based%20on%20real%20measured%20data%20%E2%80%94%20realdpi.com"
+           target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"/></svg>
+          Share on X
+        </a>
+        <a class="share-card-btn" id="staticShareReddit"
+           href="https://www.reddit.com/submit?url=https%3A%2F%2Frealdpi.com&title=Free%20mouse%20DPI%20converter%20based%20on%20real%20measured%20data"
+           target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+          Share on Reddit
+        </a>
+        <button class="share-card-btn" id="staticCopyBtn" onclick="staticCopyLink()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <span id="staticCopyText">Copy Link</span>
+        </button>
+      </div>
+    </div>
   </div>
 
   <footer>
@@ -2533,13 +2934,87 @@
       const wrap = document.getElementById('resultWrap');
       wrap.classList.add('visible');
       wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      // ── UPDATE SHARE LINKS ──
+      const params = new URLSearchParams({
+        from: fromModel,
+        dpi: fromDPI,
+        to: toModel
+      });
+      const shareURL = 'https://realdpi.com/?' + params.toString();
+      const shareText = `Switched from ${fromModel} (${fromDPI.toLocaleString()} DPI) to ${toModel} → set to ${recommended.toLocaleString()} DPI. Check yours at realdpi.com`;
+
+      document.getElementById('shareTwitter').href =
+        'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
+
+      document.getElementById('shareReddit').href =
+        'https://www.reddit.com/submit?url=' + encodeURIComponent(shareURL) +
+        '&title=' + encodeURIComponent(shareText);
+
+      document.getElementById('copyLinkBtn').dataset.url = shareURL;
+    }
+
+    function loadPro(calcMouse, dpi) {
+      fromSelect.select(calcMouse);
+      document.getElementById('fromDPI').value = dpi;
+      // Pulse the TO panel to guide user to pick their mouse
+      const toPanel = document.querySelector('.panel-to');
+      toPanel.style.transition = 'border-color 0.3s';
+      toPanel.style.borderColor = 'var(--cyan)';
+      setTimeout(() => { toPanel.style.borderColor = ''; }, 2000);
+      // Scroll to calculator
+      document.querySelector('.card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function staticCopyLink() {
+      const btn = document.getElementById('staticCopyBtn');
+      navigator.clipboard.writeText('https://realdpi.com').then(() => {
+        btn.classList.add('copied');
+        document.getElementById('staticCopyText').textContent = 'Copied!';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          document.getElementById('staticCopyText').textContent = 'Copy Link';
+        }, 2000);
+      });
+    }
+
+    function copyShareLink() {
+      const btn = document.getElementById('copyLinkBtn');
+      const url = btn.dataset.url || 'https://realdpi.com';
+      navigator.clipboard.writeText(url).then(() => {
+        btn.classList.add('copied');
+        document.getElementById('copyLinkText').textContent = 'Copied!';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          document.getElementById('copyLinkText').textContent = 'Copy Link';
+        }, 2000);
+      });
     }
 
     // ─────────────────────────────────────────────────────────────
     //  INIT
     // ─────────────────────────────────────────────────────────────
+
+    // ── URL PARAM AUTO-FILL (from pros.html) ──
+    (function() {
+      const p = new URLSearchParams(window.location.search);
+      const fromMouse = p.get('from');
+      const fromDpi   = p.get('dpi');
+      if (fromMouse && fromDpi) {
+        window.__proAutoFill = { mouse: fromMouse, dpi: fromDpi };
+      }
+    })();
+
     const fromSelect = new SearchableSelect('fromMouseInput', 'fromMouseDropdown');
     const toSelect   = new SearchableSelect('toMouseInput',   'toMouseDropdown');
+
+    // Apply auto-fill from pros.html
+    if (window.__proAutoFill) {
+      fromSelect.select(window.__proAutoFill.mouse);
+      document.getElementById('fromDPI').value = window.__proAutoFill.dpi;
+      window.__proAutoFill = null;
+      document.querySelector('.card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
     document.getElementById('fromDPI').addEventListener('keydown', e => {
       if (e.key === 'Enter') calculate();
