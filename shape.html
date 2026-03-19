@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CT5NGWSQNG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CT5NGWSQNG');
+  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-58GGL8RG');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2300352048643041"
+     crossorigin="anonymous"></script>
+
+  <!-- SEO -->
+  <title>Shape Finder — Find Your Perfect Mouse Shape | RealDPI</title>
+  <meta name="description" content="Find the perfect gaming mouse shape for your hand. Show your grip to the camera and get real-time mouse recommendations based on your hand shape and finger spread.">
+  <meta name="keywords" content="mouse shape finder, gaming mouse recommendation, hand grip mouse, best mouse for hand size, mouse shape, gaming mouse fit">
+  <meta name="author" content="RealDPI">
+  <meta property="og:title" content="Shape Finder — Find Your Perfect Mouse Shape | RealDPI">
+  <meta property="og:description" content="Show your grip to the camera and get instant mouse recommendations based on your hand shape.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://realdpi.com/shape.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Shape Finder — RealDPI">
+  <meta name="twitter:description" content="Find your perfect mouse shape using your camera.">
+  <link rel="canonical" href="https://realdpi.com/shape.html">
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:        #07090f;
+      --bg-card:   #0d1117;
+      --bg-input:  #070a10;
+      --border:    #1a2333;
+      --border-hl: #00d4ff44;
+      --cyan:      #00d4ff;
+      --purple:    #8b5cf6;
+      --green:     #00ff88;
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+      --subtle:    #94a3b8;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 20px 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.3rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      background: linear-gradient(120deg, var(--cyan) 0%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .topbar-sub {
+      margin-left: 14px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      padding-left: 14px;
+      border-left: 1px solid var(--border);
+    }
+    .topbar-nav { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.08em; padding: 6px 12px; border-radius: 7px; border: 1px solid transparent; transition: all 0.2s; }
+    .nav-link:hover { color: var(--text); border-color: var(--border); }
+    .nav-link-active { color: var(--cyan) !important; border-color: rgba(0,212,255,0.3) !important; }
+
+    /* ── CONTAINER ── */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+      flex: 1;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .page-header .label {
+      font-size: 0.75rem;
+      color: var(--cyan);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .page-header h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .page-header p {
+      color: var(--subtle);
+      font-size: 0.92rem;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .shape-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 800px) {
+      .shape-layout { grid-template-columns: 1fr; }
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: clamp(20px, 4vw, 32px);
+    }
+
+    /* ── CAMERA PANEL ── */
+    .camera-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #020408;
+      border: 1px solid var(--border);
+    }
+    #videoEl {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scaleX(-1); /* mirror */
+      display: block;
+    }
+    #canvasEl {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      transform: scaleX(-1); /* mirror to match video */
+    }
+    .camera-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--muted);
+    }
+    .camera-placeholder svg { opacity: 0.3; }
+    .camera-placeholder p { font-size: 0.85rem; }
+
+    .scan-badge {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(7,9,15,0.85);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+    }
+    .scan-badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--muted);
+      flex-shrink: 0;
+    }
+    .scan-badge.active .dot {
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    .scan-badge.active { color: var(--text); border-color: rgba(0,255,136,0.3); }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── START BUTTON ── */
+    .btn-start {
+      width: 100%;
+      margin-top: 16px;
+      padding: 14px;
+      background: linear-gradient(120deg, var(--cyan), var(--purple));
+      border: none;
+      border-radius: 12px;
+      color: #07090f;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-start:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-start:active { transform: translateY(0); }
+    .btn-start:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* ── INSTRUCTIONS ── */
+    .instructions {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .instr-step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--subtle);
+    }
+    .instr-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(0,212,255,0.1);
+      border: 1px solid rgba(0,212,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem;
+      color: var(--cyan);
+      flex-shrink: 0;
+      font-weight: 600;
+    }
+
+    /* ── RESULTS PANEL ── */
+    .results-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      color: var(--cyan);
+      margin-bottom: 14px;
+    }
+    .results-subtitle {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .mouse-result {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+    }
+    .mouse-result:hover { border-color: var(--border-hl); transform: translateX(2px); }
+    .mouse-result.top-match {
+      border-color: rgba(0,212,255,0.35);
+      background: rgba(0,212,255,0.04);
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .result-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .result-brand {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .result-score {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--cyan);
+    }
+    .top-match .result-score { color: var(--green); }
+
+    .score-bar-wrap {
+      height: 3px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .score-bar {
+      height: 100%;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      transition: width 0.4s ease;
+    }
+    .top-match .score-bar { background: linear-gradient(90deg, var(--green), var(--cyan)); }
+
+    .result-dims {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .dim-tag {
+      font-size: 0.68rem;
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 2px 7px;
+    }
+
+    .result-actions {
+      margin-top: 10px;
+    }
+    .btn-match {
+      font-size: 0.72rem;
+      color: var(--cyan);
+      text-decoration: none;
+      border: 1px solid rgba(0,212,255,0.25);
+      border-radius: 6px;
+      padding: 4px 10px;
+      transition: all 0.2s;
+    }
+    .btn-match:hover { background: rgba(0,212,255,0.08); border-color: var(--cyan); }
+
+    /* empty/waiting state */
+    .results-empty {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+    .results-empty svg { opacity: 0.2; margin-bottom: 12px; }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      margin-top: 36px;
+    }
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      color: var(--cyan);
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 600px) {
+      .how-grid { grid-template-columns: 1fr; }
+      .topbar-sub { display: none; }
+    }
+    .how-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .how-icon {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    .how-title {
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .how-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    footer p { font-size: 0.75rem; color: var(--muted); }
+    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--subtle); }
+    .footer-links { display: flex; gap: 20px; }
+  </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-58GGL8RG"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="topbar">
+  <h1><a href="/" style="text-decoration:none;background:inherit;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-image:linear-gradient(120deg,var(--cyan) 0%,var(--purple) 100%);background-clip:text;">RealDPI</a></h1>
+  <span class="topbar-sub">Mouse Shape Finder</span>
+  <nav class="topbar-nav">
+    <a href="/" class="nav-link">Calculator</a>
+    <a href="pros.html" class="nav-link">Pro Setups</a>
+    <a href="shape.html" class="nav-link nav-link-active">Shape Finder</a>
+  </nav>
+</div>
+
+<main class="container">
+  <div class="page-header">
+    <div class="label">AI-Powered</div>
+    <h2>Find Your Perfect Mouse Shape</h2>
+    <p>Show your gripping hand to the camera. We detect your fingertip positions in real-time and match them to mouse shapes that fit your grip.</p>
+  </div>
+
+  <div class="shape-layout">
+
+    <!-- Camera Panel -->
+    <div class="card">
+      <div class="camera-wrap">
+        <video id="videoEl" playsinline autoplay muted></video>
+        <canvas id="canvasEl"></canvas>
+        <div class="camera-placeholder" id="cameraPlaceholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+          <p>Camera not started</p>
+        </div>
+        <div class="scan-badge" id="scanBadge">
+          <div class="dot"></div>
+          <span id="scanText">WAITING</span>
+        </div>
+      </div>
+
+      <button class="btn-start" id="startBtn" onclick="startCamera()">
+        ENABLE CAMERA
+      </button>
+
+      <div class="instructions">
+        <div class="instr-step">
+          <div class="instr-num">1</div>
+          <span>Click "Enable Camera" and allow access</span>
+        </div>
+        <div class="instr-step">
+          <div class="instr-num">2</div>
+          <span>Hold your gripping hand ~40cm from the camera</span>
+        </div>
+        <div class="instr-step">
+          <div class="instr-num">3</div>
+          <span>Show your palm — fingers up, grip shape natural</span>
+        </div>
+        <div class="instr-step">
+          <div class="instr-num">4</div>
+          <span>Matches update in real-time. Move closer/farther to fine-tune</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Panel -->
+    <div class="card">
+      <div class="results-title">RECOMMENDED MICE</div>
+      <div class="results-subtitle" id="resultsSubtitle">Start camera to get real-time recommendations based on your hand shape.</div>
+      <div id="mouseList">
+        <div class="results-empty">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:block;margin:0 auto 12px">
+            <rect x="5" y="2" width="14" height="20" rx="7"/>
+            <line x1="12" y1="6" x2="12" y2="10"/>
+          </svg>
+          Enable camera and show your grip<br>to see mouse matches here.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.shape-layout -->
+
+  <!-- How It Works -->
+  <div class="how-section">
+    <div class="section-title">How It Works</div>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-icon">👁️</div>
+        <div class="how-title">Real-Time Detection</div>
+        <div class="how-desc">MediaPipe Hands tracks 21 landmarks on your hand — including all 5 fingertip positions — directly in your browser. No data is sent to any server.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-icon">✋</div>
+        <div class="how-title">Grip Shape Analysis</div>
+        <div class="how-desc">We measure the width profile of your hand at multiple heights — from fingertips to palm — to create a shape signature that matches how you naturally hold a mouse.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-icon">🖱️</div>
+        <div class="how-title">Shape Matching</div>
+        <div class="how-desc">Your grip profile is compared against real measured specs of 898 gaming mice from 50+ brands. Mice with the closest shape to your hand rise to the top.</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2025 RealDPI. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="about.html">About</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="mice.html">All Mice</a>
+  </div>
+</footer>
+
+<!-- MediaPipe -->
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+
+<script>
+// ─────────────────────────────────────────────
+//  MOUSE DATABASE  [brand, model, length, width, height]
+//  898 mice — measured specs (mm)
+// ─────────────────────────────────────────────
+const mouseDB = [
+  ["8BitDo","Retro R8",115.0,58.0,39.4],
+  ["ABKO","A102 Pro 8K",116.5,62.9,38.2],
+  ["AJAZZ","AJ099",119.0,64.5,38.3],
+  ["AJAZZ","AJ139 Pro",125.4,63.3,38.2],
+  ["AJAZZ","AJ139 Pro 4K",125.4,63.3,38.2],
+  ["AJAZZ","AJ139 V2 MC",125.4,63.3,38.2],
+  ["AJAZZ","AJ139 V2 Pro",125.4,63.3,38.2],
+  ["AJAZZ","AJ139P V3 MC",127.8,64.1,39.5],
+  ["AJAZZ","AJ159",118.1,63.1,37.7],
+  ["AJAZZ","AJ159 PRO",118.1,63.1,37.7],
+  ["AJAZZ","AJ159APEX",118.1,63.1,37.7],
+  ["AJAZZ","AJ159P",118.1,63.1,37.7],
+  ["AJAZZ","AJ179",117.8,65.6,41.3],
+  ["AJAZZ","AJ179 APEX",117.8,65.6,41.3],
+  ["AJAZZ","AJ179 PRO",117.8,65.6,41.3],
+  ["AJAZZ","AJ179 V2",125.0,67.0,43.0],
+  ["AJAZZ","AJ179 V2 Max",125.0,67.0,43.0],
+  ["AJAZZ","AJ179P",117.8,65.6,41.3],
+  ["AJAZZ","AJ199",118.0,61.6,38.6],
+  ["AJAZZ","AJ199 4K",118.0,61.6,38.6],
+  ["AJAZZ","AJ199 MC",118.0,61.6,38.6],
+  ["AJAZZ","AJ199 Pro 4K",119.8,63.4,39.7],
+  ["AJAZZ","AM3 Max",112.9,57.9,36.3],
+  ["AJAZZ","AM3 Pro",112.9,57.9,36.3],
+  ["AJAZZ","M259",122.4,66.4,38.8],
+  ["AJAZZ","NJ08",122.5,65.0,40.9],
+  ["AJAZZ","T520",118.5,62.0,38.9],
+  ["AJAZZ","T520 Max",118.5,62.0,38.9],
+  ["ASUS","Gladius III Core",123.0,68.0,44.0],
+  ["ASUS","ProArt MD300",118.0,72.0,42.0],
+  ["ASUS","ProArt MD301",114.8,75.2,46.8],
+  ["ASUS","ROG Chakram",132.7,76.6,42.8],
+  ["ASUS","ROG Chakram Core",132.7,76.6,42.8],
+  ["ASUS","ROG Chakram X",132.7,76.6,42.8],
+  ["ASUS","ROG Gladius II",126.0,67.0,45.0],
+  ["ASUS","ROG Gladius II Core",126.0,67.0,45.0],
+  ["ASUS","ROG Gladius II Origin",126.0,67.0,45.0],
+  ["ASUS","ROG Gladius II Wireless",126.0,67.0,45.0],
+  ["ASUS","ROG Gladius III",123.0,68.0,44.0],
+  ["ASUS","ROG Gladius III Wireless",123.0,68.0,44.0],
+  ["ASUS","ROG Gladius III Wireless Aimpoint",123.0,68.0,44.0],
+  ["ASUS","ROG Harpe Ace",127.5,63.7,39.6],
+  ["ASUS","ROG Harpe Ace Extreme",127.5,63.7,39.6],
+  ["ASUS","ROG Harpe Ace Mini",117.0,63.0,37.0],
+  ["ASUS","ROG Harpe II Ace",126.1,63.9,39.7],
+  ["ASUS","ROG Harpe Mini Core",117.0,63.0,37.0],
+  ["ASUS","ROG Keris",118.0,62.0,39.0],
+  ["ASUS","ROG Keris II Ace",121.0,67.0,42.0],
+  ["ASUS","ROG Keris II Origin",121.0,67.0,42.0],
+  ["ASUS","ROG Keris Wireless",118.0,62.0,39.0],
+  ["ASUS","ROG Pugio",120.0,67.0,39.0],
+  ["ASUS","ROG Sica",115.0,62.0,39.0],
+  ["ASUS","ROG Spatha",137.0,89.0,45.0],
+  ["ASUS","ROG Spatha X",137.0,89.0,45.0],
+  ["ASUS","ROG Strix Carry",101.0,62.0,36.0],
+  ["ASUS","ROG Strix Evolve",125.0,65.0,41.0],
+  ["ASUS","ROG Strix Impact",115.0,62.0,39.0],
+  ["ASUS","ROG Strix Impact II",120.0,62.0,38.6],
+  ["ASUS","ROG Strix Impact II Wireless",120.0,62.0,38.6],
+  ["ASUS","ROG Strix Impact III",126.0,62.0,39.0],
+  ["ASUS","ROG Strix Impact III Wireless",120.0,62.0,39.0],
+  ["ASUS","TUF Gaming M3",118.2,68.0,40.0],
+  ["ASUS","TUF Gaming M3 Gen II",123.0,68.0,40.0],
+  ["ASUS","TUF M4 Air",126.0,63.5,39.6],
+  ["ASUS","TUF M4 Wireless",126.0,63.5,39.6],
+  ["ATK","A9",125.0,64.0,40.0],
+  ["ATK","A9 Air",125.0,64.0,40.0],
+  ["ATK","A9 Plus",125.0,64.0,40.0],
+  ["ATK","A9 Pro",125.0,64.0,40.0],
+  ["ATK","A9 Pro Max",125.0,64.0,40.0],
+  ["ATK","A9 SE",125.0,64.0,40.0],
+  ["ATK","A9 Ultimate",125.0,64.0,40.0],
+  ["ATK","A9 Ultra",125.0,64.0,40.0],
+  ["ATK","A9 Ultra Max 2.0",125.0,64.0,40.0],
+  ["ATK","Duckbill",118.0,62.5,37.4],
+  ["ATK","F1 Extreme",118.2,62.4,38.8],
+  ["ATK","F1 Pro",118.2,62.4,38.8],
+  ["ATK","F1 Pro Max",118.2,62.4,38.8],
+  ["ATK","F1 Ultimate",118.2,62.4,38.8],
+  ["ATK","F1 V2 Extreme",118.2,62.4,38.8],
+  ["ATK","F1 V2 Ultimate",118.2,62.4,38.8],
+  ["ATK","F1 V2 Ultra Max",118.2,62.4,38.8],
+  ["ATK","Fierce X",119.6,60.9,36.2],
+  ["ATK","GHOST Extreme",121.0,61.3,38.0],
+  ["ATK","GHOST Ultimate",121.0,61.3,38.0],
+  ["ATK","U2",123.7,64.6,39.1],
+  ["ATK","U2 Mini",119.5,63.0,38.5],
+  ["ATK","U2 Plus",123.7,64.6,39.1],
+  ["ATK","U2 Pro",123.7,64.6,39.1],
+  ["ATK","U2 Pro Max",123.7,64.6,39.1],
+  ["ATK","U2 SE",123.7,64.6,39.1],
+  ["ATK","U2 Ultimate",123.7,64.6,39.1],
+  ["ATK","U2 Ultra",123.7,64.6,39.1],
+  ["ATK","U2 V2 Mini",119.5,63.0,38.5],
+  ["ATK","U2 V2 Ultimate",123.7,64.6,39.1],
+  ["ATK","X1",127.0,64.0,40.0],
+  ["ATK","X1 Pro",127.0,64.0,40.0],
+  ["ATK","X1 Pro Max",127.0,64.0,40.0],
+  ["ATK","X1 S",127.0,64.0,40.0],
+  ["ATK","X1 SE",127.0,64.0,40.0],
+  ["ATK","X1 Ultimate",127.0,64.0,40.0],
+  ["ATK","X1 Ultra",127.0,64.0,40.0],
+  ["ATK","X1 V2 Extreme",127.0,64.0,40.0],
+  ["ATK","X1 V2 Ultimate",127.0,64.0,40.0],
+  ["ATK","X1 V2 Ultra Max",127.0,64.0,40.0],
+  ["ATK","Y9 Pro Max",125.6,67.5,43.3],
+  ["ATK","Y9 Ultimate",125.6,67.5,43.3],
+  ["ATK","Z1 Pro Max",122.5,66.8,42.4],
+  ["ATK","Z1 Ultra",122.5,66.8,42.4],
+  ["ATK","Z1 V2 Ultimate",122.5,66.8,42.4],
+  ["ATK","Zero",120.1,63.2,38.1],
+  ["ATK","Zero Extreme",120.1,63.2,38.1],
+  ["AULA","SC360",119.0,62.0,40.0],
+  ["AULA","SC580",119.0,62.0,38.0],
+  ["AULA","SC620",122.0,64.0,40.0],
+  ["AULA","SC680",123.2,62.4,39.5],
+  ["AULA","SC800",116.5,61.5,38.7],
+  ["AULA","SC900 Max",126.0,68.0,44.0],
+  ["AULA","SC900 Pro",126.0,68.0,44.0],
+  ["AULA","X9",120.0,63.0,38.0],
+  ["AULA","X9 Pro",120.0,63.0,38.0],
+  ["AULA","X9 Ultra",120.0,63.0,38.0],
+  ["Akko","AG ONE 8K",125.0,67.0,37.0],
+  ["Akko","AG One NearLink",125.0,67.0,37.0],
+  ["Akko","AG325",125.0,67.0,37.0],
+  ["Akko","AG325C",125.0,67.0,37.0],
+  ["Akko","AG325W",125.0,67.0,37.0],
+  ["Akko","Dash Max",117.6,60.9,37.0],
+  ["Akko","Dash Ultra",117.6,60.9,37.0],
+  ["Akko","Nest",116.0,64.0,40.0],
+  ["Akko","Pulse 01",123.4,63.3,40.5],
+  ["Alienware","AW320M",125.2,61.7,37.8],
+  ["Alienware","AW610M",132.0,78.7,44.0],
+  ["Alienware","AW620M",131.5,77.8,41.5],
+  ["Alienware","AW720M",125.2,61.7,37.8],
+  ["Alienware","Pro Wireless",124.5,63.5,40.6],
+  ["Angry Miao","AM Infinity Mouse",118.0,64.4,39.5],
+  ["Angry Miao","AM Infinity.97",115.0,62.0,38.6],
+  ["Attack Shark","G3",117.0,62.0,38.0],
+  ["Attack Shark","G3 Pro",117.0,62.0,38.0],
+  ["Attack Shark","R1",123.5,64.0,41.0],
+  ["Attack Shark","R11 Ultra",124.0,65.5,38.0],
+  ["Attack Shark","R2",117.6,61.8,38.9],
+  ["Attack Shark","R3",119.6,60.9,36.2],
+  ["Attack Shark","R5 Ultra",119.5,60.9,37.0],
+  ["Attack Shark","R6",118.0,60.0,38.0],
+  ["Attack Shark","V3",127.4,70.2,42.5],
+  ["Attack Shark","V5",121.0,65.0,38.0],
+  ["Attack Shark","V6",130.0,75.0,43.0],
+  ["Attack Shark","V8",127.7,67.8,42.8],
+  ["Attack Shark","X1",121.8,61.2,38.0],
+  ["Attack Shark","X11",128.0,64.0,40.0],
+  ["Attack Shark","X11 SE",128.0,64.0,40.0],
+  ["Attack Shark","X11 Ultra",128.0,64.0,40.0],
+  ["Attack Shark","X3",118.5,61.0,39.7],
+  ["Attack Shark","X3 Max",118.5,61.0,39.7],
+  ["Attack Shark","X3 Pro",118.5,61.0,39.7],
+  ["Attack Shark","X6",118.3,62.0,37.3],
+  ["Attack Shark","X8 Plus",125.5,63.0,40.0],
+  ["Attack Shark","X8 Pro",125.5,63.0,40.0],
+  ["Attack Shark","X8 SE",125.5,63.0,40.0],
+  ["Attack Shark","X8 Ultimate",125.5,63.0,40.0],
+  ["Attack Shark","X8 Ultra",125.5,63.0,40.0],
+  ["Bloody","AL90",125.0,66.0,42.0],
+  ["Bloody","P91 Pro",126.0,65.0,39.0],
+  ["Bloody","R36 Ultra",130.0,70.0,39.0],
+  ["Bloody","R72 Pro",125.0,63.0,40.0],
+  ["Bloody","R72 Ultra",125.0,63.0,40.0],
+  ["Bloody","R72 Ultra Duo",125.0,63.0,40.0],
+  ["Bloody","R73 Pro",127.0,67.0,43.0],
+  ["Bloody","R73 Ultra",127.0,67.0,43.0],
+  ["Bloody","R73 Ultra Duo",127.0,67.0,43.0],
+  ["Bloody","R80 Plus",123.0,82.0,43.0],
+  ["Bloody","R90 Plus",126.0,67.0,43.0],
+  ["Bloody","W60 Max",135.0,73.0,42.0],
+  ["Bloody","W60 Pro",135.0,73.0,42.0],
+  ["Bloody","W70 Max",126.0,74.0,43.0],
+  ["Bloody","W70 Pro",126.0,74.0,43.0],
+  ["Bloody","W72 Ultra",125.0,63.0,40.0],
+  ["Bloody","W90 Max",127.0,68.0,44.0],
+  ["Bloody","W90 Pro",127.0,68.0,44.0],
+  ["Bloody","W95 Max",135.0,77.0,43.0],
+  ["Bloody","W95 Ultra",135.0,77.0,43.0],
+  ["Cherry","MW5500",119.0,61.0,38.0],
+  ["Cherry Xtrfy","M50",122.0,63.0,39.0],
+  ["Cherry Xtrfy","M50 Wireless",122.0,63.0,39.0],
+  ["Cherry Xtrfy","M64 Pro 8K Wireless",120.0,65.0,39.5],
+  ["Cherry Xtrfy","M64 Wireless",120.0,65.0,39.5],
+  ["Cherry Xtrfy","M68 Pro 8K Wireless",123.3,64.0,39.5],
+  ["Cherry Xtrfy","M68 Wireless",123.3,64.0,39.5],
+  ["Cooler Master","CM110",116.6,62.6,38.3],
+  ["Cooler Master","CM310",127.0,71.5,39.5],
+  ["Cooler Master","MM310",125.5,71.0,40.5],
+  ["Cooler Master","MM530",124.8,60.4,40.2],
+  ["Cooler Master","MM531",124.8,60.4,40.2],
+  ["Cooler Master","MM710",116.6,62.6,38.3],
+  ["Cooler Master","MM711",116.6,62.6,38.3],
+  ["Cooler Master","MM711 Lite",116.6,62.6,38.3],
+  ["Cooler Master","MM712",116.6,62.6,38.3],
+  ["Cooler Master","MM720",105.4,76.5,37.4],
+  ["Cooler Master","MM730",122.3,69.0,39.1],
+  ["Cooler Master","MM731",122.3,69.0,39.1],
+  ["Cooler Master","MM830",130.1,82.2,43.4],
+  ["Cooler Master","MM831",128.1,67.4,43.4],
+  ["Corsair","Dark Core RGB Pro",127.0,81.0,43.0],
+  ["Corsair","Dark Core RGB Pro SE",127.0,81.0,43.0],
+  ["Corsair","Darkstar Wireless",129.5,67.9,43.6],
+  ["Corsair","Glaive Pro",124.5,70.0,45.5],
+  ["Corsair","Glaive RGB",124.5,70.0,45.5],
+  ["Corsair","Harpoon RGB",115.3,68.3,40.4],
+  ["Corsair","Harpoon RGB Pro",115.3,68.3,40.4],
+  ["Corsair","Harpoon RGB Wireless",115.3,68.3,40.4],
+  ["Corsair","Ironclaw RGB",130.0,80.0,45.0],
+  ["Corsair","Ironclaw RGB Wireless",130.0,80.0,45.0],
+  ["Corsair","Ironclaw Wireless SE",130.0,80.0,45.0],
+  ["Corsair","Katar Elite Wireless",115.8,64.2,37.8],
+  ["Corsair","Katar Pro Wireless",115.8,64.2,37.8],
+  ["Corsair","Katar Pro XT",115.8,64.2,37.8],
+  ["Corsair","M55 RGB Pro",124.4,68.0,40.0],
+  ["Corsair","M55 Wired",118.0,62.0,38.0],
+  ["Corsair","M55 Wireless",118.0,62.0,38.0],
+  ["Corsair","M65 RGB Elite",116.0,78.0,39.0],
+  ["Corsair","M65 RGB Pro",118.0,77.0,39.0],
+  ["Corsair","M65 RGB Ultra",116.0,78.0,39.0],
+  ["Corsair","M65 RGB Ultra Wireless",116.0,78.0,39.0],
+  ["Corsair","M75",128.0,65.0,41.6],
+  ["Corsair","M75 Air Wireless",128.0,65.0,41.6],
+  ["Corsair","M75 Wireless",128.0,65.0,41.6],
+  ["Corsair","Nightsabre Wireless",129.4,63.0,40.4],
+  ["Corsair","Nightsword RGB",129.0,86.0,43.0],
+  ["Corsair","Sabre Pro",128.2,69.0,42.4],
+  ["Corsair","Sabre RGB Pro",128.2,69.0,42.4],
+  ["Corsair","Sabre RGB Pro Wireless",128.2,69.0,42.4],
+  ["Corsair","Sabre v2 Pro",119.3,62.6,38.2],
+  ["Corsair","Sabre v2 Pro CF",122.9,64.1,38.8],
+  ["Corsair","Sabre v2 Pro MG",122.9,64.1,38.8],
+  ["Corsair","Scimitar Elite Wireless",119.0,76.0,42.0],
+  ["Corsair","Scimitar Elite Wireless SE",119.0,76.0,42.0],
+  ["Corsair","Scimitar Pro RGB",119.0,76.0,42.0],
+  ["Corsair","Scimitar RGB",119.0,76.0,42.0],
+  ["Corsair","Scimitar RGB Elite",119.0,76.0,42.0],
+  ["Darmoshark","M2",115.8,60.4,36.1],
+  ["Darmoshark","M2 Air",115.8,60.4,36.1],
+  ["Darmoshark","M2 Pro",115.8,60.4,36.1],
+  ["Darmoshark","M3",129.6,66.1,39.2],
+  ["Darmoshark","M3 4K",129.6,66.1,39.2],
+  ["Darmoshark","M3 Micro",105.5,54.6,33.5],
+  ["Darmoshark","M3 Micro Pro",105.5,54.6,33.5],
+  ["Darmoshark","M3 Pro",129.6,66.1,39.2],
+  ["Darmoshark","M3 Pro Max",129.6,66.1,39.2],
+  ["Darmoshark","M3 V2",129.6,66.1,39.2],
+  ["Darmoshark","M3 XS",116.0,60.4,36.0],
+  ["Darmoshark","M3 XS Pro",116.0,60.4,36.0],
+  ["Darmoshark","M3S",122.7,62.5,37.8],
+  ["Darmoshark","M3S MAX",122.7,62.5,37.8],
+  ["Darmoshark","M3S Pro",122.7,62.5,37.8],
+  ["Darmoshark","M5",91.8,57.1,35.8],
+  ["Darmoshark","M5 Air",91.8,57.1,35.8],
+  ["Darmoshark","M5 Pro",91.8,57.1,35.8],
+  ["Darmoshark","M9",136.5,68.1,43.5],
+  ["Darmoshark","N3",123.0,66.0,40.0],
+  ["Darmoshark","N3 Pro",123.0,66.0,40.0],
+  ["Darmoshark","N5",123.0,68.0,40.0],
+  ["Darmoshark","N7",122.0,65.0,42.0],
+  ["Darmoshark","N7 Max",122.0,65.0,42.0],
+  ["Delux","M400",126.7,63.3,40.0],
+  ["Delux","M500 Pro",118.0,65.0,41.0],
+  ["Delux","M600",118.0,62.5,38.2],
+  ["Delux","M600 Pro",118.0,62.5,38.2],
+  ["Delux","M600 Ultra",118.0,62.5,38.2],
+  ["Delux","M700",128.2,67.0,38.7],
+  ["Delux","M700 Pro",128.2,67.0,38.7],
+  ["Delux","M700 Pro+",128.2,67.0,38.7],
+  ["Delux","M700 Ultra",128.2,67.0,38.7],
+  ["Delux","M800 Mini",118.3,62.0,38.7],
+  ["Delux","M800 Mini Pro",118.3,62.0,38.7],
+  ["Delux","M800 Mini Ultra",118.3,62.0,38.7],
+  ["Delux","M800 Pro",124.0,64.0,38.0],
+  ["Delux","M800 Pro 3395",124.0,64.0,38.0],
+  ["Delux","M800 Ultra",124.0,64.0,38.0],
+  ["Delux","M900 Mini Pro",119.0,65.4,40.3],
+  ["Delux","M900 Mini Ultra",119.0,65.4,40.3],
+  ["Delux","M900 Pro",126.6,69.0,41.8],
+  ["Delux","M900 SE",126.6,69.0,41.8],
+  ["Delux","M900 Ultra",126.6,69.0,41.8],
+  ["Dream Machines","DM1 FPS",126.0,68.0,39.0],
+  ["Dream Machines","DM2 Comfy S",131.0,85.0,39.0],
+  ["Dream Machines","DM4 Evo",126.0,66.0,40.0],
+  ["Dream Machines","DM4 Evo S",126.0,66.0,40.0],
+  ["Dream Machines","DM5 Blink",125.0,66.0,42.0],
+  ["Dream Machines","DM6 Duo",129.0,66.0,40.0],
+  ["Dream Machines","DM6 Holey",129.0,66.0,40.0],
+  ["Dream Machines","DM6 Holey S",129.0,66.0,40.0],
+  ["Dream Machines","DM6 Trio",129.0,66.0,40.0],
+  ["Dream Machines","DM8 Mini Pro",105.5,63.0,36.3],
+  ["Dream Machines","DM9 Skill Wired",129.0,66.0,39.0],
+  ["Dream Machines","DM9 Skill Wireless",129.0,66.0,39.0],
+  ["Ducky","Feather",124.0,65.0,36.0],
+  ["Endgame Gear","OP1",118.2,60.5,37.2],
+  ["Endgame Gear","OP1 8k",118.2,60.5,37.2],
+  ["Endgame Gear","OP1 8k Purple",118.2,60.5,37.2],
+  ["Endgame Gear","OP1 8k v2",118.2,60.5,37.2],
+  ["Endgame Gear","OP1 RGB",118.2,60.5,37.2],
+  ["Endgame Gear","OP1w 4k",118.2,60.5,37.2],
+  ["Endgame Gear","OP1w 4k v2",118.2,60.5,37.2],
+  ["Endgame Gear","OP1we",118.2,60.5,37.2],
+  ["Endgame Gear","XM1",122.0,66.0,38.5],
+  ["Endgame Gear","XM1 RGB",122.0,66.0,38.5],
+  ["Endgame Gear","XM1r",122.0,66.0,38.5],
+  ["Endgame Gear","XM2 8k",122.0,66.0,38.5],
+  ["Endgame Gear","XM2 8k v2",122.0,66.0,38.5],
+  ["Endgame Gear","XM2w",122.0,66.0,38.5],
+  ["Endgame Gear","XM2w 4k",122.0,66.0,38.5],
+  ["Endgame Gear","XM2w 4k v2",122.0,66.0,38.5],
+  ["Endgame Gear","XM2we",122.0,66.0,38.5],
+  ["Fallen","Pantera Pro",125.0,63.0,39.8],
+  ["G-Wolves","Fenrir Asym 8K",75.0,63.0,27.0],
+  ["G-Wolves","Fenrir Max 8K",75.0,61.0,31.0],
+  ["G-Wolves","Fenrir Pro 8K",81.7,60.2,28.3],
+  ["G-Wolves","HSK",82.0,58.0,35.0],
+  ["G-Wolves","HSK Plus",89.0,58.5,36.0],
+  ["G-Wolves","HSK Plus 4K",89.0,58.5,36.0],
+  ["G-Wolves","HSK Plus Lite",89.0,58.5,36.0],
+  ["G-Wolves","HSK Pro 4K",73.3,56.0,29.0],
+  ["G-Wolves","HSK Pro Ace",73.3,56.0,29.0],
+  ["G-Wolves","HSK Pro V2 8K",73.3,56.0,29.0],
+  ["G-Wolves","HT-S2 8K",110.0,61.0,37.0],
+  ["G-Wolves","HT-S2 Pro 8K",112.0,61.0,37.0],
+  ["G-Wolves","HTM",124.0,64.0,40.0],
+  ["G-Wolves","HTM Ace",124.0,64.0,40.0],
+  ["G-Wolves","HTM Plus 8K",127.6,63.9,37.3],
+  ["G-Wolves","HTM Wireless",124.0,64.0,40.0],
+  ["G-Wolves","HTR 8K",92.0,57.0,35.0],
+  ["G-Wolves","HTR Pro 8K",92.0,57.0,33.0],
+  ["G-Wolves","HTS",113.0,61.0,40.0],
+  ["G-Wolves","HTS Ace Wireless",113.0,61.0,40.0],
+  ["G-Wolves","HTS Plus",117.0,61.0,40.0],
+  ["G-Wolves","HTS Plus 4K",117.0,61.0,40.0],
+  ["G-Wolves","HTS Plus 8K",117.0,61.0,40.0],
+  ["G-Wolves","HTS Ultra 8K",113.0,61.0,40.0],
+  ["G-Wolves","HTS Wireless",113.0,61.0,40.0],
+  ["G-Wolves","HTX 4K",119.0,63.5,36.0],
+  ["G-Wolves","HTX Ace",119.0,63.5,36.0],
+  ["G-Wolves","HTX Mini 8K",109.0,60.0,35.0],
+  ["G-Wolves","HTX Ultra 8K",119.7,64.1,37.1],
+  ["G-Wolves","LYCAN 8K",119.4,63.2,36.7],
+  ["G-Wolves","Skoll",125.0,68.0,42.0],
+  ["G-Wolves","Skoll Mini",117.0,64.0,40.0],
+  ["G-Wolves","VUK",124.8,64.6,38.1],
+  ["Glorious","Model D",128.0,67.0,42.0],
+  ["Glorious","Model D 2 Pro 1K",128.0,67.0,42.0],
+  ["Glorious","Model D 2 Pro 4K/8K",128.0,67.0,42.0],
+  ["Glorious","Model D 2 Wired",127.0,67.0,43.0],
+  ["Glorious","Model D 2 Wireless",127.0,67.0,43.0],
+  ["Glorious","Model D Pro",128.0,67.0,42.0],
+  ["Glorious","Model D Wireless",128.0,67.0,42.0],
+  ["Glorious","Model D-",120.0,66.0,40.0],
+  ["Glorious","Model D- Wireless",120.0,66.0,40.0],
+  ["Glorious","Model D3",121.7,63.7,41.7],
+  ["Glorious","Model D3 Wired",121.7,63.7,41.7],
+  ["Glorious","Model I",128.0,74.0,42.0],
+  ["Glorious","Model I 2 Wireless",129.0,72.0,42.0],
+  ["Glorious","Model O",128.0,66.0,38.0],
+  ["Glorious","Model O 2 Mini",120.0,62.0,36.0],
+  ["Glorious","Model O 2 Mini Wireless",120.0,62.0,36.0],
+  ["Glorious","Model O 2 Pro 1K",128.0,66.0,38.0],
+  ["Glorious","Model O 2 Pro 4K/8K",128.0,66.0,38.0],
+  ["Glorious","Model O 2 Wired",126.0,66.0,38.0],
+  ["Glorious","Model O 2 Wireless",126.0,66.0,38.0],
+  ["Glorious","Model O Classic",128.0,66.0,38.0],
+  ["Glorious","Model O Eternal",128.0,66.0,38.0],
+  ["Glorious","Model O Pro",128.0,66.0,38.0],
+  ["Glorious","Model O Wireless",128.0,66.0,38.0],
+  ["Glorious","Model O-",120.0,63.0,36.0],
+  ["Glorious","Model O- Wireless",120.0,63.0,36.0],
+  ["Glorious","Model O3",124.0,61.4,39.8],
+  ["Glorious","Model O3 Wired",124.0,61.4,39.8],
+  ["Glorious","Series 2 Pro",118.5,62.0,38.0],
+  ["Glorious","Series One Pro",118.5,62.0,38.0],
+  ["Hitscan","Hyperlight",118.0,61.0,38.0],
+  ["HyperX","Pulsefire Core",119.3,63.9,41.3],
+  ["HyperX","Pulsefire Dart",124.8,73.9,43.6],
+  ["HyperX","Pulsefire FPS Pro",127.6,71.1,41.9],
+  ["HyperX","Pulsefire Fuse",124.4,64.0,39.7],
+  ["HyperX","Pulsefire Haste",124.2,66.8,38.2],
+  ["HyperX","Pulsefire Haste 2 Core Wireless",124.2,66.8,38.2],
+  ["HyperX","Pulsefire Haste 2 Mini",116.6,61.9,36.7],
+  ["HyperX","Pulsefire Haste 2 Pro",124.2,66.8,38.2],
+  ["HyperX","Pulsefire Haste 2 S",124.2,66.8,38.2],
+  ["HyperX","Pulsefire Haste 2 Wired",124.2,66.8,38.2],
+  ["HyperX","Pulsefire Haste 2 Wireless",124.2,66.8,38.2],
+  ["HyperX","Pulsefire Haste Wireless",124.2,66.8,38.2],
+  ["HyperX","Pulsefire Raid",127.8,71.0,41.5],
+  ["HyperX","Pulsefire Saga Pro",119.7,67.2,39.8],
+  ["HyperX","Pulsefire Surge",120.2,62.9,40.7],
+  ["HyperX","Pulsefire Warp",120.0,65.4,37.8],
+  ["INZONE","Mouse-A",119.8,64.2,40.2],
+  ["Incott","29.0",119.0,62.0,37.6],
+  ["Incott","029 Pro",119.0,62.0,37.6],
+  ["Incott","029 SC",119.0,62.0,37.6],
+  ["Incott","39.0",126.9,66.6,39.9],
+  ["Incott","039 Pro",126.9,66.6,39.9],
+  ["Incott","039 SC",126.9,66.6,39.9],
+  ["Incott","G23",126.0,63.5,39.9],
+  ["Incott","G23 Pro",126.0,63.5,39.9],
+  ["Incott","G23 V2",126.0,63.5,39.9],
+  ["Incott","G23 V2 Pro",126.0,63.5,39.9],
+  ["Incott","G23 V2 SC",126.0,63.5,39.9],
+  ["Incott","G24",122.0,67.0,42.5],
+  ["Incott","G24 Pro",122.0,67.0,42.5],
+  ["Incott","GHERO",118.6,66.0,38.6],
+  ["Incott","GHERO Pro",118.6,66.0,38.6],
+  ["Ironcat","HPC01M",118.6,60.0,38.6],
+  ["Ironcat","HPC01M Pro",118.6,60.0,38.6],
+  ["Ironcat","HPC02",120.0,65.0,38.3],
+  ["Ironcat","HPC02M",115.5,62.0,36.8],
+  ["LAMZU","Atlantis",123.0,66.0,38.0],
+  ["LAMZU","Atlantis Mini",116.9,63.1,37.0],
+  ["LAMZU","Atlantis Mini 4K",116.9,63.1,37.0],
+  ["LAMZU","Atlantis Mini Champion",116.9,63.1,37.0],
+  ["LAMZU","Atlantis Mini Pro",116.9,63.1,37.0],
+  ["LAMZU","Atlantis OG V2",123.0,66.0,38.0],
+  ["LAMZU","Atlantis OG V2 4K",123.0,66.0,38.0],
+  ["LAMZU","Atlantis OG V2 Pro",123.0,66.0,38.0],
+  ["LAMZU","Inca",122.0,63.0,40.0],
+  ["LAMZU","MAYA",119.0,62.0,38.0],
+  ["LAMZU","MAYA 4K",119.0,62.0,38.0],
+  ["LAMZU","MAYA Champion Edition",119.0,62.0,38.0],
+  ["LAMZU","MAYA X",124.4,64.9,39.6],
+  ["LAMZU","Paro",120.0,65.0,40.0],
+  ["LAMZU","Paro Aurora",120.0,65.0,40.0],
+  ["LAMZU","Tachi",120.0,63.0,38.0],
+  ["LAMZU","Thorn",119.0,65.0,42.0],
+  ["LAMZU","Thorn 4K",119.0,65.0,42.0],
+  ["LAMZU x Aimlabs","MAYA X",124.4,64.9,39.6],
+  ["LAMZU x Fnatic","MAYA 8K",119.0,62.0,38.0],
+  ["LAMZU x Fnatic","MAYA X 8K",124.4,64.9,39.6],
+  ["LAMZU x Fnatic","Thorn 4K",119.0,65.0,42.0],
+  ["LAMZU x REJECT","Paro Reject Special Edition",120.0,65.0,40.0],
+  ["Lenovo","Legion M300s",121.6,61.4,38.3],
+  ["Lenovo","Legion M410",127.8,65.0,39.0],
+  ["Lenovo","Legion M600s",121.6,61.4,38.3],
+  ["Lenovo","Yoga Pro",129.0,72.0,44.0],
+  ["Logitech","B100",113.0,62.0,38.0],
+  ["Logitech","ERGO M575",134.0,100.0,48.0],
+  ["Logitech","G MX518",131.0,73.0,43.0],
+  ["Logitech","G Pro",116.6,62.2,38.2],
+  ["Logitech","G Pro 2 Lightspeed",125.0,63.5,40.0],
+  ["Logitech","G Pro Wireless",125.0,63.5,40.0],
+  ["Logitech","G Pro X Superlight",125.0,63.5,40.0],
+  ["Logitech","G Pro X Superlight 2",125.0,63.5,40.0],
+  ["Logitech","G Pro X Superlight 2 DEX",125.8,67.7,43.9],
+  ["Logitech","G Pro X Superlight 2 SE",125.0,63.5,40.0],
+  ["Logitech","G Pro X Superlight 2c",118.4,61.2,38.6],
+  ["Logitech","G Pro X2 Superstrike",125.0,63.5,40.0],
+  ["Logitech","G100s",117.0,63.0,37.0],
+  ["Logitech","G102 Lightsync",116.6,62.2,38.2],
+  ["Logitech","G103 Prodigy",116.6,62.2,38.2],
+  ["Logitech","G203 Lightsync",116.6,62.2,38.2],
+  ["Logitech","G203 Prodigy",116.6,62.2,38.2],
+  ["Logitech","G3",115.0,63.0,38.0],
+  ["Logitech","G300s",113.0,72.0,40.0],
+  ["Logitech","G303 Daedalus Apex",115.0,65.0,37.0],
+  ["Logitech","G303 Shroud Edition",117.0,70.0,40.0],
+  ["Logitech","G304 Lightspeed",116.6,62.2,38.2],
+  ["Logitech","G304 X Lightspeed",116.6,62.2,38.2],
+  ["Logitech","G305 Lightspeed",116.6,62.2,38.2],
+  ["Logitech","G309",120.0,64.0,39.0],
+  ["Logitech","G400",131.0,73.0,43.0],
+  ["Logitech","G400s",131.0,73.0,43.0],
+  ["Logitech","G402 Hyperion Fury",136.0,72.0,41.0],
+  ["Logitech","G403",124.0,68.0,43.0],
+  ["Logitech","G403 Hero",124.0,68.0,43.0],
+  ["Logitech","G403 Wireless",124.0,68.0,43.0],
+  ["Logitech","G502 Hero",132.0,75.0,40.0],
+  ["Logitech","G502 Lightspeed",132.0,75.0,40.0],
+  ["Logitech","G502 X",131.4,79.2,41.1],
+  ["Logitech","G502 X Lightspeed",131.4,79.2,41.1],
+  ["Logitech","G502 X Plus",131.4,79.2,41.1],
+  ["Logitech","G600",118.0,75.0,41.0],
+  ["Logitech","G602",135.0,82.0,43.0],
+  ["Logitech","G603 Lightspeed",124.0,68.0,43.0],
+  ["Logitech","G604 Lightspeed",130.0,80.0,45.0],
+  ["Logitech","G703 Lightspeed",124.0,68.0,43.0],
+  ["Logitech","G705",105.8,68.1,39.4],
+  ["Logitech","G900",130.0,67.0,40.0],
+  ["Logitech","G903 Lightspeed",130.0,67.0,40.0],
+  ["Logitech","G9x",115.0,82.0,38.0],
+  ["Logitech","Lift Vertical",108.0,70.0,71.0],
+  ["Logitech","M100",113.0,62.0,38.0],
+  ["Logitech","M170",97.7,61.5,35.2],
+  ["Logitech","M171",97.7,61.5,35.2],
+  ["Logitech","M185",99.0,60.0,39.0],
+  ["Logitech","M187",81.9,49.4,31.8],
+  ["Logitech","M190",115.4,66.1,40.3],
+  ["Logitech","M196",100.0,60.0,38.0],
+  ["Logitech","M238",95.0,55.0,38.0],
+  ["Logitech","M240",99.0,60.0,39.0],
+  ["Logitech","M280",105.4,67.9,38.4],
+  ["Logitech","M340",106.7,58.7,26.6],
+  ["Logitech","M510",120.0,65.0,41.0],
+  ["Logitech","M550",108.2,61.0,38.8],
+  ["Logitech","M550 L",118.7,66.2,42.0],
+  ["Logitech","M650",108.2,61.0,38.8],
+  ["Logitech","M650 L",118.7,66.2,42.0],
+  ["Logitech","M650 L Left",118.7,66.2,42.0],
+  ["Logitech","M705 Marathon",109.0,71.0,42.0],
+  ["Logitech","M720 Triathlon",115.0,74.0,44.0],
+  ["Logitech","MX Anywhere",100.5,65.0,34.4],
+  ["Logitech","MX Anywhere 2S",100.5,65.0,34.4],
+  ["Logitech","MX Anywhere 3S",100.5,65.0,34.4],
+  ["Logitech","MX Master",126.0,85.7,48.4],
+  ["Logitech","MX Master 2S",126.0,85.7,48.4],
+  ["Logitech","MX Master 3",124.9,84.3,51.0],
+  ["Logitech","MX Master 3S",124.9,84.3,51.0],
+  ["Logitech","MX Master 4",128.2,88.4,50.8],
+  ["Logitech","MX Vertical",120.0,75.5,79.0],
+  ["Logitech","MX518",131.0,73.0,43.0],
+  ["Logitech","POP Mouse",104.8,59.4,35.2],
+  ["Logitech","Pebble 2 M350s",106.7,58.7,26.6],
+  ["Logitech","Pebble M350",106.7,58.7,26.6],
+  ["Microsoft","Classic IntelliMouse",132.0,69.0,43.0],
+  ["Microsoft","Comfort Mouse 4500",116.1,67.9,42.3],
+  ["Microsoft","IntelliMouse Optical 1.1a",126.0,68.1,39.3],
+  ["Microsoft","Pro IntelliMouse",132.0,69.0,43.0],
+  ["Microsoft","Sidewinder X8",125.6,78.8,42.0],
+  ["Microsoft","Wheel Mouse Optical",124.0,66.6,39.6],
+  ["Mionix","Castor",122.5,70.4,40.2],
+  ["Mionix","Castor Pro",122.5,70.4,40.2],
+  ["Mionix","Naos 3200",131.0,85.0,39.0],
+  ["Mionix","Naos 7000",131.0,85.0,39.0],
+  ["Mionix","Naos 8200",131.0,85.0,39.0],
+  ["Mionix","Naos Pro",131.0,85.0,39.0],
+  ["Mionix","Naos QG",131.0,85.0,39.0],
+  ["Ninjutso","Katana Superlight",125.0,60.0,39.2],
+  ["Ninjutso","Katana Ultralight",125.0,60.0,39.2],
+  ["Ninjutso","Origin One X",121.4,58.0,39.9],
+  ["Ninjutso","Sora",120.8,64.5,37.3],
+  ["Ninjutso","Sora 4K",120.8,64.5,37.3],
+  ["Ninjutso","Sora V2",119.2,59.8,37.7],
+  ["Ninjutso","Ten",124.5,63.9,39.0],
+  ["Ninjutso","Ten Air",124.5,63.9,39.0],
+  ["Nixeus","Revel",125.6,67.5,39.0],
+  ["Nixeus","Revel Fit",130.0,69.0,42.0],
+  ["Nixeus","Revel-X",122.0,65.0,37.0],
+  ["Orbital","Pathfinder AAH-000",118.0,58.0,38.0],
+  ["Orbital","Pathfinder AAH-222",126.0,63.0,38.0],
+  ["Orbital","Pathfinder AAM-000",118.0,58.0,38.0],
+  ["Orbital","Pathfinder AAM-222",126.0,63.0,38.0],
+  ["Orbital","Pathfinder AWL-000",118.0,63.0,38.0],
+  ["Orbital","Pathfinder AWL-222",126.0,68.0,38.0],
+  ["Orbital","Pathfinder CCH-000",118.0,63.0,38.0],
+  ["Orbital","Pathfinder CCH-222",126.0,68.0,38.0],
+  ["Orbital","Pathfinder LRR-000",121.2,62.5,38.0],
+  ["Orbital","Pathfinder LRR-222",129.2,67.5,38.0],
+  ["Orbital","Pathfinder LXR-000",121.2,65.0,38.0],
+  ["Orbital","Pathfinder LXR-222",129.2,70.0,38.0],
+  ["Orbital","Pathfinder PPM-000",118.0,59.8,38.0],
+  ["Orbital","Pathfinder PPM-222",126.0,64.5,38.0],
+  ["Orbital","Pathfinder PSM-000",118.0,64.5,38.0],
+  ["Orbital","Pathfinder PSM-222",126.0,69.5,38.0],
+  ["Pulsar","Feinmann F01",118.6,65.3,41.7],
+  ["Pulsar","Pro Series JV-X",121.0,62.0,40.6],
+  ["Pulsar","Susanto-X",118.7,62.3,38.6],
+  ["Pulsar","TenZ Signature Edition",120.0,64.0,40.5],
+  ["Pulsar","VSPO",122.0,62.0,38.5],
+  ["Pulsar","X2",120.0,63.0,38.0],
+  ["Pulsar","X2 CrazyLight Medium",120.0,63.0,38.0],
+  ["Pulsar","X2 CrazyLight Mini",116.0,61.0,37.0],
+  ["Pulsar","X2 Mini",116.0,61.0,37.0],
+  ["Pulsar","X2 Wired",120.0,63.0,38.0],
+  ["Pulsar","X2 v3",120.0,63.0,38.0],
+  ["Pulsar","X2 v3 Mini",116.0,61.0,37.0],
+  ["Pulsar","X2 v3 eS Mini",116.0,61.0,37.0],
+  ["Pulsar","X2A",120.0,63.0,38.0],
+  ["Pulsar","X2A Mini",116.0,61.0,37.0],
+  ["Pulsar","X2A Wired",120.0,63.0,38.0],
+  ["Pulsar","X2A eS",120.0,63.0,38.0],
+  ["Pulsar","X2A v3",120.0,63.0,38.0],
+  ["Pulsar","X2A v3 eS Mini",116.0,61.0,37.0],
+  ["Pulsar","X2F",87.5,61.1,31.6],
+  ["Pulsar","X2H",120.4,65.0,39.1],
+  ["Pulsar","X2H CrazyLight Medium",120.4,65.0,39.1],
+  ["Pulsar","X2H CrazyLight Mini",115.6,62.0,38.0],
+  ["Pulsar","X2H Mini",115.6,62.0,38.0],
+  ["Pulsar","X2H Wired",120.4,65.0,39.1],
+  ["Pulsar","X2H eS",120.4,65.0,39.1],
+  ["Pulsar","X2H v3",120.4,65.0,39.1],
+  ["Pulsar","X2H v3 Mini",115.6,62.0,38.0],
+  ["Pulsar","X2H v3 eS",120.4,65.0,39.1],
+  ["Pulsar","X2H v3 eS Mini",115.6,62.0,38.0],
+  ["Pulsar","X2N CrazyLight Medium",124.0,65.5,40.0],
+  ["Pulsar","X2N CrazyLight Mini",118.4,62.4,38.2],
+  ["Pulsar","X2V2",120.0,63.0,38.0],
+  ["Pulsar","X2V2 Mini",116.0,61.0,37.0],
+  ["Pulsar","X3",124.6,69.3,43.1],
+  ["Pulsar","X3 CrazyLight Mini",119.8,66.6,41.4],
+  ["Pulsar","X3 LHD",124.6,69.3,43.1],
+  ["Pulsar","X3 LHD CrazyLight Mini",119.8,66.6,41.4],
+  ["Pulsar","X3 LHD Mini",119.8,66.6,41.4],
+  ["Pulsar","X3 Mini",119.8,66.6,41.4],
+  ["Pulsar","Xlite",122.7,66.2,42.0],
+  ["Pulsar","Xlite CrazyLight Medium",122.0,66.0,43.0],
+  ["Pulsar","Xlite CrazyLight Mini",115.6,63.4,40.7],
+  ["Pulsar","Xlite Wired",122.0,66.0,43.0],
+  ["Pulsar","Xlite Wireless",122.7,66.2,42.0],
+  ["Pulsar","Xlite v2 Mini Wireless",117.0,64.0,40.0],
+  ["Pulsar","Xlite v2 Wireless",122.7,66.2,42.0],
+  ["Pulsar","Xlite v3 Large",126.0,69.5,44.5],
+  ["Pulsar","Xlite v3 Medium",122.0,66.0,43.0],
+  ["Pulsar","Xlite v3 Mini",115.6,63.4,40.7],
+  ["Pulsar","Xlite v3 eS",122.0,67.0,43.0],
+  ["Pulsar","Xlite v4 Large",126.0,69.5,44.5],
+  ["Pulsar","Xlite v4 Medium",122.0,66.0,43.0],
+  ["Pulsar","Xlite v4 Mini",115.6,63.4,40.7],
+  ["Pulsar","Xlite v4 eS Medium",122.0,67.0,43.0],
+  ["Pulsar","Xlite v4 eS Mini",115.6,63.4,40.7],
+  ["Pulsar","eS FS1",123.7,64.1,36.7],
+  ["Pulsar ZywOo","The Chosen Mouse - Medium",119.4,67.5,43.5],
+  ["Pulsar ZywOo","The Chosen Mouse - Mini",114.5,64.8,41.8],
+  ["Pulsar ZywOo","The Chosen Mouse Gen.2 - Medium",119.4,67.5,43.5],
+  ["Pulsar ZywOo","The Chosen Mouse Gen.2 - Mini",114.5,64.8,41.8],
+  ["ROCCAT","Burst Core",120.0,67.0,38.0],
+  ["ROCCAT","Burst Pro",120.0,67.0,38.0],
+  ["ROCCAT","Burst Pro Air",120.0,67.0,38.0],
+  ["ROCCAT","Kain 100 AIMO",124.0,65.0,43.0],
+  ["ROCCAT","Kain 120 AIMO",124.0,65.0,43.0],
+  ["ROCCAT","Kain 200 AIMO",124.0,65.0,43.0],
+  ["ROCCAT","Kone AIMO Remastered",129.0,85.0,43.0],
+  ["ROCCAT","Kone Pro",125.6,72.0,40.0],
+  ["ROCCAT","Kone Pro Air",125.6,72.0,40.0],
+  ["ROCCAT","Kone Pure Ultra",119.0,69.0,39.0],
+  ["ROCCAT","Kone XP",126.0,76.0,40.0],
+  ["ROCCAT","Kone XP Air",126.0,76.0,40.0],
+  ["ROCCAT","LUA",115.0,64.0,34.0],
+  ["ROCCAT","Pure Air",121.1,69.3,38.3],
+  ["ROCCAT","Pure SEL",121.1,69.3,38.3],
+  ["ROCCAT","Tyon",129.0,82.0,46.0],
+  ["Rapoo","MT760",125.0,81.0,47.0],
+  ["Rapoo","MT760 Mini",115.0,75.0,43.0],
+  ["Rapoo","MT760 Pro",125.0,81.0,47.0],
+  ["Rapoo","VT0 Gen-2",119.0,63.0,38.0],
+  ["Rapoo","VT0 Max Gen-2",119.0,63.0,38.0],
+  ["Rapoo","VT1 Air Max",119.0,62.0,38.0],
+  ["Rapoo","VT1 Gen-2",119.0,62.0,38.0],
+  ["Rapoo","VT1 Max Gen-2",119.0,62.0,38.0],
+  ["Rapoo","VT1 Pro",119.0,62.0,38.0],
+  ["Rapoo","VT1 Pro Max",119.0,62.0,38.0],
+  ["Rapoo","VT2 Gen-2",126.0,63.0,40.0],
+  ["Rapoo","VT2 Max Gen-2",126.0,63.0,40.0],
+  ["Rapoo","VT3 Gen-2",126.2,68.2,42.4],
+  ["Rapoo","VT3 Max Gen-2",126.2,68.2,42.4],
+  ["Rapoo","VT3 Pro",123.0,66.0,42.0],
+  ["Rapoo","VT3 Pro Max",123.0,66.0,42.0],
+  ["Rapoo","VT3S (Old)",128.3,66.2,39.0],
+  ["Rapoo","VT3S Gen-2",121.0,66.0,42.0],
+  ["Rapoo","VT3S Max Gen-2",121.0,66.0,42.0],
+  ["Rapoo","VT7 Gen-2",127.4,64.3,39.8],
+  ["Rapoo","VT7 Max Gen-2",127.4,64.3,39.8],
+  ["Rapoo","VT9 Air",120.1,65.8,37.5],
+  ["Rapoo","VT9 Gen-2",125.0,65.0,39.0],
+  ["Rapoo","VT9 Max Gen-2",125.0,65.0,39.0],
+  ["Rapoo","VT9 Pro",124.8,67.1,38.7],
+  ["Rapoo","VT9 Pro 4K",124.8,67.1,38.7],
+  ["Rapoo","VT9 Pro Mini",120.1,65.8,37.5],
+  ["Rapoo","VT900",130.1,74.8,41.0],
+  ["Rapoo","VT960 Pro",124.8,66.2,37.5],
+  ["Razer","Abyssus 2014",117.0,64.0,38.0],
+  ["Razer","Abyssus Essential",114.7,63.0,37.3],
+  ["Razer","Atheris",99.7,62.8,34.1],
+  ["Razer","Basilisk",123.0,72.0,42.0],
+  ["Razer","Basilisk Essential",124.0,75.0,43.0],
+  ["Razer","Basilisk Mobile",111.5,75.9,41.4],
+  ["Razer","Basilisk Ultimate",130.0,75.0,42.0],
+  ["Razer","Basilisk V2",130.0,75.0,42.0],
+  ["Razer","Basilisk V3",130.0,75.0,42.0],
+  ["Razer","Basilisk V3 35K",130.0,75.0,42.0],
+  ["Razer","Basilisk V3 Pro",130.0,75.0,42.0],
+  ["Razer","Basilisk V3 Pro 35K",130.0,75.0,42.0],
+  ["Razer","Basilisk V3 X HyperSpeed",130.0,75.0,42.0],
+  ["Razer","Basilisk X HyperSpeed",130.0,75.0,42.0],
+  ["Razer","Cobra",119.6,62.5,38.1],
+  ["Razer","Cobra HyperSpeed",119.6,62.5,38.1],
+  ["Razer","Cobra Pro",119.6,62.5,38.1],
+  ["Razer","Copperhead",128.0,64.0,39.0],
+  ["Razer","DeathAdder Chroma",127.0,70.0,42.7],
+  ["Razer","DeathAdder Elite",127.0,70.0,42.7],
+  ["Razer","DeathAdder Essential",127.0,70.0,42.7],
+  ["Razer","DeathAdder Expert",127.0,70.0,42.7],
+  ["Razer","DeathAdder V2",127.0,70.0,42.7],
+  ["Razer","DeathAdder V2 Mini",114.2,62.0,38.5],
+  ["Razer","DeathAdder V2 Pro",127.0,70.0,42.7],
+  ["Razer","DeathAdder V2 X HyperSpeed",127.0,70.0,42.7],
+  ["Razer","DeathAdder V3",128.0,68.0,44.0],
+  ["Razer","DeathAdder V3 HyperSpeed",122.2,64.8,41.3],
+  ["Razer","DeathAdder V3 Pro",128.0,68.0,44.0],
+  ["Razer","DeathAdder V4 Pro",128.0,68.0,44.0],
+  ["Razer","Diamondback 2015",125.0,60.0,38.1],
+  ["Razer","Imperator",123.0,71.0,42.0],
+  ["Razer","Krait 2013",116.0,52.0,36.0],
+  ["Razer","Lancehead",117.0,71.0,38.0],
+  ["Razer","Lancehead Wireless",117.0,71.0,38.0],
+  ["Razer","Mamba Elite",125.7,68.0,43.2],
+  ["Razer","Mamba Wireless",125.7,68.0,43.2],
+  ["Razer","Naga Left-Handed",119.0,72.0,43.0],
+  ["Razer","Naga Pro",119.0,72.0,43.0],
+  ["Razer","Naga Trinity",119.0,72.0,43.0],
+  ["Razer","Naga V2 HyperSpeed",119.0,72.0,43.0],
+  ["Razer","Naga V2 Pro",119.0,72.0,43.0],
+  ["Razer","Naga X",119.0,72.0,43.0],
+  ["Razer","Orochi 2009",99.0,67.0,35.0],
+  ["Razer","Orochi 2013",99.0,67.0,35.0],
+  ["Razer","Orochi 2015",99.0,67.0,35.0],
+  ["Razer","Orochi V2",107.0,62.0,38.0],
+  ["Razer","Ouroboros",122.0,71.0,39.0],
+  ["Razer","Pro Click",126.7,79.7,45.7],
+  ["Razer","Pro Click Mini",100.2,62.7,34.2],
+  ["Razer","Pro Click V2",126.7,79.7,45.7],
+  ["Razer","Pro Click V2 Vertical",110.0,88.0,79.0],
+  ["Razer","Viper",126.7,66.0,37.8],
+  ["Razer","Viper 8KHz",126.7,66.0,37.8],
+  ["Razer","Viper Mini",119.0,62.0,39.0],
+  ["Razer","Viper Mini Signature Edition",119.0,62.0,39.0],
+  ["Razer","Viper Ultimate",126.7,66.0,37.8],
+  ["Razer","Viper V2 Pro",126.7,66.0,37.8],
+  ["Razer","Viper V3 HyperSpeed",127.1,63.9,39.9],
+  ["Razer","Viper V3 Pro",127.1,63.9,39.9],
+  ["Razer","Viper V3 Pro SE",127.1,63.9,39.9],
+  ["Realforce","RM1",122.0,67.0,42.0],
+  ["Sprime","PM1",120.0,65.0,40.0],
+  ["SteelSeries","Aerox 3",120.6,67.0,38.0],
+  ["SteelSeries","Aerox 3 Wireless",120.6,67.0,38.0],
+  ["SteelSeries","Aerox 5",128.8,68.2,42.1],
+  ["SteelSeries","Aerox 5 Wireless",128.8,68.2,42.1],
+  ["SteelSeries","Aerox 9 Wireless",128.8,68.2,42.1],
+  ["SteelSeries","Kana V2",124.0,64.0,37.0],
+  ["SteelSeries","Kinzu V2",117.0,63.5,35.4],
+  ["SteelSeries","Kinzu V2 Pro",117.0,63.5,35.4],
+  ["SteelSeries","Kinzu V3",117.0,63.5,35.4],
+  ["SteelSeries","Prime",125.3,67.9,42.4],
+  ["SteelSeries","Prime Mini",120.3,66.2,40.7],
+  ["SteelSeries","Prime Mini Wireless",120.3,66.2,40.7],
+  ["SteelSeries","Prime Wireless",125.3,67.9,42.4],
+  ["SteelSeries","Prime+",125.3,67.9,42.4],
+  ["SteelSeries","Rival 110",120.6,68.0,38.1],
+  ["SteelSeries","Rival 3",120.6,67.0,38.0],
+  ["SteelSeries","Rival 3 Gen 2",120.6,67.0,38.0],
+  ["SteelSeries","Rival 3 Gen 2 Wireless",120.6,67.0,38.0],
+  ["SteelSeries","Rival 3 Wireless",120.6,67.0,38.0],
+  ["SteelSeries","Rival 300",133.0,70.0,45.0],
+  ["SteelSeries","Rival 300S",133.0,70.0,45.0],
+  ["SteelSeries","Rival 310",127.6,70.1,42.0],
+  ["SteelSeries","Rival 5",128.8,62.9,42.1],
+  ["SteelSeries","Rival 500",118.6,78.3,43.3],
+  ["SteelSeries","Rival 600",131.0,69.0,43.0],
+  ["SteelSeries","Rival 650 Wireless",131.0,69.0,43.0],
+  ["SteelSeries","Rival 710",124.8,76.2,41.7],
+  ["SteelSeries","Sensei 310",125.1,70.4,39.0],
+  ["SteelSeries","Sensei Ten",126.0,68.0,39.0],
+  ["Turtle Beach","Burst II Air",122.2,67.3,39.2],
+  ["Turtle Beach","Burst II Pro",122.2,67.3,39.2],
+  ["Turtle Beach","Kone II",130.2,82.6,44.1],
+  ["Turtle Beach","Kone II Air",130.2,82.6,44.1],
+  ["Turtle Beach","Kone XP Air",126.0,76.0,40.0],
+  ["Turtle Beach","Pure Air",121.1,69.3,38.3],
+  ["Turtle Beach","Pure SEL",121.1,69.3,38.3],
+  ["VAXEE","E1 Wireless 4K",120.0,65.0,42.0],
+  ["VAXEE","OUTSET AX",117.4,66.0,43.0],
+  ["VAXEE","OUTSET AX Wireless",117.4,66.0,43.0],
+  ["VAXEE","OUTSET AX Wireless 4K",117.4,66.0,43.0],
+  ["VAXEE","XE",124.0,66.0,38.7],
+  ["VAXEE","XE Wireless",124.0,66.0,38.7],
+  ["VAXEE","XE Wireless 4K",124.0,66.0,38.7],
+  ["VAXEE","XE v2",124.0,66.0,38.7],
+  ["VAXEE","XE-S L Wireless 4K",118.0,64.0,36.0],
+  ["VAXEE","XE-S Wireless 4K",118.0,64.0,36.0],
+  ["VAXEE","ZYGEN NP-01",120.0,66.0,39.0],
+  ["VAXEE","ZYGEN NP-01 Wireless 4K",120.0,66.0,39.0],
+  ["VAXEE","ZYGEN NP-01S",119.8,63.0,37.0],
+  ["VAXEE","ZYGEN NP-01S Ergo",119.8,63.0,38.5],
+  ["VAXEE","ZYGEN NP-01S Wireless",119.8,63.0,37.0],
+  ["VAXEE","ZYGEN NP-01S Wireless 4K",119.8,63.0,37.0],
+  ["VAXEE","ZYGEN NP-01S v2",119.8,63.0,37.0],
+  ["VAXEE x Ninjutso","Sora 4K",120.8,64.5,37.3],
+  ["VGN","Dragonfly 3 Master",125.0,63.3,40.0],
+  ["VGN","Dragonfly 3 Master+",125.0,63.3,40.0],
+  ["VGN","Dragonfly 3 Pro",125.0,63.3,40.0],
+  ["VGN","Dragonfly 3 Pro Max",125.0,63.3,40.0],
+  ["VGN","Dragonfly 3 SE",125.0,63.3,40.0],
+  ["VGN","Dragonfly F1",121.2,63.8,37.6],
+  ["VGN","Dragonfly F1 MOBA",121.2,63.8,37.6],
+  ["VGN","Dragonfly F1 Pro",121.2,63.8,37.6],
+  ["VGN","Dragonfly F1 Pro Max",121.2,63.8,37.6],
+  ["VGN","Dragonfly F1 SE",121.2,63.8,37.6],
+  ["VGN","Dragonfly F2 Master",122.4,65.1,38.3],
+  ["VGN","Dragonfly F2 Master+",122.4,65.1,38.3],
+  ["VGN","Dragonfly F2 Pro Max",122.4,65.1,38.3],
+  ["VGN","Dragonfly F2 Ultra",122.4,65.1,38.3],
+  ["VGN","Dragonfly King",119.4,59.0,38.3],
+  ["VGN","Y2 Master",119.0,63.3,39.4],
+  ["VGN","Y2 Master+",119.0,63.3,39.4],
+  ["VGN","Y2 Pro",119.0,63.3,39.4],
+  ["VGN","Y2 Pro Max",119.0,63.3,39.4],
+  ["VGN","Y2 Ultra",119.0,63.3,39.4],
+  ["VXE","MAD R",120.1,63.1,38.1],
+  ["VXE","MAD R Major",120.1,63.1,38.1],
+  ["VXE","R1",120.6,64.0,37.8],
+  ["VXE","R1 Nearlink",120.6,64.0,37.8],
+  ["VXE","R1 Pro",120.6,64.0,37.8],
+  ["VXE","R1 Pro Max",120.6,64.0,37.8],
+  ["VXE","R1 S",120.6,64.0,37.8],
+  ["VXE","R1 SE",120.6,64.0,37.8],
+  ["VXE","R1 SE+",120.6,64.0,37.8],
+  ["VXE","V3",116.6,62.2,38.2],
+  ["VXE","V3 Pro",116.6,62.2,38.2],
+  ["Valkyrie","VK M1",119.5,62.0,40.0],
+  ["Valkyrie","VK M1 Pro",119.5,62.0,40.0],
+  ["Valkyrie","VK M2",118.5,66.5,42.5],
+  ["Valkyrie","VK M2 Pro",118.5,66.5,42.5],
+  ["Valkyrie","VK M3",118.5,62.5,37.8],
+  ["Valkyrie","VK M3 Lite",118.5,62.5,37.8],
+  ["Valkyrie","VK M3 Pro",118.5,62.5,37.8],
+  ["Vancer","Gemini Castor",120.7,60.9,36.5],
+  ["Vancer","Gemini Pollux",119.3,64.4,38.4],
+  ["Vancer","Gretxa",123.0,63.0,37.0],
+  ["Vancer","Groove",125.0,64.5,38.2],
+  ["Vancer","Thrash",123.3,62.3,39.8],
+  ["Vancer x Arbiter Studio","AKITSU",118.0,59.7,36.5],
+  ["Waizowl","Cloud",126.0,68.0,38.0],
+  ["Waizowl","Cloud Ultra",126.0,68.0,38.0],
+  ["Waizowl","Cloud V2",126.0,68.0,38.0],
+  ["Waizowl","Cloud XS",117.0,63.0,36.0],
+  ["Waizowl","OGM One",121.0,66.0,40.0],
+  ["Waizowl","OGM Pro",121.0,66.0,40.0],
+  ["Waizowl","OGM Pro V2",120.0,65.0,40.0],
+  ["Xenics","Titan GX Air Wireless",120.0,60.0,38.0],
+  ["Xtrfy","M4",120.0,68.0,39.0],
+  ["Xtrfy","M4 Wireless",120.0,68.0,39.0],
+  ["Xtrfy","M42",118.0,63.0,38.0],
+  ["Xtrfy","M42 (lower back)",118.0,63.0,38.0],
+  ["Xtrfy","M42 Wireless",118.0,63.0,38.0],
+  ["Xtrfy","M8 Wireless",118.0,60.5,38.5],
+  ["Xtrfy","MZ1",111.0,58.5,36.5],
+  ["Xtrfy","MZ1 Wireless",111.0,58.5,36.5],
+  ["Zaopin","Z1",109.5,62.0,38.5],
+  ["Zaopin","Z1 Pro",109.5,62.0,38.5],
+  ["Zaopin","Z1 Pro Max",109.5,62.0,38.5],
+  ["Zaopin","Z11",121.9,65.0,41.6],
+  ["Zaopin","Z11 Pro",121.9,65.0,41.6],
+  ["Zaopin","Z2",123.0,64.3,39.5],
+  ["Zaopin","Z2 Max",123.0,64.3,39.5],
+  ["Zaopin","Z2 Mini",116.5,62.0,37.8],
+  ["Zaopin","Z2 Mini 4K",116.5,62.0,37.8],
+  ["Zaopin","Z2 Mini Max 8K",116.5,62.0,37.8],
+  ["Zaopin","ZPW",121.9,65.0,41.6],
+  ["Zaopin","ZPW Max",121.9,65.0,41.6],
+  ["Zowie","AM",125.0,64.0,38.0],
+  ["Zowie","EC1-B",130.0,69.0,42.0],
+  ["Zowie","EC1-B V2",130.0,69.0,42.0],
+  ["Zowie","EC1-C",130.0,69.0,42.0],
+  ["Zowie","EC1-CW",130.0,69.0,42.0],
+  ["Zowie","EC1-DW",130.0,69.0,42.0],
+  ["Zowie","EC2-B",123.0,65.0,42.0],
+  ["Zowie","EC2-B V2",123.0,65.0,42.0],
+  ["Zowie","EC2-C",123.0,65.0,42.0],
+  ["Zowie","EC2-CW",123.0,65.0,42.0],
+  ["Zowie","EC2-DW",123.0,65.0,42.0],
+  ["Zowie","EC3-C",119.0,66.0,41.0],
+  ["Zowie","EC3-CW",119.0,66.0,41.0],
+  ["Zowie","EC3-DW",119.0,66.0,41.0],
+  ["Zowie","FK1+-B",129.0,69.0,39.0],
+  ["Zowie","FK1+-B V2",129.0,69.0,39.0],
+  ["Zowie","FK1+-C",129.0,69.0,39.0],
+  ["Zowie","FK1-B",129.0,67.0,37.0],
+  ["Zowie","FK1-B V2",129.0,67.0,37.0],
+  ["Zowie","FK1-C",129.0,67.0,37.0],
+  ["Zowie","FK2-B",125.1,64.9,36.4],
+  ["Zowie","FK2-B V2",125.1,64.9,36.4],
+  ["Zowie","FK2-C",125.1,64.9,36.4],
+  ["Zowie","FK2-DW",125.1,64.9,36.4],
+  ["Zowie","MiCO",98.0,58.0,35.0],
+  ["Zowie","S1-B",123.0,66.0,40.0],
+  ["Zowie","S1-B V2",123.0,66.0,40.0],
+  ["Zowie","S1-C",123.0,66.0,40.0],
+  ["Zowie","S2-B",120.0,64.2,38.1],
+  ["Zowie","S2-B V2",120.0,64.2,38.1],
+  ["Zowie","S2-C",120.0,64.2,38.1],
+  ["Zowie","S2-DW",120.0,64.2,38.1],
+  ["Zowie","U2",123.3,64.3,38.1],
+  ["Zowie","U2-DW",123.3,64.3,38.1],
+  ["Zowie","ZA11-B",129.0,67.0,42.0],
+  ["Zowie","ZA11-C",129.0,67.0,42.0],
+  ["Zowie","ZA12-B",125.0,65.0,41.0],
+  ["Zowie","ZA12-C",125.0,65.0,41.0],
+  ["Zowie","ZA13-B",121.7,62.8,40.2],
+  ["Zowie","ZA13-C",121.7,62.8,40.2],
+  ["Zowie","ZA13-DW",121.7,62.8,40.2]
+];
+
+// ─────────────────────────────────────────────
+//  HAND MEASUREMENT — 3-Point System
+//
+//  Key landmarks used:
+//    0  = wrist
+//    4  = thumb tip       ← PRIMARY WIDTH POINT
+//   16  = ring tip        ← FRONT-WIDTH POINT
+//   20  = pinky tip       ← PRIMARY WIDTH POINT
+//    9  = middle MCP (knuckle) ← palm reference
+//
+//  Distance-independence:
+//    All critical ratios are normalized by palmRef
+//    (wrist→middle-knuckle), so moving hand closer/farther
+//    does NOT change the shape score.
+//    palmRef (absolute) contributes only a small ±4mm
+//    size correction when hand is visibly larger/smaller.
+// ─────────────────────────────────────────────
+function extractHandMeasurements(landmarks) {
+  const lm = landmarks;
+
+  // Palm reference: wrist(0) → middle knuckle(9)
+  // This distance scales with camera distance AND hand size equally,
+  // so dividing by it cancels out camera distance effects.
+  const palmRef = Math.hypot(lm[9].x - lm[0].x, lm[9].y - lm[0].y);
+  if (palmRef < 0.015) return null;
+
+  // ── PRIMARY: Thumb(4) ↔ Pinky(20) ──
+  // Represents the full grip width span (most important signal)
+  const thumbPinky = Math.hypot(lm[4].x - lm[20].x, lm[4].y - lm[20].y);
+  // Normalized ratio: camera-distance independent
+  // Typical range: 1.4 (compact grip) → 2.3 (wide spread)
+  const thumbPinkyN = thumbPinky / palmRef;
+
+  // ── SECONDARY: Ring(16) ↔ Pinky(20) ──
+  // Ring finger sits next to pinky; its spread indicates
+  // how much front-width the user needs.
+  // Wide ring-pinky gap → user's hand widens toward the front
+  // Narrow gap         → hand stays compact at the front
+  const ringPinky  = Math.hypot(lm[16].x - lm[20].x, lm[16].y - lm[20].y);
+  const ringPinkyN = ringPinky / palmRef;
+  // Typical range: 0.30 (bunched) → 0.90 (spread)
+
+  // ── TARGET WIDTH CALCULATION ──
+  // Shape component (distance-independent): thumbPinkyN → mouse width
+  //   1.4 → ~56mm, 1.7 → ~60mm, 2.0 → ~64mm, 2.3 → ~68mm
+  const widthFromShape = 38.7 + thumbPinkyN * 13.0;
+
+  // Size correction (palmRef reflects actual hand size at consistent distance)
+  // At ~40cm from camera: palmRef ≈ 0.11–0.14 for most adults
+  // Smaller palmRef → farther away OR smaller hand → nudge toward smaller mice
+  const sizeCorr = Math.max(-4, Math.min(4, (palmRef - 0.125) * 80));
+
+  const targetWidth = Math.max(50, Math.min(74, Math.round(widthFromShape + sizeCorr)));
+
+  // ── FRONT TAPER PREFERENCE ──
+  // ringPinkyN 0.30 (bunched, narrow front) → 0 → tapered mice (Viper, FK2)
+  // ringPinkyN 0.75 (spread, wide front)   → 1 → full-front mice (DA, Outset)
+  const frontTaperPref = Math.max(0, Math.min(1, (ringPinkyN - 0.30) / 0.45));
+
+  return { targetWidth, frontTaperPref, thumbPinkyN, ringPinkyN, palmRef };
+}
+
+// ─────────────────────────────────────────────
+//  SCORING
+//  Width:      Gaussian σ=4mm  — weight 0.75 (dominant)
+//  FrontTaper: Gaussian σ=0.25 — weight 0.25
+// ─────────────────────────────────────────────
+function gauss(diff, sigma) {
+  return Math.exp(-(diff * diff) / (2 * sigma * sigma));
+}
+
+function scoreMatch(hand, width) {
+  // frontTaper computed dynamically from mouse width
+  // narrow (52mm) → 0.30,  wide (80mm) → 0.70
+  const frontTaper = Math.max(0, Math.min(1, 0.30 + (width - 52) / 28 * 0.40));
+  const wScore = gauss(width - hand.targetWidth, 4);
+  const fScore = gauss(frontTaper - hand.frontTaperPref, 0.25);
+  return Math.round((wScore * 0.75 + fScore * 0.25) * 100);
+}
+
+// ─────────────────────────────────────────────
+//  RANKING  with shape deduplication
+//  Skip mice within ±2mm width AND ±2mm height
+//  of an already-shown result.
+// ─────────────────────────────────────────────
+function rankMice(hand) {
+  const scored = mouseDB
+    .map(([brand, model, length, width, height]) => ({
+      name: model, brand, length, width, height,
+      score: scoreMatch(hand, width),
+    }))
+    .sort((a, b) => b.score - a.score);
+
+  const results = [];
+  for (const m of scored) {
+    const dup = results.some(r =>
+      Math.abs(r.width - m.width) <= 2 && Math.abs(r.height - m.height) <= 2
+    );
+    if (!dup) results.push(m);
+    if (results.length >= 5) break;
+  }
+  return results;
+}
+
+// ─────────────────────────────────────────────
+//  RENDER RESULTS
+// ─────────────────────────────────────────────
+let lastRenderTime = 0;
+
+function renderResults(ranked, hand) {
+  const now = Date.now();
+  if (now - lastRenderTime < 200) return;
+  lastRenderTime = now;
+
+  const list = document.getElementById('mouseList');
+  const sub  = document.getElementById('resultsSubtitle');
+  sub.textContent = `Estimated grip width: ~${hand.targetWidth}mm`;
+
+  list.innerHTML = ranked.map((m, i) => `
+    <div class="mouse-result ${i === 0 ? 'top-match' : ''}">
+      <div class="result-header">
+        <div>
+          <div class="result-name">${m.name}</div>
+          <div class="result-brand">${m.brand}</div>
+        </div>
+        <div class="result-score">${m.score}%</div>
+      </div>
+      <div class="score-bar-wrap">
+        <div class="score-bar" style="width:${m.score}%"></div>
+      </div>
+      <div class="result-dims">
+        <span class="dim-tag">${m.length}×${m.width}×${m.height}mm</span>
+      </div>
+      <div class="result-actions">
+        <a href="index.html?from=${encodeURIComponent(m.name)}&dpi=800" class="btn-match">Match DPI →</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─────────────────────────────────────────────
+//  DRAW OVERLAY ON CANVAS
+// ─────────────────────────────────────────────
+function drawOverlay(canvas, landmarks, videoW, videoH) {
+  const ctx = canvas.getContext('2d');
+  canvas.width  = videoW;
+  canvas.height = videoH;
+  ctx.clearRect(0, 0, videoW, videoH);
+
+  const fingertips = [4, 8, 12, 16, 20];
+  const lm = landmarks;
+
+  // Draw skeleton connections (subtle)
+  const connections = [
+    [0,1],[1,2],[2,3],[3,4],
+    [0,5],[5,6],[6,7],[7,8],
+    [5,9],[9,10],[10,11],[11,12],
+    [9,13],[13,14],[14,15],[15,16],
+    [13,17],[17,18],[18,19],[19,20],
+    [0,17]
+  ];
+  ctx.strokeStyle = 'rgba(0,212,255,0.2)';
+  ctx.lineWidth = 1.5;
+  for (const [a,b] of connections) {
+    ctx.beginPath();
+    ctx.moveTo(lm[a].x * videoW, lm[a].y * videoH);
+    ctx.lineTo(lm[b].x * videoW, lm[b].y * videoH);
+    ctx.stroke();
+  }
+
+  // Draw all landmarks (small dots)
+  for (let i = 0; i < lm.length; i++) {
+    const isT = fingertips.includes(i);
+    ctx.beginPath();
+    ctx.arc(lm[i].x * videoW, lm[i].y * videoH, isT ? 6 : 3, 0, Math.PI * 2);
+    ctx.fillStyle = isT ? '#00d4ff' : 'rgba(0,212,255,0.4)';
+    ctx.fill();
+    if (isT) {
+      ctx.strokeStyle = '#07090f';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+  }
+
+  // Connect fingertips with a line (grip width indicator)
+  ctx.beginPath();
+  ctx.moveTo(lm[4].x * videoW, lm[4].y * videoH);
+  for (const i of [8, 12, 16, 20]) {
+    ctx.lineTo(lm[i].x * videoW, lm[i].y * videoH);
+  }
+  ctx.strokeStyle = 'rgba(0,212,255,0.45)';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([4, 4]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+// ─────────────────────────────────────────────
+//  MEDIAPIPE SETUP
+// ─────────────────────────────────────────────
+let mpHands   = null;
+let mpCamera  = null;
+let isRunning = false;
+
+function onResults(results) {
+  const video   = document.getElementById('videoEl');
+  const canvas  = document.getElementById('canvasEl');
+  const badge   = document.getElementById('scanBadge');
+  const scanTxt = document.getElementById('scanText');
+
+  if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+    const landmarks = results.multiHandLandmarks[0];
+    drawOverlay(canvas, landmarks, video.videoWidth || 640, video.videoHeight || 480);
+
+    const hand = extractHandMeasurements(landmarks);
+    if (hand) {
+      badge.classList.add('active');
+      scanTxt.textContent = 'SCANNING';
+      const ranked = rankMice(hand);
+      renderResults(ranked, hand);
+    }
+  } else {
+    // No hand detected — clear canvas
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    badge.classList.remove('active');
+    scanTxt.textContent = 'NO HAND DETECTED';
+  }
+}
+
+async function startCamera() {
+  const btn         = document.getElementById('startBtn');
+  const placeholder = document.getElementById('cameraPlaceholder');
+  const video       = document.getElementById('videoEl');
+  const badge       = document.getElementById('scanBadge');
+  const scanTxt     = document.getElementById('scanText');
+
+  btn.disabled    = true;
+  btn.textContent = 'LOADING MODEL…';
+
+  try {
+    mpHands = new Hands({
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+    });
+
+    mpHands.setOptions({
+      maxNumHands: 1,
+      modelComplexity: 1,
+      minDetectionConfidence: 0.7,
+      minTrackingConfidence: 0.5
+    });
+
+    mpHands.onResults(onResults);
+
+    mpCamera = new Camera(video, {
+      onFrame: async () => {
+        await mpHands.send({ image: video });
+      },
+      width: 640,
+      height: 480
+    });
+
+    await mpCamera.start();
+
+    placeholder.style.display = 'none';
+    btn.textContent = 'CAMERA ACTIVE';
+    scanTxt.textContent = 'READY';
+    isRunning = true;
+
+  } catch (err) {
+    console.error('Camera error:', err);
+    btn.disabled    = false;
+    btn.textContent = 'RETRY — CHECK PERMISSIONS';
+    scanTxt.textContent = 'ERROR';
+  }
+}
+</script>
+</body>
+</html>

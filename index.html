@@ -106,6 +106,7 @@
 
     /* ── TOP BAR ── */
     .topbar {
+      position: relative;
       display: flex;
       align-items: center;
       padding: 20px 32px;
@@ -762,7 +763,7 @@
     .share-btn svg { flex-shrink: 0; }
 
     /* ── NAV ── */
-    .topbar-nav { margin-left: auto; display: flex; gap: 6px; }
+    .topbar-nav { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
     .nav-link { color: var(--muted); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.08em; padding: 6px 12px; border-radius: 7px; border: 1px solid transparent; transition: all 0.2s; }
     .nav-link:hover { color: var(--text); border-color: var(--border); }
     .nav-link-active { color: var(--cyan) !important; border-color: rgba(0,212,255,0.3) !important; }
@@ -800,6 +801,7 @@
     <nav class="topbar-nav">
       <a href="/" class="nav-link nav-link-active">Calculator</a>
       <a href="pros.html" class="nav-link">Pro Setups</a>
+      <a href="shape.html" class="nav-link">Shape Finder</a>
     </nav>
   </div>
 
