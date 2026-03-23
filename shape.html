@@ -430,6 +430,67 @@
     footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
     footer a:hover { color: var(--subtle); }
     .footer-links { display: flex; gap: 20px; }
+
+    /* ── HAND SIZE INPUT ── */
+    .hand-size-row {
+      margin-top: 18px;
+      padding: 14px 16px;
+      background: rgba(0,212,255,0.04);
+      border: 1px solid rgba(0,212,255,0.15);
+      border-radius: 12px;
+    }
+    .hand-size-label {
+      font-size: 0.75rem;
+      color: var(--cyan);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+    .hand-size-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hand-size-controls input[type=range] {
+      flex: 1;
+      accent-color: var(--cyan);
+      cursor: pointer;
+      height: 4px;
+    }
+    .hand-size-value {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.82rem;
+      color: var(--cyan);
+      min-width: 56px;
+      text-align: right;
+    }
+    .hand-size-hint {
+      margin-top: 7px;
+      font-size: 0.71rem;
+      color: var(--muted);
+    }
+    .hand-size-categories {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      font-size: 0.67rem;
+      color: var(--muted);
+    }
+
+    /* ── PRO BADGE ── */
+    .pro-badge {
+      display: inline-block;
+      background: linear-gradient(120deg, #f59e0b, #ef4444);
+      color: #07090f;
+      font-size: 0.58rem;
+      font-weight: 800;
+      font-family: 'Orbitron', monospace;
+      letter-spacing: 0.06em;
+      padding: 2px 5px;
+      border-radius: 4px;
+      vertical-align: middle;
+      margin-left: 5px;
+    }
   </style>
 </head>
 <body>
@@ -482,19 +543,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="instructions">
         <div class="instr-step">
           <div class="instr-num">1</div>
-          <span>Click "Enable Camera" and allow access</span>
+          <span>Set your hand length below, then click "Enable Camera"</span>
         </div>
         <div class="instr-step">
           <div class="instr-num">2</div>
-          <span>Hold your gripping hand ~40cm from the camera</span>
+          <span>Curl your fingers like you're gripping a mouse — back of hand facing camera</span>
         </div>
         <div class="instr-step">
           <div class="instr-num">3</div>
-          <span>Show your palm — fingers up, grip shape natural</span>
+          <span>Hold hand ~40cm away — <span style="color:var(--cyan)">cyan line</span> = width (thumb↔ring), <span style="color:#00ff88">green line</span> = length</span>
         </div>
         <div class="instr-step">
           <div class="instr-num">4</div>
-          <span>Matches update in real-time. Move closer/farther to fine-tune</span>
+          <span>Results update live — adjust grip width to see different recommendations</span>
+        </div>
+      </div>
+
+      <!-- Hand Size Calibration -->
+      <div class="hand-size-row">
+        <div class="hand-size-label">HAND LENGTH (CALIBRATION)</div>
+        <div class="hand-size-controls">
+          <input type="range" id="handLengthSlider" min="155" max="225" value="185" step="5"
+                 oninput="updateHandLength(this.value)">
+          <span class="hand-size-value" id="handLengthDisplay">185 mm</span>
+        </div>
+        <div class="hand-size-hint">Measure: wrist crease → middle fingertip</div>
+        <div class="hand-size-categories">
+          <span>Small (155)</span>
+          <span>Medium (185)</span>
+          <span>Large (215+)</span>
         </div>
       </div>
     </div>
@@ -551,8 +628,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- MediaPipe -->
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
 
 <script>
 // ─────────────────────────────────────────────
@@ -1460,106 +1535,183 @@ const mouseDB = [
 ];
 
 // ─────────────────────────────────────────────
-//  HAND MEASUREMENT — 3-Point System
-//
-//  Key landmarks used:
-//    0  = wrist
-//    4  = thumb tip       ← PRIMARY WIDTH POINT
-//   16  = ring tip        ← FRONT-WIDTH POINT
-//   20  = pinky tip       ← PRIMARY WIDTH POINT
-//    9  = middle MCP (knuckle) ← palm reference
-//
-//  Distance-independence:
-//    All critical ratios are normalized by palmRef
-//    (wrist→middle-knuckle), so moving hand closer/farther
-//    does NOT change the shape score.
-//    palmRef (absolute) contributes only a small ±4mm
-//    size correction when hand is visibly larger/smaller.
+//  PRO MICE — used by professional esports players
+//  Receive a 15% score boost so they surface above
+//  equally-fitting no-name options.
 // ─────────────────────────────────────────────
-function extractHandMeasurements(landmarks) {
-  const lm = landmarks;
+const PRO_MICE = new Set([
+  // Logitech
+  "G Pro","G Pro Wireless","G Pro Hero",
+  "G Pro 2 Lightspeed",
+  "G Pro X Superlight","G Pro X Superlight 2",
+  "G Pro X Superlight 2 DEX","G Pro X Superlight 2 SE","G Pro X Superlight 2c",
+  "G Pro X2 Superstrike",
+  "G305 Lightspeed","G304 Lightspeed","G303 Shroud Edition",
+  "G502 X","G502 X Plus","G502 X Lightspeed",
+  // Razer
+  "Viper","Viper 8KHz","Viper Mini","Viper Ultimate",
+  "Viper V2 Pro",
+  "Viper V3 Pro","Viper V3 Pro SE","Viper V3 HyperSpeed",
+  "DeathAdder V3","DeathAdder V3 Pro","DeathAdder V3 HyperSpeed",
+  "Cobra Pro","Basilisk V3 Pro","Basilisk V3 Pro 35K",
+  // Zowie (almost all are pro-standard)
+  "EC1-B","EC1-B V2","EC1-C","EC1-CW","EC1-DW",
+  "EC2-B","EC2-B V2","EC2-C","EC2-CW","EC2-DW",
+  "EC3-C","EC3-CW","EC3-DW",
+  "S1-B","S1-B V2","S1-C",
+  "S2-B","S2-B V2","S2-C","S2-DW",
+  "FK1-B","FK1-B V2","FK1-C",
+  "FK1+-B","FK1+-B V2","FK1+-C",
+  "FK2-B","FK2-B V2","FK2-C","FK2-DW",
+  "ZA11-B","ZA11-C","ZA12-B","ZA12-C","ZA13-B","ZA13-C","ZA13-DW",
+  // Pulsar
+  "X2","X2 Wired","X2 v3","X2A","X2A Wired","X2A eS","X2A v3",
+  "X2 Mini","X2A Mini","X2A v3 eS Mini","X2 v3 Mini",
+  "X2V2","X2V2 Mini",
+  "X2H","X2H Wired","X2H eS","X2H v3","X2H v3 eS",
+  "X2H Mini","X2H v3 Mini","X2H v3 eS Mini",
+  "X2N CrazyLight Medium","X2N CrazyLight Mini",
+  "Xlite","Xlite Wired","Xlite Wireless",
+  "Xlite v2 Wireless","Xlite v2 Mini Wireless",
+  "Xlite v3 Mini","Xlite v3 Medium","Xlite v3 Large","Xlite v3 eS",
+  "Xlite v4 Mini","Xlite v4 Medium","Xlite v4 Large","Xlite v4 eS Medium","Xlite v4 eS Mini",
+  // Endgame Gear
+  "XM1r","XM2we","XM2w","XM2w 4k","XM2w 4k v2","XM2 8k","XM2 8k v2",
+  "OP1 8k","OP1 8k v2","OP1we","OP1w 4k","OP1w 4k v2",
+  // Glorious
+  "Model O","Model O Wireless","Model O 2 Mini",
+  "Model D","Model D Wireless","Model D-","Model D- Wireless",
+  "Model D 2 Pro 1K","Model D 2 Pro 4K/8K",
+  // Ninjutso
+  "Origin One X","Sora","Sora V2",
+  // Cooler Master
+  "MM710","MM711","MM712",
+  // Attack Shark (some pros use these)
+  "X3","X3 Pro","X6","R1",
+]);
 
-  // Palm reference: wrist(0) → middle knuckle(9)
-  // This distance scales with camera distance AND hand size equally,
-  // so dividing by it cancels out camera distance effects.
-  const palmRef = Math.hypot(lm[9].x - lm[0].x, lm[9].y - lm[0].y);
-  if (palmRef < 0.015) return null;
+function isProMouse(brand, model) {
+  if (PRO_MICE.has(model)) return true;
+  if (brand === 'Zowie') return true; // Zowie = all pro-standard
+  return false;
+}
 
-  // ── PRIMARY: Thumb(4) ↔ Pinky(20) ──
-  // Represents the full grip width span (most important signal)
-  const thumbPinky = Math.hypot(lm[4].x - lm[20].x, lm[4].y - lm[20].y);
-  // Normalized ratio: camera-distance independent
-  // Typical range: 1.4 (compact grip) → 2.3 (wide spread)
-  const thumbPinkyN = thumbPinky / palmRef;
+// ─────────────────────────────────────────────
+//  HAND MEASUREMENT — Width-Only, Ratio-Based
+//
+//  Hand posture: grip shape (fingers curled like holding a mouse)
+//
+//  WIDTH: thumb tip(4) ↔ ring finger tip(16)
+//         normalized by palmRef (wrist→middle-MCP)
+//         → ratio is camera-distance independent
+//         → larger ratio = wider mouse needed
+//
+//  No length camera measurement.
+//  targetLength comes from hand-size slider only.
+// ─────────────────────────────────────────────
+function extractHandMeasurements(landmarks, handLengthMm) {
+  const lm     = landmarks;
+  const aspect = 4 / 3; // 640×480
 
-  // ── SECONDARY: Ring(16) ↔ Pinky(20) ──
-  // Ring finger sits next to pinky; its spread indicates
-  // how much front-width the user needs.
-  // Wide ring-pinky gap → user's hand widens toward the front
-  // Narrow gap         → hand stays compact at the front
-  const ringPinky  = Math.hypot(lm[16].x - lm[20].x, lm[16].y - lm[20].y);
-  const ringPinkyN = ringPinky / palmRef;
-  // Typical range: 0.30 (bunched) → 0.90 (spread)
+  function d(a, b) {
+    const dx = (lm[a].x - lm[b].x) * aspect;
+    const dy =  lm[a].y - lm[b].y;
+    return Math.hypot(dx, dy);
+  }
 
-  // ── TARGET WIDTH CALCULATION ──
-  // Shape component (distance-independent): thumbPinkyN → mouse width
-  //   1.4 → ~56mm, 1.7 → ~60mm, 2.0 → ~64mm, 2.3 → ~68mm
-  const widthFromShape = 38.7 + thumbPinkyN * 13.0;
+  // Reference: wrist(0) → middle MCP(9) — cancels camera distance
+  const palmRef = d(0, 9);
+  if (palmRef < 0.01) return null;
 
-  // Size correction (palmRef reflects actual hand size at consistent distance)
-  // At ~40cm from camera: palmRef ≈ 0.11–0.14 for most adults
-  // Smaller palmRef → farther away OR smaller hand → nudge toward smaller mice
-  const sizeCorr = Math.max(-4, Math.min(4, (palmRef - 0.125) * 80));
+  // WIDTH ratio: thumb tip(4) ↔ ring finger tip(16)
+  // Grip position typical range: ~0.8 (tight) → ~1.7 (wide)
+  const thumbRingN = d(4, 16) / palmRef;
 
-  const targetWidth = Math.max(50, Math.min(74, Math.round(widthFromShape + sizeCorr)));
+  // Map ratio → mouse width (mm)
+  // Calibrated so thumbRingN ~1.1 (typical grip) → 64mm (mainstream pro range)
+  //   0.9 → 60mm,  1.1 → 64mm,  1.3 → 67mm,  1.5 → 71mm
+  const targetWidth = Math.max(58, Math.min(75, Math.round(44 + thumbRingN * 18)));
 
-  // ── FRONT TAPER PREFERENCE ──
-  // ringPinkyN 0.30 (bunched, narrow front) → 0 → tapered mice (Viper, FK2)
-  // ringPinkyN 0.75 (spread, wide front)   → 1 → full-front mice (DA, Outset)
-  const frontTaperPref = Math.max(0, Math.min(1, (ringPinkyN - 0.30) / 0.45));
+  // Length from slider only (no camera measurement)
+  const targetLength = Math.max(100, Math.min(145, Math.round(handLengthMm * 0.67)));
 
-  return { targetWidth, frontTaperPref, thumbPinkyN, ringPinkyN, palmRef };
+  return { targetWidth, targetLength, thumbRingN, handLengthMm };
 }
 
 // ─────────────────────────────────────────────
 //  SCORING
-//  Width:      Gaussian σ=4mm  — weight 0.75 (dominant)
-//  FrontTaper: Gaussian σ=0.25 — weight 0.25
+//  Width: σ=2mm — extremely tight so recommendations
+//         change the moment the finger span shifts.
+//  Small σ means: ±4mm away from target → score drops to ~14%
 // ─────────────────────────────────────────────
 function gauss(diff, sigma) {
   return Math.exp(-(diff * diff) / (2 * sigma * sigma));
 }
 
-function scoreMatch(hand, width) {
-  // frontTaper computed dynamically from mouse width
-  // narrow (52mm) → 0.30,  wide (80mm) → 0.70
-  const frontTaper = Math.max(0, Math.min(1, 0.30 + (width - 52) / 28 * 0.40));
-  const wScore = gauss(width - hand.targetWidth, 4);
-  const fScore = gauss(frontTaper - hand.frontTaperPref, 0.25);
-  return Math.round((wScore * 0.75 + fScore * 0.25) * 100);
+function scoreMatch(hand, mouseWidth, mouseLength) {
+  // Width-dominant, very tight (σ=2mm)
+  const wScore = gauss(mouseWidth - hand.targetWidth, 2);
+  // Length as soft secondary (σ=12mm, gentle nudge only)
+  const lScore = gauss(mouseLength - hand.targetLength, 12);
+  return wScore * 0.85 + lScore * 0.15;
 }
 
 // ─────────────────────────────────────────────
-//  RANKING  with shape deduplication
-//  Skip mice within ±2mm width AND ±2mm height
-//  of an already-shown result.
+//  RANKING
+//  Tier-1 brands get guaranteed slots (in order).
+//  Each brand shows its best-scoring model.
+//  If a Tier-1 brand has no good match (score < 5%),
+//  it's skipped and the next Tier-1 brand fills in.
+//  Remaining slots → best other pro brand → best non-pro.
 // ─────────────────────────────────────────────
+const TIER1_BRANDS = ['Logitech','Razer','Zowie','Pulsar','Endgame Gear'];
+
 function rankMice(hand) {
-  const scored = mouseDB
-    .map(([brand, model, length, width, height]) => ({
-      name: model, brand, length, width, height,
-      score: scoreMatch(hand, width),
-    }))
+  const allScored = mouseDB
+    .map(([brand, model, length, width, height]) => {
+      const base = scoreMatch(hand, width, length);
+      const pro  = isProMouse(brand, model);
+      return { name: model, brand, length, width, height, score: Math.round(base * 100), pro };
+    })
     .sort((a, b) => b.score - a.score);
 
-  const results = [];
-  for (const m of scored) {
-    const dup = results.some(r =>
-      Math.abs(r.width - m.width) <= 2 && Math.abs(r.height - m.height) <= 2
-    );
-    if (!dup) results.push(m);
-    if (results.length >= 5) break;
+  // Best mouse per brand (already sorted by score)
+  const bestPerBrand = new Map();
+  for (const m of allScored) {
+    if (!bestPerBrand.has(m.brand)) bestPerBrand.set(m.brand, m);
   }
+
+  const results    = [];
+  const usedBrands = new Set();
+
+  // Slots 1-5: Tier-1 brands first (best-fitting model per brand)
+  for (const brand of TIER1_BRANDS) {
+    if (results.length >= 5) break;
+    const best = bestPerBrand.get(brand);
+    if (best && best.score >= 5) {   // skip if completely wrong size
+      results.push(best);
+      usedBrands.add(brand);
+    }
+  }
+
+  // Fill remaining slots with best other pro brands
+  for (const m of allScored) {
+    if (results.length >= 5) break;
+    if (m.pro && !usedBrands.has(m.brand)) {
+      results.push(bestPerBrand.get(m.brand));
+      usedBrands.add(m.brand);
+    }
+  }
+
+  // Last resort: best non-pro
+  for (const m of allScored) {
+    if (results.length >= 5) break;
+    if (!usedBrands.has(m.brand)) {
+      results.push(m);
+      usedBrands.add(m.brand);
+    }
+  }
+
   return results;
 }
 
@@ -1575,13 +1727,15 @@ function renderResults(ranked, hand) {
 
   const list = document.getElementById('mouseList');
   const sub  = document.getElementById('resultsSubtitle');
-  sub.textContent = `Estimated grip width: ~${hand.targetWidth}mm`;
+  sub.textContent = `Finger span ratio: ${hand.thumbRingN.toFixed(2)} → target width ~${hand.targetWidth}mm · length ~${hand.targetLength}mm`;
 
   list.innerHTML = ranked.map((m, i) => `
     <div class="mouse-result ${i === 0 ? 'top-match' : ''}">
       <div class="result-header">
         <div>
-          <div class="result-name">${m.name}</div>
+          <div class="result-name">
+            ${m.name}${m.pro ? '<span class="pro-badge">PRO</span>' : '<span style="font-size:0.65rem;color:var(--muted);margin-left:5px">alt</span>'}
+          </div>
           <div class="result-brand">${m.brand}</div>
         </div>
         <div class="result-score">${m.score}%</div>
@@ -1601,6 +1755,10 @@ function renderResults(ranked, hand) {
 
 // ─────────────────────────────────────────────
 //  DRAW OVERLAY ON CANVAS
+//  Goal: impressive real-time hand tracking visual
+//  - Bright skeleton with glow effect
+//  - Large glowing fingertip dots
+//  - Fingertip arc (4→8→12→16→20) as shape indicator
 // ─────────────────────────────────────────────
 function drawOverlay(canvas, landmarks, videoW, videoH) {
   const ctx = canvas.getContext('2d');
@@ -1608,10 +1766,9 @@ function drawOverlay(canvas, landmarks, videoW, videoH) {
   canvas.height = videoH;
   ctx.clearRect(0, 0, videoW, videoH);
 
-  const fingertips = [4, 8, 12, 16, 20];
   const lm = landmarks;
+  function px(i) { return [lm[i].x * videoW, lm[i].y * videoH]; }
 
-  // Draw skeleton connections (subtle)
   const connections = [
     [0,1],[1,2],[2,3],[3,4],
     [0,5],[5,6],[6,7],[7,8],
@@ -1620,48 +1777,95 @@ function drawOverlay(canvas, landmarks, videoW, videoH) {
     [13,17],[17,18],[18,19],[19,20],
     [0,17]
   ];
-  ctx.strokeStyle = 'rgba(0,212,255,0.2)';
-  ctx.lineWidth = 1.5;
+
+  // ── Skeleton glow (wide, dim) ──
+  ctx.strokeStyle = 'rgba(0,212,255,0.18)';
+  ctx.lineWidth = 8;
+  ctx.lineCap = 'round';
+  ctx.setLineDash([]);
   for (const [a,b] of connections) {
     ctx.beginPath();
-    ctx.moveTo(lm[a].x * videoW, lm[a].y * videoH);
-    ctx.lineTo(lm[b].x * videoW, lm[b].y * videoH);
+    ctx.moveTo(...px(a));
+    ctx.lineTo(...px(b));
     ctx.stroke();
   }
 
-  // Draw all landmarks (small dots)
-  for (let i = 0; i < lm.length; i++) {
-    const isT = fingertips.includes(i);
+  // ── Skeleton core (sharp, bright) ──
+  ctx.strokeStyle = 'rgba(0,212,255,0.85)';
+  ctx.lineWidth = 2.5;
+  for (const [a,b] of connections) {
     ctx.beginPath();
-    ctx.arc(lm[i].x * videoW, lm[i].y * videoH, isT ? 6 : 3, 0, Math.PI * 2);
-    ctx.fillStyle = isT ? '#00d4ff' : 'rgba(0,212,255,0.4)';
-    ctx.fill();
-    if (isT) {
-      ctx.strokeStyle = '#07090f';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-    }
+    ctx.moveTo(...px(a));
+    ctx.lineTo(...px(b));
+    ctx.stroke();
   }
 
-  // Connect fingertips with a line (grip width indicator)
+  // ── Fingertip arc: 4→8→12→16→20 (solid, bright purple) ──
   ctx.beginPath();
-  ctx.moveTo(lm[4].x * videoW, lm[4].y * videoH);
-  for (const i of [8, 12, 16, 20]) {
-    ctx.lineTo(lm[i].x * videoW, lm[i].y * videoH);
-  }
-  ctx.strokeStyle = 'rgba(0,212,255,0.45)';
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([4, 4]);
-  ctx.stroke();
+  ctx.moveTo(...px(4));
+  for (const i of [8, 12, 16, 20]) ctx.lineTo(...px(i));
+  ctx.strokeStyle = 'rgba(167,139,250,0.95)';
+  ctx.lineWidth = 3;
+  ctx.lineJoin = 'round';
   ctx.setLineDash([]);
+  ctx.stroke();
+
+  // ── Joint dots (all non-tip landmarks) ──
+  const fingertips = [4, 8, 12, 16, 20];
+  for (let i = 0; i < lm.length; i++) {
+    if (fingertips.includes(i)) continue;
+    ctx.beginPath();
+    ctx.arc(...px(i), 4, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,212,255,0.7)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(0,212,255,0.4)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // ── Fingertip dots — large glow ──
+  for (const i of fingertips) {
+    const [x, y] = px(i);
+
+    // outer glow ring
+    ctx.beginPath();
+    ctx.arc(x, y, 14, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(0,212,255,0.15)';
+    ctx.lineWidth = 6;
+    ctx.stroke();
+
+    // mid ring
+    ctx.beginPath();
+    ctx.arc(x, y, 9, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(0,212,255,0.45)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // filled core
+    ctx.beginPath();
+    ctx.arc(x, y, 6, 0, Math.PI * 2);
+    ctx.fillStyle = '#00d4ff';
+    ctx.fill();
+    ctx.strokeStyle = '#07090f';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
 }
 
 // ─────────────────────────────────────────────
-//  MEDIAPIPE SETUP
+//  MEDIAPIPE SETUP — Mobile-compatible
+//  Uses getUserMedia directly instead of Camera utility
+//  (Camera utility has known issues on iOS Safari / Android)
 // ─────────────────────────────────────────────
-let mpHands   = null;
-let mpCamera  = null;
-let isRunning = false;
+let mpHands      = null;
+let isRunning    = false;
+let rafId        = null;
+let handLengthMm = 185; // default: medium hand
+
+function updateHandLength(val) {
+  handLengthMm = parseInt(val, 10);
+  document.getElementById('handLengthDisplay').textContent = val + ' mm';
+}
 
 function onResults(results) {
   const video   = document.getElementById('videoEl');
@@ -1673,7 +1877,7 @@ function onResults(results) {
     const landmarks = results.multiHandLandmarks[0];
     drawOverlay(canvas, landmarks, video.videoWidth || 640, video.videoHeight || 480);
 
-    const hand = extractHandMeasurements(landmarks);
+    const hand = extractHandMeasurements(landmarks, handLengthMm);
     if (hand) {
       badge.classList.add('active');
       scanTxt.textContent = 'SCANNING';
@@ -1681,7 +1885,6 @@ function onResults(results) {
       renderResults(ranked, hand);
     }
   } else {
-    // No hand detected — clear canvas
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     badge.classList.remove('active');
@@ -1693,40 +1896,58 @@ async function startCamera() {
   const btn         = document.getElementById('startBtn');
   const placeholder = document.getElementById('cameraPlaceholder');
   const video       = document.getElementById('videoEl');
-  const badge       = document.getElementById('scanBadge');
   const scanTxt     = document.getElementById('scanText');
 
   btn.disabled    = true;
   btn.textContent = 'LOADING MODEL…';
 
   try {
+    // ── 1. MediaPipe Hands 초기화 ──
     mpHands = new Hands({
       locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
     });
-
     mpHands.setOptions({
       maxNumHands: 1,
       modelComplexity: 1,
       minDetectionConfidence: 0.7,
       minTrackingConfidence: 0.5
     });
-
     mpHands.onResults(onResults);
 
-    mpCamera = new Camera(video, {
-      onFrame: async () => {
-        await mpHands.send({ image: video });
+    // ── 2. getUserMedia 직접 호출 (모바일 호환) ──
+    const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+    const constraints = {
+      video: {
+        facingMode: 'user',          // 전면 카메라 (모바일)
+        width:  { ideal: 640 },
+        height: { ideal: 480 }
       },
-      width: 640,
-      height: 480
-    });
+      audio: false
+    };
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    video.srcObject = stream;
 
-    await mpCamera.start();
+    // iOS Safari: play() must be called after srcObject is set
+    await new Promise((resolve, reject) => {
+      video.onloadedmetadata = resolve;
+      video.onerror = reject;
+    });
+    await video.play();
+
+    // ── 3. requestAnimationFrame 루프 (Camera 유틸 대체) ──
+    async function processFrame() {
+      if (!isRunning) return;
+      if (video.readyState >= 2) {          // HAVE_CURRENT_DATA 이상
+        await mpHands.send({ image: video });
+      }
+      rafId = requestAnimationFrame(processFrame);
+    }
 
     placeholder.style.display = 'none';
     btn.textContent = 'CAMERA ACTIVE';
     scanTxt.textContent = 'READY';
     isRunning = true;
+    processFrame();
 
   } catch (err) {
     console.error('Camera error:', err);
