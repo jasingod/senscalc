@@ -627,7 +627,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </footer>
 
 <!-- MediaPipe -->
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/hands.js" crossorigin="anonymous"></script>
 
 <script>
 // ─────────────────────────────────────────────
@@ -1901,59 +1901,80 @@ async function startCamera() {
   btn.disabled    = true;
   btn.textContent = 'LOADING MODEL…';
 
+  const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
   try {
     // ── 1. MediaPipe Hands 초기화 ──
     mpHands = new Hands({
-      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+      locateFile: (file) =>
+        `https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/${file}`
     });
     mpHands.setOptions({
       maxNumHands: 1,
-      modelComplexity: 1,
-      minDetectionConfidence: 0.7,
+      modelComplexity: isMobile ? 0 : 1,
+      minDetectionConfidence: 0.6,
       minTrackingConfidence: 0.5
     });
     mpHands.onResults(onResults);
 
-    // ── 2. getUserMedia 직접 호출 (모바일 호환) ──
-    const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-    const constraints = {
-      video: {
-        facingMode: 'user',          // 전면 카메라 (모바일)
-        width:  { ideal: 640 },
-        height: { ideal: 480 }
-      },
+    // ── 2. getUserMedia ──
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
       audio: false
-    };
-    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    });
     video.srcObject = stream;
 
-    // iOS Safari: play() must be called after srcObject is set
     await new Promise((resolve, reject) => {
       video.onloadedmetadata = resolve;
       video.onerror = reject;
     });
     await video.play();
 
-    // ── 3. requestAnimationFrame 루프 (Camera 유틸 대체) ──
-    async function processFrame() {
-      if (!isRunning) return;
-      if (video.readyState >= 2) {          // HAVE_CURRENT_DATA 이상
-        await mpHands.send({ image: video });
-      }
-      rafId = requestAnimationFrame(processFrame);
-    }
-
     placeholder.style.display = 'none';
     btn.textContent = 'CAMERA ACTIVE';
     scanTxt.textContent = 'READY';
     isRunning = true;
+
+    // ── 3. 오프스크린 캔버스 준비 ──
+    // Android Chrome: video 엘리먼트 직접 전달 시 GPU 텍스처 접근 불가.
+    // 매 프레임 canvas에 먼저 그린 뒤 MediaPipe에 넘겨야 동작함.
+    const offscreen = document.createElement('canvas');
+    const offCtx    = offscreen.getContext('2d');
+
+    // ── 4. setTimeout 루프 (모바일 안정성 우선) ──
+    // RAF 대신 setTimeout: 프레임 간격을 직접 제어해
+    // 이전 send()가 끝난 뒤 다음을 시작하므로 큐 쌓임 방지.
+    const interval = isMobile ? 50 : 16; // 모바일 ~20fps, 데스크탑 ~60fps
+
+    async function processFrame() {
+      if (!isRunning) return;
+
+      if (video.readyState >= 2) {
+        // 현재 프레임 크기에 맞춰 캔버스 리사이즈
+        const w = video.videoWidth  || 640;
+        const h = video.videoHeight || 480;
+        if (offscreen.width !== w)  offscreen.width  = w;
+        if (offscreen.height !== h) offscreen.height = h;
+
+        // video → canvas → MediaPipe (Android 호환 핵심)
+        offCtx.drawImage(video, 0, 0, w, h);
+        try {
+          await mpHands.send({ image: offscreen });
+        } catch (e) {
+          // 개별 프레임 에러 무시
+        }
+      }
+
+      setTimeout(processFrame, interval);
+    }
+
     processFrame();
 
   } catch (err) {
     console.error('Camera error:', err);
     btn.disabled    = false;
     btn.textContent = 'RETRY — CHECK PERMISSIONS';
-    scanTxt.textContent = 'ERROR';
+    scanTxt.textContent = 'ERROR — ' + (err.name || 'check console');
   }
 }
 </script>
