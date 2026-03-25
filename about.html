@@ -140,16 +140,24 @@
     </div>
 
     <div class="card">
-      <h2>Data Sources</h2>
+      <h2>How Real DPI Works</h2>
       <p>
-        The DPI measurements used in RealDPI are based on experiments for actual data measurement and
-        information from the gaming mouse community, and have been inputted after maximum verification.
+        DPI stands for <em>Dots Per Inch</em> — the number of counts your mouse sensor registers for every inch
+        of physical movement across your desk. It defines how far the cursor actually travels per inch you move
+        your hand, which is why it directly determines how a mouse feels in practice.
       </p>
       <p>
-        All values are reviewed for accuracy before being applied to our calculator. We are currently
-        seeking advice from professional gamers, and in the future, we aim to minimize any discrepancies
-        in feel by leveraging substantial data-based approaches and sensory data experienced by pro players.
-        We are grateful to everyone in the community who contributes their time and effort to producing reliable data.
+        The catch: manufacturers label their mice at rounded values like 800, 1600, or 3200 DPI, but no sensor
+        tracks perfectly. When you physically measure the cursor displacement over a known distance, the true
+        value almost always differs. A "1600 DPI" setting might genuinely track at 1583 or 1618 — a gap small
+        enough to go unnoticed, yet large enough to throw off your muscle memory when switching hardware.
+      </p>
+      <p>
+        <span class="highlight">RealDPI</span> is built on empirically measured DPI values — the true
+        counts-per-inch each mouse actually delivers, with manufacturer rounding and firmware variance removed.
+        By calculating the difference in real DPI between your old mouse and your new one, we determine the
+        exact sensitivity setting needed so every inch of physical movement produces the identical cursor
+        displacement — no re-adjustment, no lost muscle memory.
       </p>
     </div>
 
