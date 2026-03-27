@@ -439,6 +439,106 @@
       vertical-align: middle;
     }
 
+    /* ── SIMILAR MICE ── */
+    .similar-wrap {
+      margin-top: 20px;
+      background: rgba(0,255,136,0.03);
+      border: 1px solid rgba(0,255,136,0.12);
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+    .similar-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .similar-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 3px;
+    }
+    .similar-subtitle {
+      font-size: 0.78rem;
+      color: var(--subtle);
+    }
+    .similar-subtitle strong { color: var(--text); }
+    .shape-finder-block {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(139,92,246,0.15);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .shape-finder-copy { flex: 1; }
+    .shape-finder-hook {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #c4b5fd;
+      margin-bottom: 3px;
+    }
+    .shape-finder-sub {
+      font-size: 0.71rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .shape-finder-big-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(139,92,246,0.18);
+      border: 1px solid rgba(139,92,246,0.4);
+      color: #c4b5fd;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+      letter-spacing: 0.01em;
+    }
+    .shape-finder-big-btn:hover { background: rgba(139,92,246,0.3); border-color: rgba(139,92,246,0.6); }
+    @media (max-width: 480px) {
+      .shape-finder-block { flex-direction: column; align-items: stretch; }
+      .shape-finder-big-btn { justify-content: center; }
+    }
+    .similar-mice-cards { display: flex; gap: 8px; flex-wrap: wrap; }
+    .similar-mouse-card {
+      flex: 1;
+      min-width: 130px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .similar-mouse-name { font-size: 0.77rem; color: var(--text); font-weight: 600; line-height: 1.3; }
+    .similar-mouse-dims { font-size: 0.68rem; color: var(--muted); }
+    .similar-buy-btn {
+      display: block;
+      margin-top: 4px;
+      background: rgba(0,255,136,0.08);
+      border: 1px solid rgba(0,255,136,0.2);
+      color: var(--green);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 5px 0;
+      border-radius: 7px;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .similar-buy-btn:hover { background: rgba(0,255,136,0.15); }
+
     /* ── NOTE ── */
     .note {
       margin-top: 20px;
@@ -948,6 +1048,25 @@
 
       <button class="btn-calc" onclick="calculate()">Calculate Equivalent DPI →</button>
 
+      <!-- SIMILAR MICE (shown above DPI result) -->
+      <div class="similar-wrap" id="similarWrap" style="display:none">
+        <div class="similar-header">
+          <div class="similar-eyebrow">Similar Size Mice</div>
+          <div class="similar-subtitle">Mice close in size to your <strong id="similarTarget"></strong></div>
+        </div>
+        <div class="similar-mice-cards" id="similarMiceCards"></div>
+        <div class="shape-finder-block">
+          <div class="shape-finder-copy">
+            <div class="shape-finder-hook">Wrong shape ruins everything.</div>
+            <div class="shape-finder-sub">Think size alone is enough? Your grip style changes everything — find the mouse that truly fits.</div>
+          </div>
+          <a href="shape.html" class="shape-finder-big-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="7"/><line x1="12" y1="6" x2="12" y2="10"/></svg>
+            Find My Perfect Shape
+          </a>
+        </div>
+      </div>
+
       <!-- RESULT -->
       <div class="result-wrap" id="resultWrap">
         <div class="result-inner">
@@ -1083,6 +1202,221 @@
     // ─────────────────────────────────────────────────────────────
     //  MOUSE DATA — Real measured DPI (Lego Method)
     // ─────────────────────────────────────────────────────────────
+    // Physical dims: [length, width, height] in mm
+    const mouseDims = {
+      "Logitech G Pro Wireless": [125.0,63.5,40.0],
+      "Logitech G Pro": [116.6,62.2,38.2],
+      "Logitech G305": [116.6,62.2,38.2],
+      "Logitech G102": [116.6,62.1,38.2],
+      "Logitech G403": [124.0,68.0,43.0],
+      "Logitech G603": [124.0,68.0,43.0],
+      "Logitech G900": [130.0,67.0,40.0],
+      "Logitech G303": [115.5,63.2,38.3],
+      "Logitech G502 Hero": [132.0,75.0,40.0],
+      "Logitech G502x": [133.0,76.0,41.0],
+      "Logitech Pro X Superlight": [125.0,63.5,40.0],
+      "Logitech Pro X Superlight 2": [118.4,61.2,38.6],
+      "Logitech Pro X2 Superstrike": [125.0,63.5,40.0],
+      "Logitech G303 Shroud Edition": [117.0,70.0,40.0],
+      "Logitech MX518 Legendary": [131.0,73.0,43.0],
+      "Logitech G309": [120.0,64.0,39.0],
+      "SteelSeries Rival 100": [116.0,63.0,37.0],
+      "SteelSeries Rival 110": [120.6,68.0,38.1],
+      "SteelSeries Rival 300S": [133.0,70.0,45.0],
+      "SteelSeries Rival 310": [127.6,70.1,42.0],
+      "SteelSeries Rival 3": [120.6,67.0,38.0],
+      "SteelSeries Sensei Ten": [126.0,68.0,39.0],
+      "SteelSeries Rival 3 Wireless": [120.6,67.0,38.0],
+      "SteelSeries Prime Mini": [120.3,66.2,40.7],
+      "SteelSeries Prime": [125.3,67.9,42.4],
+      "SteelSeries Rival 5": [128.8,62.9,42.1],
+      "SteelSeries Aerox 3": [120.6,67.0,38.0],
+      "SteelSeries Aerox 3 Wireless": [120.6,67.0,38.0],
+      "SteelSeries Aerox 3 2022": [120.6,67.0,38.0],
+      "SteelSeries Aerox 3 Wireless 2022": [120.6,67.0,38.0],
+      "SteelSeries Aerox 5": [128.8,68.2,42.1],
+      "Zowie EC2-A": [123.0,65.0,42.0],
+      "Zowie EC2-B": [123.0,65.0,42.0],
+      "Zowie FK1+": [129.0,69.0,39.0],
+      "Zowie S1": [123.0,66.0,40.0],
+      "Zowie S2": [120.0,64.2,38.1],
+      "Zowie ZA12-B": [125.0,65.0,41.0],
+      "Zowie EC3-C": [119.0,66.0,41.0],
+      "Zowie U2": [123.3,64.3,38.1],
+      "Zowie FK2-DW": [125.1,64.9,36.4],
+      "Razer Basilisk": [123.0,72.0,42.0],
+      "Razer Basilisk X Hyperspeed": [130.0,75.0,42.0],
+      "Razer Basilisk V2": [130.0,75.0,42.0],
+      "Razer DeathAdder Elite": [127.0,70.0,42.7],
+      "Razer DeathAdder V2 Mini": [114.2,62.0,38.5],
+      "Razer DeathAdder V3 Pro": [128.0,68.0,44.0],
+      "Razer DeathAdder V3 Hyperspeed": [122.2,64.8,41.3],
+      "Razer Orochi V2": [107.0,62.0,38.0],
+      "Razer Viper V2 Pro": [126.7,66.0,37.8],
+      "Razer Viper V3 Pro": [127.1,63.9,39.9],
+      "Razer Cobra": [119.6,62.5,38.1],
+      "Razer Lancehead TE": [126.7,66.0,37.8],
+      "Pulsar Xlite": [122.7,66.2,42.0],
+      "Pulsar Xlite V2 Wireless": [122.7,66.2,42.0],
+      "Pulsar Zywoo The Chosen One": [114.5,64.8,41.8],
+      "Xtrfy M4 Wireless": [120.0,68.0,39.0],
+      "Xtrfy M42 Wireless": [118.0,63.0,38.0],
+      "Xtrfy M42": [118.0,63.0,38.0],
+      "Xtrfy MZ1": [111.0,58.5,36.5],
+      "Xtrfy M8": [118.0,60.5,38.5],
+      "ASUS ROG Keris Wireless": [118.0,62.0,39.0],
+      "ASUS ROG Keris 2 Ace": [121.0,67.0,42.0],
+      "ASUS ROG Gladius III": [123.0,68.0,44.0],
+      "ASUS ROG Pugio II": [120.0,62.0,39.0],
+      "ASUS ROG Harpe Ace Extreme": [127.5,63.7,39.6],
+      "ASUS ROG Harpe Ace Aim Lab Edition": [126.1,63.9,39.7],
+      "ASUS TUF Gaming M4 Wireless": [126.0,63.5,39.6],
+      "ASUS TUF Gaming M4 Air": [126.0,63.5,39.6],
+      "Glorious Model O Wireless": [128.0,66.0,38.0],
+      "Glorious Model D": [128.0,67.0,42.0],
+      "Ducky Feather": [124.0,65.0,36.0],
+      "HyperX Pulsefire Haste": [124.2,66.8,38.2],
+      "HyperX Pulsefire Haste Wireless": [124.2,66.8,38.2],
+      "HyperX Pulsefire Surge": [120.2,62.9,40.7],
+      "Vaxee Zygen NP-01": [119.8,63.0,37.0],
+      "Vaxee Zygen NP-01S": [119.8,63.0,37.0],
+      "Vaxee Outset AX": [117.4,66.0,43.0],
+      "GWolves Skoll": [125.0,68.0,38.0],
+      "GWolves Skoll Mini": [117.0,64.0,40.0],
+      "GWolves Hati": [117.0,62.0,36.0],
+      "Corsair Katar Pro Wired": [115.8,64.2,37.8],
+      "EndGame Gear XM1R": [122.0,66.0,38.5],
+      "Endgame Gear XM2WE": [122.0,66.0,38.5],
+      "EndGame Gear OP1 8K": [118.2,60.5,37.2],
+      "Fnatic Clutch2": [124.0,67.0,38.0],
+      "Ninjutsu Origin One X": [121.4,58.0,39.9],
+      "Ninjutsu Sora": [120.0,60.0,38.0],
+      "Ninjutsu Sora V2": [119.2,59.8,37.7],
+      "Roccat Burst Pro": [120.0,67.0,38.0],
+      "Roccat Burst Pro Air": [120.0,67.0,38.0],
+      "Roccat Kone Pro": [125.6,72.0,40.0],
+      "Roccat Kone Pro Air": [125.6,72.0,40.0],
+      "Roccat Kone XP": [126.0,76.0,40.0],
+      "Roccat Kone Pure Ultra": [119.0,69.0,39.0],
+      "Roccat Kone Pure 2017": [119.0,69.0,39.0],
+      "Attack Shark R2": [117.6,61.8,38.9],
+      "Attack Shark R3": [119.6,60.9,36.2],
+      "Attack Shark R5 Ultra": [119.5,60.9,37.0],
+      "Attack Shark R6": [118.0,60.0,38.0],
+      "Attack Shark X3": [118.5,61.0,39.7],
+      "Cougar Revenger": [128.0,69.0,41.0],
+      "Cougar Surpassion": [120.0,66.0,40.0],
+      "Cougar Airblader": [120.0,62.0,38.0],
+      "Zet Phantom (Wired)": [122.0,65.0,38.0],
+      "Zet Phantom (Wireless)": [122.0,65.0,38.0],
+      "Abkoncore A530": [115.0,62.0,40.0],
+      "Machenike M8": [120.0,65.0,40.0],
+      "Mechenike M620": [120.0,62.0,38.0],
+      "Red Square Airborn": [120.0,60.0,38.0],
+      "Hiper Quantum Qm-1": [118.0,62.0,38.0],
+      "Dierya Falcon": [118.0,62.0,38.0],
+      "Mad Catz Mojo M1": [120.0,64.0,40.0],
+      "Bloody R72 Pro Duo": [125.0,63.0,40.0],
+      "Bloody J95": [130.0,70.0,43.0],
+      "Ardor Essence": [120.0,63.0,37.0],
+      "Ardor Harpy": [120.0,62.0,38.0],
+      "Ardor Rukh": [125.0,65.0,40.0],
+      "Ardor Impact Pro": [122.0,64.0,39.0],
+      "Ardor x Lamzu Atlantis R'lyeh": [120.0,65.0,40.0],
+      "Ardor Agile Pro": [120.0,62.0,38.0],
+      "Ardor Exile Pro": [122.0,64.0,38.0],
+      "Ajazz AJ139Pro": [125.4,63.3,38.2],
+      "Ajazz AJ179 V2": [125.0,67.0,43.0],
+      "Ajazz AJ159 Apex": [118.1,63.1,37.7],
+      "Ajazz AM3 Pro": [112.9,57.9,36.3],
+      "Ajazz AJ199 Pro": [119.8,63.4,39.7],
+      "MCHOSE G3 Ultra": [121.0,62.0,38.0],
+      "MCHOSE A7 Pro": [120.0,62.0,37.0],
+      "MCHOSE A5 & AX5": [118.0,61.0,37.0],
+      "MCHOSE L7 PRO": [120.0,62.0,38.0],
+      "Mchose M7": [120.0,62.0,38.0],
+      "Rapoo VT1 Pro Max": [119.0,62.0,38.0],
+      "Rapoo VT9 Air": [120.1,65.8,37.5],
+      "Rapoo VT3 Pro Max": [123.0,66.0,42.0],
+      "Rapoo VT9 Pro 4k": [124.8,67.1,38.7],
+      "Lamzu Inca": [122.0,63.0,40.0],
+      "Lamzu Maya X": [124.4,64.9,39.6],
+      "Lamzu Maya": [124.4,64.9,39.6],
+      "WLMouse Beast X Pro Tempered": [120.0,63.0,39.0],
+      "WLMouse Beast X": [120.0,63.0,39.0],
+      "VGN F1 Pro Max": [121.2,63.8,37.6],
+      "IO Aurora": [118.0,60.0,37.0],
+      "IO Nova SE": [118.5,62.0,38.0],
+      "Redragon King 4k Pro": [124.8,67.1,38.7],
+      "Dareu A950 Wing": [125.0,65.0,40.0],
+      "DAREU A950 Pro": [123.0,63.0,38.0],
+      "Lenovo Legion M7": [121.6,61.4,38.3],
+      "RawM ES21 Pro": [120.0,62.0,38.0],
+      "Gitorper G2": [120.0,63.0,38.0],
+      "Teevolution Terra Pro": [122.0,65.0,39.0],
+      "Dark Project ME5 Pro": [120.0,63.0,39.0],
+      "Gigabyte Aorus M6": [130.0,70.0,42.0],
+      "Fantech Helios 2 Pro": [120.0,65.0,40.0],
+      "Xinmeng MS-301": [120.0,63.0,38.0],
+      "Xyder Amalight 4k": [120.0,62.0,38.0],
+      "Vancer Akitsu": [118.0,59.7,36.5],
+      "Lunacy One": [120.0,62.0,38.0],
+      "DreamMachines DM1 Pro S": [122.2,67.3,39.2],
+      "Mionix Naos": [120.0,70.0,41.0],
+      "Mionix Castor Pro": [122.5,70.4,40.2],
+      "CoolerMaster MM720": [116.0,61.0,34.0],
+      "CoolerMaster MM731": [124.0,66.0,39.0],
+      "CM MM520": [119.0,69.0,40.0],
+      "Finalmouse Air58": [128.0,62.0,36.0],
+      "Delux M500 Pro": [118.0,65.0,41.0],
+      "Delux M900 Pro": [126.6,69.0,41.8],
+      "Delux M800 Ultra": [124.0,64.0,38.0],
+      "Delux M700 Ultra": [128.2,67.0,38.7],
+      "VXE MAD R Major": [120.1,63.1,38.1],
+      "VXE R1 Pro": [120.6,64.0,37.8],
+      "Zaopin Z2": [123.0,64.3,39.5],
+      "Zaopin Z1 Pro": [109.5,62.0,38.5],
+      "Sprime PM1": [120.0,65.0,40.0],
+      "ATK X1 Ultra": [127.0,64.0,40.0],
+      "Nixeus Revel": [125.6,67.5,39.0]
+    };
+
+    function getSimilarMice(targetModel, exclude, count = 3) {
+      const target = mouseDims[targetModel];
+      if (!target) return [];
+      const [tl, tw] = target;
+      return Object.entries(mouseDims)
+        .filter(([name]) => name !== targetModel && name !== exclude)
+        .map(([name, [l, w]]) => ({
+          name,
+          dist: Math.sqrt((l - tl) ** 2 + (w - tw) ** 2)
+        }))
+        .sort((a, b) => a.dist - b.dist)
+        .slice(0, count)
+        .map(({ name }) => ({ name, dims: mouseDims[name] }));
+    }
+
+    // ── AFFILIATE LINKS ──
+    let _userCountry = null;
+    fetch('https://ipapi.co/json/')
+      .then(r => r.json())
+      .then(d => { _userCountry = d.country_code; })
+      .catch(() => {});
+
+    function getBuyLink(model) {
+      const query = encodeURIComponent(model);
+      if (_userCountry === 'KR') {
+        return {
+          url: `https://www.coupang.com/np/search?q=${query}&affiliate=AF6805552&subId=realdpi`,
+          label: 'Buy in Korea'
+        };
+      }
+      return {
+        url: `https://www.amazon.com/s?k=${query}&tag=realdpi-20`,
+        label: 'Buy on Amazon'
+      };
+    }
+
     const miceData = {
 
       // ── LOGITECH ──
@@ -2952,6 +3286,7 @@
     function calculate() {
       hideError();
       document.getElementById('resultWrap').classList.remove('visible');
+      document.getElementById('similarWrap').style.display = 'none';
 
       const fromModel = fromSelect.getValue();
       const fromDPI   = parseFloat(document.getElementById('fromDPI').value);
@@ -2976,6 +3311,24 @@
       const wrap = document.getElementById('resultWrap');
       wrap.classList.add('visible');
       wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      // ── SIMILAR MICE ──
+      const similar = getSimilarMice(toModel, fromModel);
+      const similarWrap = document.getElementById('similarWrap');
+      if (similar.length > 0) {
+        document.getElementById('similarTarget').textContent = toModel;
+        document.getElementById('similarMiceCards').innerHTML = similar.map(({ name, dims }) => {
+          const buy = getBuyLink(name);
+          return `<div class="similar-mouse-card">
+            <div class="similar-mouse-name">${name}</div>
+            <div class="similar-mouse-dims">${dims[0]} × ${dims[1]} mm</div>
+            <a class="similar-buy-btn" href="${buy.url}" target="_blank" rel="noopener sponsored">${buy.label} →</a>
+          </div>`;
+        }).join('');
+        similarWrap.style.display = 'block';
+      } else {
+        similarWrap.style.display = 'none';
+      }
 
       // ── UPDATE SHARE LINKS ──
       const params = new URLSearchParams({

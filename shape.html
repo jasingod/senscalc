@@ -598,6 +598,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Camera Panel -->
     <div class="card">
+      <div class="instructions">
+        <div class="instr-step">
+          <div class="instr-num">1</div>
+          <span>Set your hand length below, then click "Enable Camera"</span>
+        </div>
+        <div class="instr-step">
+          <div class="instr-num">2</div>
+          <span>Curl your fingers like you're gripping a mouse — back of hand facing camera</span>
+        </div>
+        <div class="instr-step">
+          <div class="instr-num">3</div>
+          <span>Hold hand ~40cm away — <span style="color:var(--cyan)">cyan line</span> = width (thumb↔ring), <span style="color:#00ff88">green line</span> = length</span>
+        </div>
+        <div class="instr-step">
+          <div class="instr-num">4</div>
+          <span>Results update live — adjust grip width to see different recommendations</span>
+        </div>
+      </div>
+
       <div class="camera-wrap">
         <video id="videoEl" playsinline autoplay muted></video>
         <canvas id="canvasEl"></canvas>
@@ -618,28 +637,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         ENABLE CAMERA
       </button>
 
-      <div class="instructions">
-        <div class="instr-step">
-          <div class="instr-num">1</div>
-          <span>Set your hand length below, then click "Enable Camera"</span>
-        </div>
-        <div class="instr-step">
-          <div class="instr-num">2</div>
-          <span>Curl your fingers like you're gripping a mouse — back of hand facing camera</span>
-        </div>
-        <div class="instr-step">
-          <div class="instr-num">3</div>
-          <span>Hold hand ~40cm away — <span style="color:var(--cyan)">cyan line</span> = width (thumb↔ring), <span style="color:#00ff88">green line</span> = length</span>
-        </div>
-        <div class="instr-step">
-          <div class="instr-num">4</div>
-          <span>Results update live — adjust grip width to see different recommendations</span>
-        </div>
-      </div>
-
       <!-- Hand Size Calibration -->
       <div class="hand-size-row">
-        <div class="hand-size-label">HAND LENGTH (CALIBRATION)</div>
+        <div class="hand-size-controls">
+          <input type="range" id="handLengthSlider" min="155" max="225" value="185" step="5"
+                 oninput="updateHandLength(this.value)">
+          <span class="hand-size-value" id="handLengthDisplay">185 mm</span>
+        </div>
+        <div class="hand-size-categories">
+          <span>Small (155)</span>
+          <span>Medium (185)</span>
+          <span>Large (215+)</span>
+        </div>
+
+        <div class="hand-size-label" style="margin-top:14px;">HAND LENGTH (CALIBRATION)</div>
 
         <!-- Hand measurement guide -->
         <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px;">
@@ -678,17 +689,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div>&nbsp;&nbsp;&nbsp;to <span style="color:#00ff88">middle fingertip</span></div>
             <div style="margin-top:5px;color:var(--muted);font-size:0.7rem;">Typical adult: 175 – 200 mm</div>
           </div>
-        </div>
-
-        <div class="hand-size-controls">
-          <input type="range" id="handLengthSlider" min="155" max="225" value="185" step="5"
-                 oninput="updateHandLength(this.value)">
-          <span class="hand-size-value" id="handLengthDisplay">185 mm</span>
-        </div>
-        <div class="hand-size-categories">
-          <span>Small (155)</span>
-          <span>Medium (185)</span>
-          <span>Large (215+)</span>
         </div>
       </div>
     </div>
@@ -1856,7 +1856,7 @@ function getShopLink(brand, model) {
   if (userCountry === 'KR') {
     return {
       url:   `https://www.coupang.com/np/search?q=${query}&affiliate=AF6805552&subId=realdpi`,
-      label: '쿠팡에서 보기',
+      label: 'Buy in Korea',
       cls:   'btn-buy btn-buy-coupang',
       icon:  '🛒'
     };
