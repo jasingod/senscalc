@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CT5NGWSQNG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CT5NGWSQNG');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaming Mouse DPI Guide — Sensitivity, eDPI & Switching Mice | RealDPI</title>
+  <meta name="description" content="Complete guide to gaming mouse DPI: what DPI means, how to find your ideal sensitivity, what eDPI is, why mice feel different at the same DPI, and how to switch mice without losing your aim.">
+  <meta name="keywords" content="gaming mouse DPI guide, mouse sensitivity explained, eDPI calculator, how to switch mice, mouse DPI difference, best DPI for FPS, mouse sensitivity guide">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2300352048643041"
+     crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0f0f0f;
+      color: #ccc;
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.85;
+      padding: 40px 20px;
+    }
+    .container { max-width: 800px; margin: 0 auto; }
+    .topbar { margin-bottom: 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .topbar a.logo {
+      text-decoration: none;
+      background: linear-gradient(90deg, #a855f7, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    nav { display: flex; gap: 20px; flex-wrap: wrap; }
+    nav a { color: #888; text-decoration: none; font-size: 0.88rem; }
+    nav a:hover { color: #ccc; }
+    .breadcrumb { font-size: 0.78rem; color: #555; margin-bottom: 24px; }
+    .breadcrumb a { color: #666; text-decoration: none; }
+    .breadcrumb a:hover { color: #999; }
+    h1 { font-size: 1.9rem; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.3; }
+    .article-meta { font-size: 0.78rem; color: #555; margin-bottom: 36px; }
+    h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #e8e8e8;
+      margin: 44px 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #222;
+    }
+    h3 { font-size: 0.97rem; font-weight: 600; color: #d0d0d0; margin: 24px 0 10px; }
+    p { color: #999; margin-bottom: 16px; font-size: 0.93rem; line-height: 1.85; }
+    ul, ol { color: #999; padding-left: 24px; margin-bottom: 16px; font-size: 0.93rem; }
+    ul li, ol li { margin-bottom: 9px; line-height: 1.75; }
+    strong { color: #ddd; }
+    em { color: #aaa; }
+    a { color: #a855f7; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .highlight {
+      background: linear-gradient(90deg, #a855f7, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
+    .callout {
+      background: rgba(0,255,136,0.04);
+      border-left: 3px solid rgba(0,255,136,0.4);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      margin: 20px 0;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    .callout strong { color: #00ff88; }
+    .callout-purple {
+      background: rgba(168,85,247,0.05);
+      border-left-color: rgba(168,85,247,0.4);
+    }
+    .callout-purple strong { color: #c4b5fd; }
+    .table-wrap { overflow-x: auto; margin: 20px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.87rem; }
+    th {
+      background: #1a1a1a;
+      color: #aaa;
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    td { padding: 10px 14px; color: #888; border-bottom: 1px solid #1e1e1e; }
+    tr:last-child td { border-bottom: none; }
+    td.green { color: #00ff88; font-weight: 600; }
+    td.dim { color: #555; }
+    .toc {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 32px 0;
+    }
+    .toc-title { font-size: 0.75rem; font-weight: 700; color: #666; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+    .toc ol { margin: 0; padding-left: 20px; }
+    .toc li { margin-bottom: 6px; }
+    .toc a { color: #888; font-size: 0.88rem; }
+    .toc a:hover { color: #ccc; }
+    .cta-card {
+      background: rgba(0,255,136,0.04);
+      border: 1px solid rgba(0,255,136,0.15);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin: 40px 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .cta-card-text { flex: 1; }
+    .cta-card-title { font-size: 0.95rem; font-weight: 700; color: #ddd; margin-bottom: 5px; }
+    .cta-card-sub { font-size: 0.82rem; color: #777; }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(0,255,136,0.1);
+      border: 1px solid rgba(0,255,136,0.25);
+      color: #00ff88;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .cta-btn:hover { background: rgba(0,255,136,0.17); text-decoration: none; }
+    footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid #222;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #444;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    footer a { color: #666; }
+    footer a:hover { color: #999; }
+    @media (max-width: 600px) { h1 { font-size: 1.5rem; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a href="index.html" class="logo">RealDPI</a>
+      <nav>
+        <a href="index.html">Calculator</a>
+        <a href="mice.html">Mice List</a>
+        <a href="pros.html">Pro Setups</a>
+        <a href="shape.html">Shape Finder</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> › Guide
+    </div>
+
+    <h1>Gaming Mouse DPI: The Complete Guide to Sensitivity, eDPI, and Switching Mice</h1>
+    <p class="article-meta">By RealDPI · Updated 2025</p>
+
+    <p>
+      If you've ever switched gaming mice and felt like your aim completely fell apart — even after copying
+      the exact same DPI setting — this guide explains exactly why that happens and what you can do about it.
+      We'll cover everything from what DPI actually means to why two mice can feel totally different at the
+      same setting, and how to switch hardware without losing your muscle memory.
+    </p>
+
+    <div class="toc">
+      <div class="toc-title">Table of Contents</div>
+      <ol>
+        <li><a href="#what-is-dpi">What is DPI in a gaming mouse?</a></li>
+        <li><a href="#advertised-vs-real">Why advertised DPI differs from real DPI</a></li>
+        <li><a href="#edpi">What is eDPI and how to calculate it</a></li>
+        <li><a href="#ideal-dpi">Finding your ideal DPI setting</a></li>
+        <li><a href="#pro-settings">What DPI do professional players use?</a></li>
+        <li><a href="#switching">How to switch mice without ruining your aim</a></li>
+        <li><a href="#shape">Why mouse shape matters as much as DPI</a></li>
+        <li><a href="#polling">Polling rate and its effect on aim</a></li>
+      </ol>
+    </div>
+
+    <h2 id="what-is-dpi">1. What is DPI in a Gaming Mouse?</h2>
+    <p>
+      DPI stands for <strong>Dots Per Inch</strong>. In a gaming mouse, it refers to the number of
+      position counts (or "dots") the sensor registers for every inch of physical movement across your desk.
+      The higher the DPI, the further your cursor travels for the same physical hand movement — making the
+      mouse feel faster and more sensitive.
+    </p>
+    <p>
+      For example, at 400 DPI, moving your mouse one inch physically moves the cursor 400 pixels
+      (on a standard 1:1 sensitivity setting). At 1600 DPI, the same one-inch movement moves the cursor
+      1600 pixels — four times the distance, four times the speed.
+    </p>
+    <p>
+      DPI is controlled by the optical sensor inside the mouse. Modern gaming sensors can be adjusted
+      in steps — usually 50 or 100 DPI increments — through the mouse driver software or dedicated buttons
+      on the mouse body itself.
+    </p>
+
+    <div class="callout">
+      <strong>Key point:</strong> DPI measures raw cursor movement per inch of physical mouse movement.
+      It is one part of your overall sensitivity equation — the other part is your in-game sensitivity multiplier.
+    </div>
+
+    <h3>DPI vs CPI — What's the Difference?</h3>
+    <p>
+      You may also see the term <strong>CPI</strong> (Counts Per Inch) used interchangeably with DPI.
+      They refer to the same measurement. CPI is technically the more accurate term for optical sensors,
+      but DPI has become the industry standard label and is what you'll see on all major gaming peripherals.
+    </p>
+
+    <h2 id="advertised-vs-real">2. Why Advertised DPI Differs From Real DPI</h2>
+    <p>
+      Here is something most gamers don't know: the DPI value printed on your mouse box, and displayed
+      in your driver software, is almost never exactly accurate. Every optical sensor tracks at a slightly
+      different speed than its labeled value — and this variance is real, measurable, and affects your aim.
+    </p>
+    <p>
+      There are several reasons for this:
+    </p>
+    <ul>
+      <li><strong>Firmware calibration offsets</strong> — Manufacturers program small offsets into sensor firmware to compensate for optical tolerances. These offsets shift the real tracking speed away from the round number target.</li>
+      <li><strong>Manufacturing tolerances</strong> — Optical components are built within acceptable variance ranges. Two units of the same mouse can track at slightly different true DPI values.</li>
+      <li><strong>Sensor step quantization</strong> — Optical sensors can only achieve certain DPI values based on their hardware architecture. The firmware maps the requested DPI to the nearest achievable step, which may not be the labeled value.</li>
+      <li><strong>Surface and lens interaction</strong> — The combination of sensor optics and mousepad surface introduces additional variance.</li>
+    </ul>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Mouse</th>
+            <th>Set DPI</th>
+            <th>Real DPI (measured)</th>
+            <th>Difference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Logitech G Pro X Superlight</td>
+            <td>1600</td>
+            <td class="green">1622</td>
+            <td>+1.4%</td>
+          </tr>
+          <tr>
+            <td>Zowie EC2-B</td>
+            <td>1600</td>
+            <td class="green">1575</td>
+            <td>-1.6%</td>
+          </tr>
+          <tr>
+            <td>Razer Viper V3 Pro</td>
+            <td>1600</td>
+            <td class="green">1602</td>
+            <td>+0.1%</td>
+          </tr>
+          <tr>
+            <td>SteelSeries Rival 3</td>
+            <td>1600</td>
+            <td class="green">1700</td>
+            <td>+6.3%</td>
+          </tr>
+          <tr>
+            <td>Logitech G305</td>
+            <td>800</td>
+            <td class="green">784</td>
+            <td>-2.0%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      The SteelSeries Rival 3 example above is extreme — at 1600 DPI, it actually tracks at 1700.
+      That's a 6.3% difference. For a player with 1000 hours of muscle memory built at 1600 DPI on
+      another mouse, picking up the Rival 3 at the same setting would feel noticeably faster.
+    </p>
+
+    <div class="callout">
+      <strong>This is exactly the problem RealDPI solves.</strong> By measuring the true tracking speed
+      of each mouse at each DPI step, we calculate the exact setting on your new mouse that produces
+      identical cursor movement per inch — not just the same labeled number.
+    </div>
+
+    <h2 id="edpi">3. What is eDPI and How to Calculate It</h2>
+    <p>
+      eDPI stands for <strong>effective DPI</strong>. It combines your mouse's hardware DPI setting with
+      your in-game sensitivity multiplier into a single number that represents your actual aim speed.
+    </p>
+    <p>
+      The formula is simple:
+    </p>
+    <div class="callout callout-purple">
+      <strong>eDPI = Mouse DPI × In-game Sensitivity</strong><br>
+      Example: 800 DPI × 0.5 in-game sensitivity = <strong>400 eDPI</strong>
+    </div>
+    <p>
+      eDPI is the most useful metric for comparing sensitivity settings across different mice and games.
+      Two players with completely different DPI and sensitivity settings can have the same eDPI —
+      meaning their crosshairs move at exactly the same speed for the same physical hand movement.
+    </p>
+
+    <h3>Why eDPI Matters More Than DPI Alone</h3>
+    <p>
+      DPI and in-game sensitivity are interchangeable in practice. 400 DPI at sensitivity 3.0 feels
+      identical to 1200 DPI at sensitivity 1.0. The only reason to change one without the other is
+      if you need a more granular step size — for example, if your game doesn't support decimal sensitivity
+      values, running higher DPI gives you finer control over your effective sensitivity.
+    </p>
+
+    <h3>eDPI Ranges by Game and Skill Level</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Game</th>
+            <th>Low eDPI</th>
+            <th>Common Range</th>
+            <th>High eDPI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>CS2 / CS:GO</td>
+            <td class="dim">Under 400</td>
+            <td class="green">400 – 1000</td>
+            <td class="dim">Over 1500</td>
+          </tr>
+          <tr>
+            <td>VALORANT</td>
+            <td class="dim">Under 150</td>
+            <td class="green">200 – 500</td>
+            <td class="dim">Over 800</td>
+          </tr>
+          <tr>
+            <td>Apex Legends</td>
+            <td class="dim">Under 800</td>
+            <td class="green">1000 – 2400</td>
+            <td class="dim">Over 3000</td>
+          </tr>
+          <tr>
+            <td>Overwatch 2</td>
+            <td class="dim">Under 1500</td>
+            <td class="green">2000 – 5000</td>
+            <td class="dim">Over 7000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="ideal-dpi">4. Finding Your Ideal DPI Setting</h2>
+    <p>
+      There is no single "correct" DPI for gaming. The ideal setting depends on your mouse pad size,
+      your preferred wrist-to-arm aiming style, your game of choice, and your personal feel preference.
+      That said, there are practical guidelines that work for most players.
+    </p>
+
+    <h3>The 360° Distance Method</h3>
+    <p>
+      One of the most common calibration methods is the <strong>360° test</strong>: measure how far you need
+      to physically move your mouse to rotate your in-game view exactly 360 degrees. Most competitive FPS
+      players prefer a 360° distance of 20–50 cm (8–20 inches). Below 20 cm feels twitchy; above 50 cm
+      requires large arm movements for quick turns.
+    </p>
+
+    <h3>Low DPI vs High DPI</h3>
+    <ul>
+      <li><strong>Low DPI (400–800):</strong> More physical movement required. Better for players who aim with their arm. Reduces the effect of small tremors on crosshair stability. Preferred by most CS2 professionals.</li>
+      <li><strong>High DPI (1600–3200):</strong> Less physical movement required. Better for wrist aimers and players on smaller desks. Can feel more responsive but requires steadier hands for precise shots.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>The most important rule:</strong> Consistency beats optimization. Pick a sensitivity you can
+      commit to for several months and stick with it. Muscle memory builds slowly and degrades quickly
+      with constant changes.
+    </div>
+
+    <h2 id="pro-settings">5. What DPI Do Professional Players Use?</h2>
+    <p>
+      Professional esports players typically use surprisingly low DPI settings — far lower than most
+      casual gamers default to. This preference for low sensitivity comes from the demands of
+      competitive play: at the highest level, precision matters more than reaction speed, and lower
+      sensitivity provides greater fine-motor control.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Game</th>
+            <th>Mouse</th>
+            <th>DPI</th>
+            <th>eDPI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>s1mple</td>
+            <td>CS2</td>
+            <td>Logitech G Pro X Superlight</td>
+            <td>400</td>
+            <td class="green">952</td>
+          </tr>
+          <tr>
+            <td>ZywOo</td>
+            <td>CS2</td>
+            <td>Logitech G Pro X Superlight 2</td>
+            <td>400</td>
+            <td class="green">786</td>
+          </tr>
+          <tr>
+            <td>TenZ</td>
+            <td>VALORANT</td>
+            <td>Logitech G Pro X Superlight</td>
+            <td>800</td>
+            <td class="green">496</td>
+          </tr>
+          <tr>
+            <td>Shroud</td>
+            <td>Various</td>
+            <td>Logitech G303 Shroud Edition</td>
+            <td>450</td>
+            <td class="green">1575</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Notice that most professionals use 400 or 800 DPI — the two most common "clean" DPI values
+      that many sensors track most accurately. In-game sensitivity is then adjusted to hit their
+      preferred eDPI range. You can explore full pro player settings in our <a href="pros.html">Pro Setups</a> database.
+    </p>
+
+    <h2 id="switching">6. How to Switch Mice Without Ruining Your Aim</h2>
+    <p>
+      Switching gaming mice is one of the most disruptive things you can do to your aim.
+      Even if you copy the exact same DPI number, the feel will likely be different — because
+      as we covered earlier, the same DPI setting produces different real tracking speeds on different mice.
+    </p>
+
+    <h3>The Wrong Way to Switch</h3>
+    <p>
+      Most players simply transfer their DPI setting to the new mouse and spend weeks re-adapting.
+      Some find they need to drop or raise their sensitivity slightly, but they do this by feel —
+      a slow, frustrating process with no guarantee of reaching a truly equivalent point.
+    </p>
+
+    <h3>The Right Way to Switch</h3>
+    <ol>
+      <li>Note your current mouse model and DPI setting.</li>
+      <li>Select both mice in the <a href="index.html">RealDPI calculator</a>.</li>
+      <li>Enter your current DPI.</li>
+      <li>The calculator returns the exact setting on your new mouse that matches the real cursor speed.</li>
+      <li>Set your new mouse to that value and play immediately — no adaptation period needed.</li>
+    </ol>
+
+    <div class="callout">
+      <strong>Example:</strong> Moving from a Logitech G Pro X Superlight (1600 DPI, real: ~1622)
+      to a Zowie EC2-B? You need to set the EC2-B to approximately 1650 DPI — not 1600 —
+      to match the exact same cursor movement per inch. RealDPI calculates this automatically.
+    </div>
+
+    <h2 id="shape">7. Why Mouse Shape Matters As Much As DPI</h2>
+    <p>
+      DPI and sensitivity are only half the equation. The physical shape of your mouse — its length,
+      width, height, and button placement — determines how naturally you can grip it and execute
+      aiming movements. A mouse that doesn't fit your hand forces compensatory wrist and finger
+      positions that reduce control precision and cause fatigue over long sessions.
+    </p>
+    <p>
+      Key shape factors to consider:
+    </p>
+    <ul>
+      <li><strong>Mouse length:</strong> Should match your hand length (wrist crease to middle fingertip). Too short and your palm hangs off the back; too long and you overextend.</li>
+      <li><strong>Mouse width:</strong> Should allow comfortable thumb and ring finger placement without stretching or cramping.</li>
+      <li><strong>Hump height and position:</strong> Affects how much palm support you get and where your fingers naturally rest on the buttons.</li>
+      <li><strong>Grip style:</strong> Palm grippers need wider, taller mice. Claw and fingertip grippers often prefer smaller, lower-profile shapes.</li>
+    </ul>
+    <p>
+      RealDPI's <a href="shape.html">Shape Finder</a> uses your device camera and AI hand tracking to
+      measure your grip width in real time and match it against the physical dimensions of over 900 mouse models.
+    </p>
+
+    <h2 id="polling">8. Polling Rate and Its Effect on Aim</h2>
+    <p>
+      Polling rate, measured in Hertz (Hz), determines how many times per second your mouse
+      reports its position to your computer. A 1000 Hz polling rate means the mouse sends a
+      position update 1000 times per second — every 1 millisecond.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Polling Rate</th>
+            <th>Report Interval</th>
+            <th>Use Case</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>125 Hz</td>
+            <td class="dim">8 ms</td>
+            <td class="dim">Legacy / basic</td>
+          </tr>
+          <tr>
+            <td>500 Hz</td>
+            <td>2 ms</td>
+            <td>Acceptable for competitive</td>
+          </tr>
+          <tr>
+            <td class="green">1000 Hz</td>
+            <td class="green">1 ms</td>
+            <td class="green">Standard for gaming</td>
+          </tr>
+          <tr>
+            <td>4000 Hz</td>
+            <td>0.25 ms</td>
+            <td>High-end competitive</td>
+          </tr>
+          <tr>
+            <td>8000 Hz</td>
+            <td>0.125 ms</td>
+            <td>Ultra-low latency</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Higher polling rates reduce the maximum possible input latency and produce smoother cursor movement,
+      particularly at high DPI settings. However, the practical benefit diminishes above 1000 Hz
+      for most players — the difference between 1000 Hz and 4000 Hz is 0.75 ms, which is imperceptible
+      to most humans in normal gameplay.
+    </p>
+    <p>
+      Very high polling rates (4000+ Hz) also increase CPU usage as the system processes more
+      mouse events per second. Some players report smoother feel; others notice no difference.
+      1000 Hz remains the standard recommendation for competitive play.
+    </p>
+
+    <div class="cta-card">
+      <div class="cta-card-text">
+        <div class="cta-card-title">Ready to find your exact sensitivity?</div>
+        <div class="cta-card-sub">Use the RealDPI calculator to convert your settings based on real measured data — not advertised numbers.</div>
+      </div>
+      <a href="index.html" class="cta-btn">Open Calculator →</a>
+    </div>
+
+    <footer>
+      <span>© RealDPI</span>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;">
+        <a href="index.html">Home</a>
+        <a href="mice.html">Supported Mice</a>
+        <a href="pros.html">Pro Setups</a>
+        <a href="shape.html">Shape Finder</a>
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="mailto:jasingod@gmail.com">jasingod@gmail.com</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

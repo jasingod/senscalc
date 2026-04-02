@@ -19,8 +19,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About RealDPI — How Real Mouse DPI Measurement Works</title>
-  <meta name="description" content="Learn how RealDPI measures real mouse DPI using the Lego Method. Why advertised DPI differs from actual tracking speed, and how we calculate accurate sensitivity conversions.">
-  <meta name="keywords" content="real DPI measurement, Lego method, mouse DPI accuracy, how DPI is measured, gaming mouse sensor, DPI variance">
+  <meta name="description" content="Learn how RealDPI measures real mouse DPI. Why advertised DPI differs from actual tracking speed, how sensor calibration works, and how we calculate accurate sensitivity conversions for gaming mice.">
+  <meta name="keywords" content="real DPI measurement, mouse DPI accuracy, how DPI is measured, gaming mouse sensor, DPI variance, mouse sensitivity, sensor calibration">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2300352048643041"
      crossorigin="anonymous"></script>
   <style>
@@ -32,14 +32,9 @@
       line-height: 1.8;
       padding: 40px 20px;
     }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .topbar {
-      margin-bottom: 48px;
-    }
-    .topbar a {
+    .container { max-width: 800px; margin: 0 auto; }
+    .topbar { margin-bottom: 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .topbar a.logo {
       text-decoration: none;
       background: linear-gradient(90deg, #a855f7, #6366f1);
       -webkit-background-clip: text;
@@ -49,25 +44,26 @@
       font-weight: 800;
       letter-spacing: -0.5px;
     }
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 32px;
-    }
+    nav { display: flex; gap: 20px; }
+    nav a { color: #888; text-decoration: none; font-size: 0.88rem; }
+    nav a:hover { color: #ccc; }
+    nav a.active { color: #a855f7; }
+    h1 { font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
+    .page-sub { color: #666; font-size: 0.9rem; margin-bottom: 40px; }
     h2 {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 600;
       color: #e0e0e0;
-      margin-top: 40px;
-      margin-bottom: 12px;
+      margin-top: 0;
+      margin-bottom: 14px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    p {
-      color: #999;
-      margin-bottom: 14px;
-    }
+    h3 { font-size: 0.95rem; font-weight: 600; color: #d0d0d0; margin: 20px 0 8px; }
+    p { color: #999; margin-bottom: 14px; font-size: 0.93rem; }
+    p:last-child { margin-bottom: 0; }
+    ul, ol { color: #999; padding-left: 22px; font-size: 0.93rem; }
+    ul li, ol li { margin-bottom: 8px; line-height: 1.7; }
     .highlight {
       background: linear-gradient(90deg, #a855f7, #6366f1);
       -webkit-background-clip: text;
@@ -80,13 +76,76 @@
       border: 1px solid #2a2a2a;
       border-radius: 12px;
       padding: 28px 32px;
-      margin-top: 16px;
+      margin-bottom: 20px;
     }
-    a {
-      color: #a855f7;
-      text-decoration: none;
+    .card-green {
+      background: rgba(0,255,136,0.03);
+      border-color: rgba(0,255,136,0.12);
     }
+    .stat-row {
+      display: flex;
+      gap: 16px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    .stat-box {
+      flex: 1;
+      min-width: 120px;
+      background: #222;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-num { font-size: 1.5rem; font-weight: 700; color: #00ff88; font-family: monospace; }
+    .stat-label { font-size: 0.72rem; color: #666; margin-top: 4px; letter-spacing: 0.05em; text-transform: uppercase; }
+    .faq-item { border-top: 1px solid #222; padding: 16px 0; }
+    .faq-item:first-child { border-top: none; padding-top: 0; }
+    .faq-q { font-weight: 600; color: #ddd; font-size: 0.9rem; margin-bottom: 8px; }
+    .faq-a { color: #888; font-size: 0.87rem; line-height: 1.7; }
+    .example-box {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+    .example-box .label { color: #666; font-size: 0.75rem; margin-bottom: 8px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .example-box .val { color: #00ff88; }
+    a { color: #a855f7; text-decoration: none; }
     a:hover { text-decoration: underline; }
+    strong { color: #ddd; }
+    em { color: #aaa; font-style: italic; }
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(168,85,247,0.15);
+      border: 1px solid rgba(168,85,247,0.35);
+      color: #c4b5fd;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .cta-btn:hover { background: rgba(168,85,247,0.25); text-decoration: none; }
+    .cta-btn-green {
+      background: rgba(0,255,136,0.08);
+      border-color: rgba(0,255,136,0.25);
+      color: #00ff88;
+    }
+    .cta-btn-green:hover { background: rgba(0,255,136,0.15); }
     footer {
       margin-top: 64px;
       padding-top: 24px;
@@ -96,8 +155,15 @@
       align-items: center;
       font-size: 0.8rem;
       color: #444;
+      flex-wrap: wrap;
+      gap: 12px;
     }
     footer a { color: #666; }
+    footer a:hover { color: #999; }
+    @media (max-width: 600px) {
+      .card { padding: 20px; }
+      h1 { font-size: 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -107,64 +173,263 @@
   <!-- End Google Tag Manager (noscript) -->
   <div class="container">
     <div class="topbar">
-      <a href="index.html">RealDPI</a>
+      <a href="index.html" class="logo">RealDPI</a>
+      <nav>
+        <a href="index.html">Calculator</a>
+        <a href="mice.html">Mice List</a>
+        <a href="pros.html">Pro Setups</a>
+        <a href="shape.html">Shape Finder</a>
+        <a href="about.html" class="active">About</a>
+      </nav>
     </div>
 
     <h1>About RealDPI</h1>
+    <p class="page-sub">Why advertised DPI lies to you — and what we do about it.</p>
 
-    <div class="card">
+    <div class="card card-green">
       <h2>What is RealDPI?</h2>
       <p>
-        Even when two mice are set to the same DPI, they can feel completely different in practice.
-        This happens because every sensor is tuned differently — the actual tracking speed varies
-        depending on the mouse model, its firmware, and how the sensor has been calibrated by the manufacturer.
+        <span class="highlight">RealDPI</span> is a free gaming mouse sensitivity converter built on empirically measured DPI data.
+        Unlike standard calculators that divide one DPI number by another, RealDPI accounts for the difference
+        between a mouse's <em>advertised</em> DPI and its <em>actual</em> tracking speed — because those two
+        numbers are almost never the same.
       </p>
       <p>
-        <span class="highlight">RealDPI</span> solves this problem. Instead of relying on the labeled DPI value,
-        we use measured DPI data to calculate the exact setting you need on your new mouse
-        to match the feel of your old one — so you can switch mice without losing your aim.
+        When you switch mice and set both to 1600 DPI, your aim can still feel completely different.
+        RealDPI solves this by finding the exact setting on your new mouse that produces identical
+        cursor movement per inch — preserving your muscle memory and keeping your aim consistent.
+      </p>
+
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-num">180+</div>
+          <div class="stat-label">Mice in Database</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">900+</div>
+          <div class="stat-label">Shape Finder Models</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Free to Use</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Understanding DPI — The Basics</h2>
+      <p>
+        DPI stands for <strong>Dots Per Inch</strong>. In the context of a gaming mouse, it measures how many
+        counts the sensor registers for every inch of physical movement across your desk.
+        A higher DPI means the cursor moves further per inch of hand movement — making the mouse feel faster.
+        A lower DPI means smaller cursor displacement per inch — making it feel slower and more precise.
+      </p>
+      <p>
+        For competitive gaming, DPI is one of the most critical settings because it directly determines
+        how your aim translates into in-game movement. Professional FPS players are extremely sensitive
+        to changes in this value — even small discrepancies can disrupt years of built-up muscle memory.
+      </p>
+      <p>
+        Most gaming mice today support DPI steps ranging from 100 to 25,600 DPI or higher.
+        The most common settings used by professional players fall between 400 and 1600 DPI,
+        combined with an in-game sensitivity multiplier to achieve their preferred overall feel.
       </p>
     </div>
 
     <div class="card">
-      <h2>Why We Built This</h2>
+      <h2>Why Advertised DPI Is Not Accurate</h2>
       <p>
-        Switching mice has always been a frustrating experience for gamers. Even with the same DPI setting,
-        your muscle memory gets thrown off because the actual sensitivity feels different.
-        Most players spend days re-adjusting — and many never quite get it right.
+        Here is the problem: every mouse manufacturer states their DPI values as round numbers.
+        800 DPI. 1600 DPI. 3200 DPI. But no optical sensor in the world tracks at a perfectly round number.
+        When you physically measure the cursor displacement over a precise distance, the actual value
+        almost always differs from what the label says.
       </p>
       <p>
-        We built RealDPI to eliminate that friction. Whether you're upgrading to a new mouse or testing
-        different models, you deserve a tool that gives you an accurate, data-driven answer — not a rough estimate.
+        This variance comes from several sources:
+      </p>
+      <ul>
+        <li><strong>Sensor firmware calibration</strong> — Each manufacturer programs their sensor firmware differently, introducing offsets that shift the real tracking speed above or below the target.</li>
+        <li><strong>Hardware tolerances</strong> — Optical components are manufactured within acceptable tolerances. Two units of the same mouse model can have slightly different real DPI values.</li>
+        <li><strong>Lens and surface interaction</strong> — The combination of sensor optics and tracking surface affects how many counts are registered per inch.</li>
+        <li><strong>DPI step rounding</strong> — Sensors often snap to the nearest achievable step internally, which may not align with the advertised value.</li>
+      </ul>
+
+      <div class="example-box">
+        <div class="label">Example — Same DPI setting, different real tracking speeds</div>
+        Mouse A: set to <span class="val">1600 DPI</span> → actual: <span class="val">1583 DPI</span><br>
+        Mouse B: set to <span class="val">1600 DPI</span> → actual: <span class="val">1627 DPI</span><br>
+        Difference: <span class="val">~2.7%</span> — noticeable in fast flick shots and tracking
+      </div>
+
+      <p>
+        A 2–3% difference sounds small, but for competitive players shooting at targets moving
+        across their screen, it translates into real misses. The brain encodes aim as physical movement,
+        not as numbers — so even a subtle shift in cursor speed can feel completely wrong after weeks
+        of training at a specific sensitivity.
       </p>
     </div>
 
     <div class="card">
-      <h2>How Real DPI Works</h2>
+      <h2>How RealDPI Calculates the Conversion</h2>
       <p>
-        DPI stands for <em>Dots Per Inch</em> — the number of counts your mouse sensor registers for every inch
-        of physical movement across your desk. It defines how far the cursor actually travels per inch you move
-        your hand, which is why it directly determines how a mouse feels in practice.
+        RealDPI maintains a database of empirically measured DPI values for each supported mouse model.
+        These measurements are obtained by recording cursor displacement over a known physical distance
+        at each standard DPI step, then calculating the true counts-per-inch.
       </p>
       <p>
-        The catch: manufacturers label their mice at rounded values like 800, 1600, or 3200 DPI, but no sensor
-        tracks perfectly. When you physically measure the cursor displacement over a known distance, the true
-        value almost always differs. A "1600 DPI" setting might genuinely track at 1583 or 1618 — a gap small
-        enough to go unnoticed, yet large enough to throw off your muscle memory when switching hardware.
+        When you convert between two mice, RealDPI performs the following calculation:
+      </p>
+      <ol>
+        <li>Look up the <strong>real DPI</strong> of your current mouse at your current setting.</li>
+        <li>Find the DPI setting on your new mouse whose <strong>real tracking speed</strong> matches that value.</li>
+        <li>Return that setting as the recommended DPI for your new mouse.</li>
+      </ol>
+      <p>
+        This is meaningfully different from a simple ratio calculation
+        <em>(new DPI = old DPI × old sensitivity / new sensitivity)</em>.
+        A ratio-based converter assumes both mice track at exactly their labeled DPI — which is rarely true.
+        RealDPI removes that assumption entirely by working from measured ground truth.
+      </p>
+
+      <div class="example-box">
+        <div class="label">Example conversion</div>
+        From: Logitech G Pro X Superlight at <span class="val">1600 DPI</span> (real: ~1622 DPI)<br>
+        To: Zowie EC2-B<br>
+        Required setting: <span class="val">1633 DPI</span> to match identical cursor movement per inch
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Shape Finder — AI Mouse Matching</h2>
+      <p>
+        Beyond DPI conversion, RealDPI also offers a <strong>Shape Finder</strong> tool that uses your
+        device camera and MediaPipe hand tracking to analyze your grip dimensions in real time.
+        By measuring the distance between your thumb and ring finger while holding an imaginary mouse,
+        the system estimates your ideal mouse width — then scores over 900 mouse models by how closely
+        their physical dimensions match your hand.
       </p>
       <p>
-        <span class="highlight">RealDPI</span> is built on empirically measured DPI values — the true
-        counts-per-inch each mouse actually delivers, with manufacturer rounding and firmware variance removed.
-        By calculating the difference in real DPI between your old mouse and your new one, we determine the
-        exact sensitivity setting needed so every inch of physical movement produces the identical cursor
-        displacement — no re-adjustment, no lost muscle memory.
+        This matters because mouse shape is as important as DPI for aiming comfort.
+        A mouse that is too wide or too narrow for your hand forces unnatural finger positioning,
+        which fatigues your wrist and reduces control precision.
+        The Shape Finder takes the guesswork out of choosing a new mouse shape
+        based on your actual grip geometry rather than generalizations.
       </p>
+      <ul>
+        <li>Works entirely in your browser — no data is sent to any server</li>
+        <li>Scores mice by width match (60%) and length match (40%)</li>
+        <li>Returns ranked recommendations with buy links for each model</li>
+        <li>Supports over 900 mouse models across all major brands</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Pro Player Sensitivity Database</h2>
+      <p>
+        The <a href="pros.html">Pro Setups</a> page contains the hardware configurations and DPI settings
+        of professional esports players across multiple titles including CS2, VALORANT, Apex Legends,
+        and Overwatch 2. Each entry includes the player's mouse model, DPI setting, in-game sensitivity,
+        and effective eDPI value.
+      </p>
+      <p>
+        Pro settings are useful as a reference point — not because you should copy them directly,
+        but because professional players have spent thousands of hours calibrating their sensitivity
+        to what works under extreme competitive pressure. Understanding the range they operate in
+        can help you determine whether your own settings are in a sensible ballpark.
+      </p>
+      <p>
+        You can load any pro's settings directly into the RealDPI calculator with one click,
+        then convert to your own mouse to find the equivalent setting.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <div class="faq-q">Why does my sensitivity feel different when I switch mice, even at the same DPI?</div>
+        <div class="faq-a">
+          Because the advertised DPI and the real measured tracking speed of a mouse are almost never identical.
+          Each manufacturer calibrates their sensors differently. A "1600 DPI" setting on a Logitech mouse
+          may actually track at 1622 counts per inch, while the same setting on a Razer mouse tracks at 1597.
+          That 1.5% gap is small on paper but noticeable in practice, especially for players with precise muscle memory.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">How is your measurement data collected?</div>
+        <div class="faq-a">
+          DPI measurements are obtained by moving a mouse a known physical distance (typically using a ruler
+          or calipers on a controlled surface) and recording the exact cursor displacement in pixels at a known
+          screen resolution. Dividing pixel count by physical distance gives the true DPI.
+          Measurements are taken at multiple DPI steps and cross-referenced across multiple units
+          to account for unit-to-unit variance.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">What is eDPI and why does it matter?</div>
+        <div class="faq-a">
+          eDPI (effective DPI) is your mouse DPI multiplied by your in-game sensitivity setting.
+          For example, 800 DPI with in-game sensitivity 2.0 gives an eDPI of 1600.
+          eDPI is the single number that actually determines how fast your crosshair moves,
+          making it a more useful comparison metric than DPI or in-game sensitivity alone.
+          Most professional FPS players operate between 200–800 eDPI.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">My mouse isn't in the database. Can you add it?</div>
+        <div class="faq-a">
+          Yes. We are continuously expanding the database as new measurements become available.
+          If your mouse is not listed, contact us at <a href="mailto:jasingod@gmail.com">jasingod@gmail.com</a>
+          with the model name and we will prioritize adding it.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Does mouse polling rate affect DPI accuracy?</div>
+        <div class="faq-a">
+          Polling rate (measured in Hz) determines how often the mouse reports its position to the computer —
+          it does not directly affect the DPI value. However, at very low polling rates (125 Hz), some position
+          data is lost between reports, which can make movement feel less precise regardless of DPI.
+          For competitive gaming, 500 Hz or 1000 Hz polling is standard. Modern high-end mice offer
+          4000 Hz and 8000 Hz modes which further reduce input latency.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Should I use a high or low DPI setting?</div>
+        <div class="faq-a">
+          There is no universally correct answer — it depends on your play style, game genre,
+          screen size, and personal preference. Lower DPI (400–800) combined with higher in-game sensitivity
+          gives more granular control and reduces the impact of small hand tremors on crosshair movement.
+          Higher DPI (1600–3200) can feel more responsive but requires more precise hand control.
+          What matters most is consistency: pick a setting and stick with it long enough to build muscle memory.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Is RealDPI free to use?</div>
+        <div class="faq-a">
+          Yes, RealDPI is completely free. No account, registration, or payment is required for any feature.
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a href="index.html" class="cta-btn cta-btn-green">→ Use the DPI Calculator</a>
+      <a href="shape.html" class="cta-btn">Try Shape Finder</a>
+      <a href="pros.html" class="cta-btn">View Pro Setups</a>
     </div>
 
     <footer>
       <span>© RealDPI</span>
-      <div style="display:flex;gap:20px;">
+      <div style="display:flex;gap:20px;flex-wrap:wrap;">
         <a href="index.html">Home</a>
+        <a href="mice.html">Supported Mice</a>
+        <a href="pros.html">Pro Setups</a>
+        <a href="shape.html">Shape Finder</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="mailto:jasingod@gmail.com">jasingod@gmail.com</a>
       </div>
