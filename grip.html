@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mouse Grip Guide — Palm vs Claw vs Fingertip Explained | RealDPI</title>
+  <meta name="description" content="The clearest mouse grip guide on the internet. Identify your grip style in 2 questions using contact point science — not vague descriptions. Palm, Claw, Fingertip explained definitively.">
+  <meta name="keywords" content="mouse grip style, palm grip, claw grip, fingertip grip, how to hold gaming mouse, mouse grip guide, palm vs claw vs fingertip, what is claw grip, what is palm grip, mouse grip types, gaming mouse grip, best mouse grip, grip style guide">
+  <meta property="og:title" content="Mouse Grip Guide — Palm vs Claw vs Fingertip | RealDPI">
+  <meta property="og:description" content="Stop guessing your grip. Identify palm, claw, or fingertip in 2 questions using contact point analysis.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://realdpi.com/grip.html">
+  <link rel="canonical" href="https://realdpi.com/grip.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Mouse Grip Styles: Palm, Claw, and Fingertip — The Definitive Guide",
+    "description": "The clearest, most objective explanation of mouse grip styles using contact point analysis. Find your grip type in 2 questions.",
+    "author": { "@type": "Organization", "name": "RealDPI", "url": "https://realdpi.com" },
+    "publisher": { "@type": "Organization", "name": "RealDPI" },
+    "url": "https://realdpi.com/grip.html"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "What is palm grip?", "acceptedAnswer": { "@type": "Answer", "text": "Palm grip means your entire hand lies flat on the mouse. The heel of your palm rests on the back of the mouse, and your fingers lie mostly flat against the surface. The mouse is 'cradled' by your whole hand." } },
+      { "@type": "Question", "name": "What is claw grip?", "acceptedAnswer": { "@type": "Answer", "text": "Claw grip means your palm heel touches the back of the mouse, but your fingers are arched upward so only the fingertips make contact with the buttons. Your middle knuckles are visibly higher than your fingertips, like a claw." } },
+      { "@type": "Question", "name": "What is fingertip grip?", "acceptedAnswer": { "@type": "Answer", "text": "Fingertip grip means only your fingertips touch the mouse. The heel of your palm does not rest on the mouse — it hovers or barely touches. All control comes from the fingers alone." } },
+      { "@type": "Question", "name": "How do I know if I use claw or fingertip grip?", "acceptedAnswer": { "@type": "Answer", "text": "The key difference is palm contact. In claw grip, your palm heel rests on the back of the mouse. In fingertip grip, your palm hovers off the mouse entirely. Check if your palm heel is resting on the mouse — if yes, you're using claw or palm grip." } }
+    ]
+  }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:        #07090f;
+      --bg-card:   #0d1117;
+      --bg-input:  #070a10;
+      --border:    #1a2333;
+      --border-hl: #00d4ff44;
+      --cyan:      #00d4ff;
+      --purple:    #8b5cf6;
+      --green:     #00ff88;
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+      --subtle:    #94a3b8;
+      --palm:      #00ff88;
+      --claw:      #ff6b35;
+      --tip:       #00d4ff;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 20px 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.3rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+    }
+    .topbar h1 a {
+      text-decoration: none;
+      background: linear-gradient(120deg, var(--cyan) 0%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .topbar-sub {
+      margin-left: 14px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      padding-left: 14px;
+      border-left: 1px solid var(--border);
+    }
+    .topbar-nav { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.08em; padding: 6px 12px; border-radius: 7px; border: 1px solid transparent; transition: all 0.2s; }
+    .nav-link:hover { color: var(--text); border-color: var(--border); }
+    .nav-link-active { color: var(--cyan) !important; border-color: var(--border-hl) !important; }
+
+    /* ── MAIN ── */
+    main { flex: 1; max-width: 960px; margin: 0 auto; padding: 0 20px 80px; width: 100%; }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 64px 20px 48px;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--cyan);
+      border: 1px solid var(--border-hl);
+      border-radius: 20px;
+      padding: 5px 14px;
+      margin-bottom: 22px;
+      background: rgba(0,212,255,0.06);
+    }
+    .hero h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.5rem, 4.5vw, 2.6rem);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+      background: linear-gradient(120deg, #fff 0%, var(--subtle) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+    .hero h2 em {
+      background: linear-gradient(120deg, var(--cyan) 0%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-style: normal;
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--subtle);
+      line-height: 1.7;
+      max-width: 580px;
+      margin: 0 auto 32px;
+    }
+    .hero-sub strong { color: var(--text); }
+    .hero-cta {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #000;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .hero-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── PROBLEM BAR ── */
+    .problem-bar {
+      background: rgba(255,107,53,0.06);
+      border: 1px solid rgba(255,107,53,0.2);
+      border-radius: 12px;
+      padding: 20px 28px;
+      margin-bottom: 56px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .problem-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+    .problem-text { font-size: 0.9rem; color: var(--subtle); line-height: 1.7; }
+    .problem-text strong { color: #ff9a6c; }
+
+    /* ── CONTACT FRAMEWORK ── */
+    .framework {
+      margin-bottom: 56px;
+    }
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    .contact-zones {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .zone-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    .zone-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #000;
+      font-weight: 900;
+      font-size: 0.9rem;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 12px;
+    }
+    .zone-card h4 { font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 6px; letter-spacing: 0.04em; }
+    .zone-card p { font-size: 0.77rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── GRIP FINDER ── */
+    .finder-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      margin-bottom: 60px;
+    }
+    .finder-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .finder-header .section-label { margin-bottom: 6px; }
+    .finder-header h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .finder-header p { font-size: 0.85rem; color: var(--muted); }
+
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; }
+
+    .quiz-q {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .quiz-step-num {
+      font-size: 0.68rem; letter-spacing: 0.15em; color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .quiz-q h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.5;
+      max-width: 500px;
+      margin: 0 auto 6px;
+    }
+    .quiz-q p { font-size: 0.8rem; color: var(--muted); }
+
+    .quiz-hint {
+      background: rgba(0,212,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 0.8rem;
+      color: var(--subtle);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .quiz-hint strong { color: var(--cyan); }
+
+    .quiz-choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .choice-btn {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .choice-btn:hover {
+      border-color: var(--cyan);
+      background: rgba(0,212,255,0.05);
+      transform: translateY(-1px);
+    }
+    .choice-btn .choice-icon { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+    .choice-btn .choice-label { font-size: 0.85rem; font-weight: 600; color: var(--text); display: block; margin-bottom: 4px; }
+    .choice-btn .choice-desc { font-size: 0.73rem; color: var(--muted); line-height: 1.4; display: block; }
+
+    /* Quiz Result */
+    .quiz-result { display: none; text-align: center; }
+    .quiz-result.visible { display: block; }
+    .result-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      border-radius: 20px;
+      padding: 5px 16px;
+      margin-bottom: 16px;
+    }
+    .result-grip-name {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+    .result-desc {
+      font-size: 0.92rem;
+      color: var(--subtle);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 24px;
+    }
+    .result-traits {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .trait-tag {
+      font-size: 0.73rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--subtle);
+    }
+    .quiz-reset-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.78rem;
+      padding: 8px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .quiz-reset-btn:hover { border-color: var(--subtle); color: var(--text); }
+
+    /* ── GRIP CARDS GRID ── */
+    .grips-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .grips-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 60px;
+    }
+    .grip-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 0;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.2s;
+      cursor: default;
+    }
+    .grip-card:hover { transform: translateY(-3px); }
+    .grip-card.palm:hover  { border-color: rgba(0,255,136,0.4); }
+    .grip-card.claw:hover  { border-color: rgba(255,107,53,0.4); }
+    .grip-card.tip:hover   { border-color: rgba(0,212,255,0.4); }
+
+    .grip-card-header {
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .grip-pill {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      border-radius: 20px;
+      padding: 3px 10px;
+      margin-bottom: 8px;
+    }
+    .palm .grip-pill  { background: rgba(0,255,136,0.12); color: var(--palm); border: 1px solid rgba(0,255,136,0.25); }
+    .claw .grip-pill  { background: rgba(255,107,53,0.12); color: var(--claw); border: 1px solid rgba(255,107,53,0.25); }
+    .tip  .grip-pill  { background: rgba(0,212,255,0.12);  color: var(--tip);  border: 1px solid rgba(0,212,255,0.25);  }
+
+    .grip-card-header h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+    .palm .grip-card-header h3 { color: var(--palm); }
+    .claw .grip-card-header h3 { color: var(--claw); }
+    .tip  .grip-card-header h3 { color: var(--tip);  }
+    .grip-card-header p {
+      font-size: 0.77rem;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    /* SVG Diagram Area */
+    .grip-diagram {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .grip-diagram svg { width: 100%; max-width: 240px; height: auto; }
+
+    .grip-card-body { padding: 18px 22px; }
+
+    .contact-list { list-style: none; margin-bottom: 16px; }
+    .contact-list li {
+      font-size: 0.78rem;
+      color: var(--subtle);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+    .contact-list li:last-child { border-bottom: none; }
+    .contact-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .palm .contact-dot  { background: var(--palm); box-shadow: 0 0 4px var(--palm); }
+    .claw .contact-dot  { background: var(--claw); box-shadow: 0 0 4px var(--claw); }
+    .tip  .contact-dot  { background: var(--tip);  box-shadow: 0 0 4px var(--tip);  }
+
+    .grip-verdict {
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      line-height: 1.55;
+    }
+    .grip-verdict strong { color: var(--subtle); }
+
+    /* ── DEEP DIVE ── */
+    .deep-section {
+      margin-bottom: 48px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .deep-section-header {
+      padding: 28px 32px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .deep-grip-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .palm .deep-grip-icon  { background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.2); }
+    .claw .deep-grip-icon  { background: rgba(255,107,53,0.1); border: 1px solid rgba(255,107,53,0.2); }
+    .tip  .deep-grip-icon  { background: rgba(0,212,255,0.1);  border: 1px solid rgba(0,212,255,0.2);  }
+    .deep-header-text h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .palm .deep-header-text h3 { color: var(--palm); }
+    .claw .deep-header-text h3 { color: var(--claw); }
+    .tip  .deep-header-text h3 { color: var(--tip);  }
+    .deep-header-text p { font-size: 0.82rem; color: var(--muted); }
+
+    .deep-body {
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .deep-col h4 {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .deep-col p {
+      font-size: 0.84rem;
+      color: var(--subtle);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+    .deep-col p strong { color: var(--text); }
+    .pros-cons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .pro-con-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+    .pro-con-box h5 {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .pro-con-box.pros h5 { color: #4ade80; }
+    .pro-con-box.cons h5 { color: #f87171; }
+    .pro-con-box ul { list-style: none; }
+    .pro-con-box ul li {
+      font-size: 0.76rem;
+      color: var(--subtle);
+      padding: 3px 0;
+      line-height: 1.45;
+    }
+    .pro-con-box.pros ul li::before { content: "✓ "; color: #4ade80; }
+    .pro-con-box.cons ul li::before { content: "✗ "; color: #f87171; }
+
+    /* ── COMPARISON TABLE ── */
+    .compare-section { margin-bottom: 60px; }
+    .compare-table-wrap { overflow-x: auto; }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    .compare-table th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    .compare-table th.palm-h { color: var(--palm); }
+    .compare-table th.claw-h { color: var(--claw); }
+    .compare-table th.tip-h  { color: var(--tip);  }
+    .compare-table td {
+      padding: 11px 16px;
+      color: var(--subtle);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .compare-table td:first-child {
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:hover td { background: rgba(255,255,255,0.015); }
+
+    /* ── FAQ ── */
+    .faq-section { margin-bottom: 60px; }
+    .faq-list { display: flex; flex-direction: column; gap: 10px; }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 18px 22px;
+      text-align: left;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .faq-q:hover { color: var(--cyan); }
+    .faq-arrow { transition: transform 0.25s; flex-shrink: 0; color: var(--muted); }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a {
+      display: none;
+      padding: 0 22px 18px;
+      font-size: 0.83rem;
+      color: var(--subtle);
+      line-height: 1.75;
+      border-top: 1px solid var(--border);
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--subtle); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .topbar-nav { position: static; transform: none; justify-content: center; width: 100%; }
+      .topbar { flex-wrap: wrap; gap: 12px; padding: 16px 20px; }
+      .topbar-sub { display: none; }
+      .grips-grid { grid-template-columns: 1fr; }
+      .contact-zones { grid-template-columns: 1fr; }
+      .deep-body { grid-template-columns: 1fr; }
+      .pros-cons-grid { grid-template-columns: 1fr; }
+      .finder-section { padding: 24px 18px; }
+      .quiz-choices { grid-template-columns: 1fr; }
+      .deep-section-header { flex-direction: column; align-items: flex-start; }
+      main { padding: 0 14px 60px; }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.7; }
+      50%       { opacity: 1; }
+    }
+    .contact-glow { animation: pulse-glow 2.2s ease-in-out infinite; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeIn 0.4s ease-out; }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <h1><a href="index.html">REALDPI</a></h1>
+  <span class="topbar-sub">MOUSE GRIP GUIDE</span>
+  <nav class="topbar-nav">
+    <a href="index.html"  class="nav-link">Converter</a>
+    <a href="shape.html"  class="nav-link">Shape Finder</a>
+    <a href="pros.html"   class="nav-link">Pro Settings</a>
+    <a href="grip.html"   class="nav-link nav-link-active">Grip Guide</a>
+    <a href="mice.html"   class="nav-link">All Mice</a>
+    <a href="guide.html"  class="nav-link">DPI Guide</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">DEFINITIVE REFERENCE</div>
+    <h2>Palm, Claw, Fingertip.<br><em>Finally Defined Clearly.</em></h2>
+    <p class="hero-sub">
+      Most guides say "palm grip means your palm touches the mouse."<br>
+      <strong>Which part? How much? What about the fingers?</strong><br>
+      We define grip by contact points — so you can identify yours in 2 questions.
+    </p>
+    <a href="#finder" class="hero-cta">Find My Grip Style →</a>
+  </section>
+
+  <!-- PROBLEM BAR -->
+  <div class="problem-bar">
+    <div class="problem-icon">⚠️</div>
+    <div class="problem-text">
+      <strong>Why people can't identify their own grip:</strong> existing definitions use vague anatomy ("the mouse is held in the palm") without specifying <em>which zone</em> of the palm, or how the fingers arch.
+      Players post hand photos to Reddit asking "is this claw or fingertip?" — that problem ends here.
+      The fix is simple: define grip by three objective contact points, not feel.
+    </div>
+  </div>
+
+  <!-- CONTACT FRAMEWORK -->
+  <section class="framework">
+    <div class="section-label">THE SYSTEM</div>
+    <div class="section-title">Grip = 3 Contact Points</div>
+    <div class="contact-zones">
+      <div class="zone-card">
+        <div class="zone-num">1</div>
+        <h4>HEEL CONTACT</h4>
+        <p>Does the fleshy heel of your palm rest on the <strong>back half</strong> of the mouse? This is the single most diagnostic question.</p>
+      </div>
+      <div class="zone-card">
+        <div class="zone-num">2</div>
+        <h4>FINGER ARCH</h4>
+        <p>Are your middle knuckles visibly <strong>higher than your fingertips</strong>? An arch means claw; flat means palm.</p>
+      </div>
+      <div class="zone-card">
+        <div class="zone-num">3</div>
+        <h4>FINGER CONTACT</h4>
+        <p>Does the <strong>full underside</strong> of your fingers lie on the mouse, or only the tips? This determines control precision.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--              GRIP FINDER QUIZ               -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="finder-section" id="finder">
+    <div class="finder-header">
+      <div class="section-label">INTERACTIVE GRIP FINDER</div>
+      <h3>What's Your Grip?</h3>
+      <p>Answer 2 questions. No guessing required.</p>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="quiz-step active" id="q1">
+      <div class="quiz-q">
+        <div class="quiz-step-num">QUESTION 1 OF 2</div>
+        <h4>Grip your mouse naturally. Does the <em>heel of your palm</em> rest on the back of the mouse?</h4>
+      </div>
+      <div class="quiz-hint">
+        <strong>How to check:</strong> Look at your hand from the side. The "heel" is the fleshy pad at the very base of your palm, below your wrist joint.
+        Does it sit flat on the rear section of the mouse, or is it floating above the surface?
+      </div>
+      <div class="quiz-choices">
+        <button class="choice-btn" onclick="answer(1, 'yes')">
+          <span class="choice-icon">✋</span>
+          <span class="choice-label">Yes, it rests on the mouse</span>
+          <span class="choice-desc">I can feel the back of the mouse pressing against my palm heel</span>
+        </button>
+        <button class="choice-btn" onclick="answer(1, 'no')">
+          <span class="choice-icon">🤏</span>
+          <span class="choice-label">No, it's floating / barely touching</span>
+          <span class="choice-desc">My palm heel is off the mouse or only grazing it lightly</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="quiz-step" id="q2">
+      <div class="quiz-q">
+        <div class="quiz-step-num">QUESTION 2 OF 2</div>
+        <h4>Look at your clicking fingers from the side. Are your <em>knuckles visibly higher</em> than your fingertips?</h4>
+      </div>
+      <div class="quiz-hint">
+        <strong>How to check:</strong> Grip your mouse, then look at your index and middle fingers from the side.
+        Are they arched upward like a cat's claw — knuckles raised, tips touching the buttons?
+        Or are they lying mostly flat against the mouse surface?
+      </div>
+      <div class="quiz-choices">
+        <button class="choice-btn" onclick="answer(2, 'yes')">
+          <span class="choice-icon">🦅</span>
+          <span class="choice-label">Yes — knuckles up, fingers arched</span>
+          <span class="choice-desc">My fingers curve upward; only the tips touch the mouse buttons</span>
+        </button>
+        <button class="choice-btn" onclick="answer(2, 'no')">
+          <span class="choice-icon">🤚</span>
+          <span class="choice-label">No — fingers are mostly flat</span>
+          <span class="choice-desc">My fingers lie flat or gently curved against the mouse surface</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="quiz-result" id="quiz-result">
+      <!-- Filled by JS -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--              THREE GRIP CARDS               -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label" style="text-align:center; margin-bottom:10px;">ALL THREE GRIPS</div>
+  <div class="grips-title">Contact Point Breakdown</div>
+
+  <div class="grips-grid">
+
+    <!-- PALM -->
+    <div class="grip-card palm">
+      <div class="grip-card-header">
+        <span class="grip-pill">PALM GRIP</span>
+        <h3>Full Contact</h3>
+        <p>Whole hand cradles the mouse</p>
+      </div>
+      <div class="grip-diagram">
+        <!-- Side-view SVG: Palm Grip -->
+        <svg viewBox="0 0 240 148" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Mouse body -->
+          <path d="M 18,133 L 18,84 C 22,66 48,57 78,54 C 118,50 162,55 190,72 C 205,82 206,100 206,116 L 206,133 Z"
+                fill="#0a0e16" stroke="#1e2d3d" stroke-width="1.5"/>
+          <!-- Mouse shadow/desk -->
+          <line x1="12" y1="133" x2="218" y2="133" stroke="#1e2d3d" stroke-width="1"/>
+
+          <!-- PALM: Full contact overlay on mouse top -->
+          <path d="M 18,84 C 22,66 48,57 78,54 C 118,50 162,55 190,72"
+                stroke="rgba(0,255,136,0.35)" stroke-width="5" stroke-linecap="round" class="contact-glow"/>
+
+          <!-- Palm heel block -->
+          <rect x="10" y="68" width="32" height="65" rx="6"
+                fill="rgba(0,255,136,0.1)" stroke="#00ff88" stroke-width="1.2"/>
+          <text x="26" y="101" fill="#00ff88" font-size="8" text-anchor="middle" font-family="Inter" font-weight="600">HEEL</text>
+
+          <!-- Finger segments — flat/lying down -->
+          <path d="M 42,72 L 90,57 L 148,52 L 188,66"
+                stroke="#00ff88" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.85"/>
+
+          <!-- Middle knuckle indicator (low = flat) -->
+          <path d="M 90,57 L 148,52" stroke="rgba(0,255,136,0.4)" stroke-width="2" stroke-dasharray="3,2"/>
+          <circle cx="120" cy="54" r="4" fill="#00ff88" opacity="0.6"/>
+          <text x="120" y="44" fill="#00ff88" font-size="7.5" text-anchor="middle" font-family="Inter" opacity="0.8">flat</text>
+
+          <!-- Fingertip contact dot -->
+          <circle cx="190" cy="66" r="6" fill="#00ff88" class="contact-glow"/>
+
+          <!-- Contact zone labels -->
+          <text x="35" y="140" fill="#00ff88" font-size="7" text-anchor="middle" font-family="Inter" opacity="0.6">heel</text>
+          <text x="110" y="140" fill="#00ff88" font-size="7" text-anchor="middle" font-family="Inter" opacity="0.6">fingers</text>
+          <text x="192" y="140" fill="#00ff88" font-size="7" text-anchor="middle" font-family="Inter" opacity="0.6">tips</text>
+        </svg>
+      </div>
+      <div class="grip-card-body">
+        <ul class="contact-list">
+          <li><span class="contact-dot"></span>Palm heel: <strong>full contact</strong> on rear of mouse</li>
+          <li><span class="contact-dot"></span>Fingers: <strong>flat or gently curved</strong>, lying on mouse</li>
+          <li><span class="contact-dot"></span>Fingertips: contact buttons, but whole finger touches too</li>
+          <li><span class="contact-dot"></span>Movement: <strong>entire wrist + arm</strong>, minimal finger flex</li>
+        </ul>
+        <div class="grip-verdict">
+          <strong>One sentence:</strong> Your whole hand is in contact — from heel to fingertip — and you move the mouse as a single unit with your wrist.
+        </div>
+      </div>
+    </div>
+
+    <!-- CLAW -->
+    <div class="grip-card claw">
+      <div class="grip-card-header">
+        <span class="grip-pill">CLAW GRIP</span>
+        <h3>Arch + Heel</h3>
+        <p>Heel down, knuckles raised</p>
+      </div>
+      <div class="grip-diagram">
+        <!-- Side-view SVG: Claw Grip -->
+        <svg viewBox="0 0 240 148" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Mouse body -->
+          <path d="M 18,133 L 18,84 C 22,66 48,57 78,54 C 118,50 162,55 190,72 C 205,82 206,100 206,116 L 206,133 Z"
+                fill="#0a0e16" stroke="#1e2d3d" stroke-width="1.5"/>
+          <line x1="12" y1="133" x2="218" y2="133" stroke="#1e2d3d" stroke-width="1"/>
+
+          <!-- No middle contact (dashed) -->
+          <path d="M 18,84 C 22,66 48,57 78,54 C 118,50 162,55 190,72"
+                stroke="rgba(255,107,53,0.12)" stroke-width="3" stroke-dasharray="5,4"/>
+
+          <!-- Palm heel — active contact -->
+          <rect x="10" y="68" width="32" height="65" rx="6"
+                fill="rgba(0,255,136,0.1)" stroke="#00ff88" stroke-width="1.2" class="contact-glow"/>
+          <text x="26" y="101" fill="#00ff88" font-size="8" text-anchor="middle" font-family="Inter" font-weight="600">HEEL</text>
+
+          <!-- Arched finger path (goes UP then DOWN) -->
+          <path d="M 42,75 C 65,68 90,30 130,24 C 160,20 180,50 190,68"
+                stroke="#ff6b35" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.9"/>
+
+          <!-- Knuckle peak marker -->
+          <circle cx="124" cy="24" r="6" fill="#ff6b35" class="contact-glow"/>
+          <text x="124" y="14" fill="#ff6b35" font-size="8" text-anchor="middle" font-family="Inter" font-weight="700">KNUCKLES UP</text>
+
+          <!-- Gap / floating zone indicator -->
+          <path d="M 82,52 L 82,84" stroke="rgba(255,107,53,0.25)" stroke-width="1" stroke-dasharray="3,3"/>
+          <path d="M 155,57 L 155,84" stroke="rgba(255,107,53,0.25)" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="118" y="96" fill="rgba(255,107,53,0.45)" font-size="7.5" text-anchor="middle" font-family="Inter">no contact</text>
+
+          <!-- Fingertip contact (only tip touches) -->
+          <circle cx="190" cy="69" r="6" fill="#00ff88" class="contact-glow"/>
+
+          <!-- Labels -->
+          <text x="35" y="140" fill="#00ff88" font-size="7" text-anchor="middle" font-family="Inter" opacity="0.6">heel ✓</text>
+          <text x="118" y="140" fill="#ff6b35" font-size="7" text-anchor="middle" font-family="Inter" opacity="0.6">floating ✗</text>
+          <text x="193" y="140" fill="#00ff88" font-size="7" text-anchor="middle" font-family="Inter" opacity="0.6">tips ✓</text>
+        </svg>
+      </div>
+      <div class="grip-card-body">
+        <ul class="contact-list">
+          <li><span class="contact-dot"></span>Palm heel: <strong>partial contact</strong> on rear of mouse</li>
+          <li><span class="contact-dot"></span>Fingers: <strong>arched upward</strong> — middle phalanx floats</li>
+          <li><span class="contact-dot"></span>Fingertips: <strong>only the tips</strong> contact the buttons</li>
+          <li><span class="contact-dot"></span>Movement: <strong>wrist + finger clicks</strong>, faster actuation</li>
+        </ul>
+        <div class="grip-verdict">
+          <strong>One sentence:</strong> Heel rests on mouse, but fingers arch up so only the knuckle-to-tip segment contacts — creating the characteristic "claw" shape.
+        </div>
+      </div>
+    </div>
+
+    <!-- FINGERTIP -->
+    <div class="grip-card tip">
+      <div class="grip-card-header">
+        <span class="grip-pill">FINGERTIP GRIP</span>
+        <h3>Tips Only</h3>
+        <p>Palm floats free</p>
+      </div>
+      <div class="grip-diagram">
+        <!-- Side-view SVG: Fingertip Grip -->
+        <svg viewBox="0 0 240 148" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Mouse body -->
+          <path d="M 18,133 L 18,84 C 22,66 48,57 78,54 C 118,50 162,55 190,72 C 205,82 206,100 206,116 L 206,133 Z"
+                fill="#0a0e16" stroke="#1e2d3d" stroke-width="1.5"/>
+          <line x1="12" y1="133" x2="218" y2="133" stroke="#1e2d3d" stroke-width="1"/>
+
+          <!-- No contact on most of mouse -->
+          <path d="M 18,84 C 22,66 48,57 78,54 C 118,50 162,55 190,72"
+                stroke="rgba(0,212,255,0.08)" stroke-width="2" stroke-dasharray="5,4"/>
+
+          <!-- Palm floating — behind/above mouse, NOT touching -->
+          <rect x="4" y="52" width="28" height="52" rx="6"
+                fill="rgba(100,116,139,0.08)" stroke="#64748b" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="18" y="46" fill="#64748b" font-size="7.5" text-anchor="middle" font-family="Inter">floating</text>
+          <!-- Float arrow -->
+          <path d="M 18,53 L 18,44" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/>
+
+          <!-- Fingers reaching forward with extension -->
+          <path d="M 32,72 C 70,55 120,44 175,62"
+                stroke="#00d4ff" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.75"/>
+
+          <!-- No heel contact zone -->
+          <text x="40" y="100" fill="rgba(100,116,139,0.5)" font-size="7.5" text-anchor="middle" font-family="Inter">palm free</text>
+
+          <!-- Only fingertip contact — bright, prominent -->
+          <circle cx="178" cy="63" r="8" fill="#00d4ff" class="contact-glow"/>
+          <circle cx="178" cy="63" r="14" fill="rgba(0,212,255,0.1)" class="contact-glow"/>
+
+          <!-- Labels -->
+          <text x="18" y="140" fill="#64748b" font-size="7" text-anchor="middle" font-family="Inter" opacity="0.6">heel ✗</text>
+          <text x="105" y="140" fill="#64748b" font-size="7" text-anchor="middle" font-family="Inter" opacity="0.6">fingers ✗</text>
+          <text x="185" y="140" fill="#00d4ff" font-size="7" text-anchor="middle" font-family="Inter" opacity="0.8">tips ONLY ✓</text>
+        </svg>
+      </div>
+      <div class="grip-card-body">
+        <ul class="contact-list">
+          <li><span class="contact-dot"></span>Palm heel: <strong>no contact</strong> — hovers above mouse</li>
+          <li><span class="contact-dot"></span>Fingers: extended or slightly arched, <strong>not resting</strong></li>
+          <li><span class="contact-dot"></span>Fingertips: <strong>only the very tips</strong> pinch the mouse</li>
+          <li><span class="contact-dot"></span>Movement: <strong>finger-only</strong> micro-movements + wrist</li>
+        </ul>
+        <div class="grip-verdict">
+          <strong>One sentence:</strong> The palm never lands — you're essentially pinching the mouse with fingertips alone, giving maximum precision at the cost of grip stability.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /grips-grid -->
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--              DEEP DIVE SECTIONS             -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <!-- PALM DEEP DIVE -->
+  <div class="deep-section palm">
+    <div class="deep-section-header">
+      <div class="deep-grip-icon">🤚</div>
+      <div class="deep-header-text">
+        <h3>PALM GRIP — In Depth</h3>
+        <p>The most natural grip for most people. Often used without conscious awareness.</p>
+      </div>
+    </div>
+    <div class="deep-body">
+      <div class="deep-col">
+        <h4>HOW IT WORKS</h4>
+        <p>In palm grip, the <strong>entire underside of your hand</strong> is in contact with the mouse. The heel of your palm rests on the rear of the mouse, your fingers lie mostly flat along the body, and your thumb and ring/pinky fingers grip the sides.</p>
+        <p>Because the mouse is fully cradled, you move it as a <strong>single rigid unit</strong> — all movement comes from wrist rotation and forearm sweeping. There is minimal independent finger movement during aiming.</p>
+        <p>The mouse size matters most here: the back hump of the mouse should <strong>fill your palm</strong> comfortably. A too-small mouse forces your palm into claw position involuntarily.</p>
+        <h4 style="margin-top:20px;">WHO USES IT</h4>
+        <p>Players who prefer <strong>large sweeping movements</strong>, low DPI, and arm-aiming. Common in CS2 and VALORANT pros who use very low sensitivity (400 DPI, 1.0–2.0 in-game). The larger the mousepad movement, the more natural palm grip becomes.</p>
+      </div>
+      <div class="deep-col">
+        <div class="pros-cons-grid">
+          <div class="pro-con-box pros">
+            <h5>ADVANTAGES</h5>
+            <ul>
+              <li>Most stable — whole hand controls movement</li>
+              <li>Less fatigue in long sessions</li>
+              <li>Natural for large, sweeping aim</li>
+              <li>Good for low-DPI / arm aim</li>
+              <li>Easy to learn, feels intuitive</li>
+            </ul>
+          </div>
+          <div class="pro-con-box cons">
+            <h5>TRADE-OFFS</h5>
+            <ul>
+              <li>Slower click actuation</li>
+              <li>Less finger-flick precision</li>
+              <li>Requires larger mouse</li>
+              <li>Micro-adjustments are harder</li>
+              <li>Less ideal for small, fast movements</li>
+            </ul>
+          </div>
+        </div>
+        <div style="margin-top:14px; background:rgba(0,255,136,0.04); border:1px solid rgba(0,255,136,0.15); border-radius:10px; padding:14px;">
+          <div style="font-size:0.7rem; color:var(--palm); font-weight:700; letter-spacing:0.12em; margin-bottom:8px;">IDEAL MOUSE SIZE</div>
+          <p style="font-size:0.8rem; color:var(--subtle); line-height:1.6;">Length 120–135mm, Width 64–72mm. The mouse back hump should reach the first knuckle of your fingers when gripped. If your fingers curl significantly, the mouse is too small.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLAW DEEP DIVE -->
+  <div class="deep-section claw">
+    <div class="deep-section-header">
+      <div class="deep-grip-icon">🦅</div>
+      <div class="deep-header-text">
+        <h3>CLAW GRIP — In Depth</h3>
+        <p>The "hybrid" grip. Palm stability combined with rapid finger clicks.</p>
+      </div>
+    </div>
+    <div class="deep-body">
+      <div class="deep-col">
+        <h4>HOW IT WORKS</h4>
+        <p>Claw grip keeps <strong>palm heel contact</strong> at the rear of the mouse, but the fingers are arched — knuckles raised, creating a gap between the middle of the finger and the mouse surface. <strong>Only the fingertips contact the buttons.</strong></p>
+        <p>This arch is the defining feature. It pre-tensions the finger extensors, enabling <strong>faster click actuation</strong> than palm grip while maintaining the stability of heel contact. The finger essentially "snaps" down to click and springs back immediately.</p>
+        <p>The transition zone between claw and palm is gradual — many players use a "relaxed claw" where the arch is subtle. If your knuckles are measurably higher than your fingertips, it's claw.</p>
+        <h4 style="margin-top:20px;">WHO USES IT</h4>
+        <p>Very common among <strong>high-level FPS players</strong>. Preferred when click speed matters (burst fire, jitter aim). Zywoo, s1mple, and many top CS2 pros are observed using claw or relaxed-claw grip.</p>
+      </div>
+      <div class="deep-col">
+        <div class="pros-cons-grid">
+          <div class="pro-con-box pros">
+            <h5>ADVANTAGES</h5>
+            <ul>
+              <li>Fast click actuation</li>
+              <li>Good balance of aim + click speed</li>
+              <li>Works with medium-sized mice</li>
+              <li>Wrist aim still accessible</li>
+              <li>Natural for medium DPI</li>
+            </ul>
+          </div>
+          <div class="pro-con-box cons">
+            <h5>TRADE-OFFS</h5>
+            <ul>
+              <li>Finger strain over long sessions</li>
+              <li>Less stable than palm for flicks</li>
+              <li>Harder to sustain in long games</li>
+              <li>Requires deliberate practice</li>
+            </ul>
+          </div>
+        </div>
+        <div style="margin-top:14px; background:rgba(255,107,53,0.04); border:1px solid rgba(255,107,53,0.15); border-radius:10px; padding:14px;">
+          <div style="font-size:0.7rem; color:var(--claw); font-weight:700; letter-spacing:0.12em; margin-bottom:8px;">IDEAL MOUSE SIZE</div>
+          <p style="font-size:0.8rem; color:var(--subtle); line-height:1.6;">Length 115–130mm, Width 58–68mm. A slightly shorter/taller rear hump helps the palm heel land correctly. Mice with sharp button angle (like Zowie EC series) are naturally suited.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINGERTIP DEEP DIVE -->
+  <div class="deep-section tip">
+    <div class="deep-section-header">
+      <div class="deep-grip-icon">👆</div>
+      <div class="deep-header-text">
+        <h3>FINGERTIP GRIP — In Depth</h3>
+        <p>Maximum precision, maximum control demand. The most technically difficult grip.</p>
+      </div>
+    </div>
+    <div class="deep-body">
+      <div class="deep-col">
+        <h4>HOW IT WORKS</h4>
+        <p>Fingertip grip removes palm contact entirely. <strong>The heel of your palm hovers</strong> — it may graze the mousepad but does not rest on the mouse body. The mouse is controlled purely by the fingertips, with thumb and side fingers providing a "pinch" force.</p>
+        <p>Without heel contact, the mouse is effectively <strong>floating in a finger cage</strong>. This enables ultra-fast micro-corrections but requires significant finger strength and consistency — every movement is amplified because the lever arm is shorter.</p>
+        <p>Often confused with claw grip because both use arched fingers. The <strong>key diagnostic</strong>: lift your palm up 5mm from the mousepad. In fingertip grip, your aim control should not change. In claw grip, you'll immediately feel unstable.</p>
+        <h4 style="margin-top:20px;">WHO USES IT</h4>
+        <p>Less common at the pro level, but used by players with smaller hands or those who prefer <strong>very high DPI</strong> and short movement distances. Works best on a smaller, lighter mouse.</p>
+      </div>
+      <div class="deep-col">
+        <div class="pros-cons-grid">
+          <div class="pro-con-box pros">
+            <h5>ADVANTAGES</h5>
+            <ul>
+              <li>Maximum fine-motor precision</li>
+              <li>Works with small, light mice</li>
+              <li>Fastest directional change</li>
+              <li>High DPI friendly</li>
+              <li>Low friction / free movement</li>
+            </ul>
+          </div>
+          <div class="pro-con-box cons">
+            <h5>TRADE-OFFS</h5>
+            <ul>
+              <li>Least stable under stress</li>
+              <li>Requires strong finger control</li>
+              <li>Flicks are harder to control</li>
+              <li>Significant skill floor</li>
+              <li>Fatigue in long sessions</li>
+            </ul>
+          </div>
+        </div>
+        <div style="margin-top:14px; background:rgba(0,212,255,0.04); border:1px solid rgba(0,212,255,0.15); border-radius:10px; padding:14px;">
+          <div style="font-size:0.7rem; color:var(--tip); font-weight:700; letter-spacing:0.12em; margin-bottom:8px;">IDEAL MOUSE SIZE</div>
+          <p style="font-size:0.8rem; color:var(--subtle); line-height:1.6;">Length 110–125mm, Width 55–63mm. Lighter is better — sub-60g preferred. The mouse needs to be small enough to be fully controlled by fingertip span. Symmetrical shapes (like Logitech G Pro X Superlight) work well.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--            COMPARISON TABLE                 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="compare-section">
+    <div class="section-label">AT A GLANCE</div>
+    <div class="section-title" style="margin-bottom:20px;">Side-by-Side Comparison</div>
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="palm-h">PALM GRIP</th>
+            <th class="claw-h">CLAW GRIP</th>
+            <th class="tip-h">FINGERTIP GRIP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Palm heel contact</td>
+            <td style="color:var(--palm)">Full — rests flat on rear</td>
+            <td style="color:var(--claw)">Partial — heel only</td>
+            <td style="color:var(--muted)">None — hovers</td>
+          </tr>
+          <tr>
+            <td>Finger arch</td>
+            <td>Flat to slightly curved</td>
+            <td style="color:var(--claw)">Raised — claw arch</td>
+            <td>Extended / elevated</td>
+          </tr>
+          <tr>
+            <td>Finger contact zone</td>
+            <td style="color:var(--palm)">Full finger underside</td>
+            <td>Tips only</td>
+            <td>Tips only (elevated)</td>
+          </tr>
+          <tr>
+            <td>Primary movement</td>
+            <td>Wrist + arm</td>
+            <td>Wrist + fingers</td>
+            <td>Fingers + micro wrist</td>
+          </tr>
+          <tr>
+            <td>Click speed</td>
+            <td>Moderate</td>
+            <td style="color:var(--palm)">Fast</td>
+            <td style="color:var(--palm)">Fast</td>
+          </tr>
+          <tr>
+            <td>Aim stability</td>
+            <td style="color:var(--palm)">High</td>
+            <td>Medium-High</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td>Ideal DPI range</td>
+            <td>400–1200</td>
+            <td>400–1600</td>
+            <td>800–3200</td>
+          </tr>
+          <tr>
+            <td>Mouse size</td>
+            <td>Medium–Large</td>
+            <td>Small–Medium</td>
+            <td style="color:var(--tip)">Small</td>
+          </tr>
+          <tr>
+            <td>Session comfort</td>
+            <td style="color:var(--palm)">Highest</td>
+            <td>Moderate</td>
+            <td>Lower</td>
+          </tr>
+          <tr>
+            <td>Skill floor</td>
+            <td style="color:var(--palm)">Low — easy to learn</td>
+            <td>Medium</td>
+            <td>High — hardest</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--                    FAQ                      -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="faq-section">
+    <div class="section-label">FREQUENTLY ASKED</div>
+    <div class="section-title" style="margin-bottom:20px;">Common Questions</div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What's the difference between claw and fingertip grip?
+          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a">
+          The single defining difference is <strong>palm heel contact</strong>. In claw grip, your palm heel rests on the back of the mouse. In fingertip grip, your palm hovers and never makes contact with the mouse body. Both grips use arched fingers and only fingertips touching the buttons — but claw has that heel anchor point, fingertip does not.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is one grip style better for gaming?
+          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a">
+          No grip is objectively superior — top pro players use all three. Palm grip is more stable for large tracking movements. Claw grip offers faster click actuation while maintaining stability. Fingertip enables the fastest micro-corrections. The "best" grip is the one that feels most natural for your hand size, DPI preference, and the games you play. Changing grips rarely improves performance unless your current grip is causing physical discomfort.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can my grip style be a hybrid between two types?
+          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a">
+          Yes — "relaxed claw" is extremely common and sits between palm and claw. The heel touches, but the finger arch is subtle rather than aggressive. Many players naturally gravitate here. For identification purposes, if your knuckles are measurably higher than your fingertips, classify it as claw. If they're roughly the same height, classify it as palm.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Does grip style affect which mouse I should buy?
+          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a">
+          Significantly. Palm grip requires the mouse to fill your hand — too small and your fingers will involuntarily arch into claw position. Fingertip grip works best with compact, light mice that fit entirely within your fingertip span. Claw grip is the most forgiving of mouse size. Check the <a href="shape.html" style="color:var(--cyan)">Shape Finder</a> to find mice matched to your hand dimensions and grip style.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Should I change my grip style to improve at FPS games?
+          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a">
+          Only if your current grip is causing wrist pain or your mouse is the wrong size for your grip type. Changing grips takes weeks of re-adaptation and often leads to temporary performance drops. If you're comfortable and pain-free, keep your current grip. If you're using palm grip on a mouse that's too small (forcing your fingers to arch), switching to the correct mouse size may naturally realign your grip.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What grip do most pro gamers use?
+          <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-a">
+          Analysis of high-level CS2 and VALORANT pros shows claw and relaxed-claw grips are most prevalent (roughly 45–50%), followed by palm (30–35%), and fingertip (15–20%). However, these numbers vary by game — VALORANT sees more fingertip usage due to the high-DPI, precise aim style it rewards.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>© 2025 RealDPI — <a href="privacy.html">Privacy</a></span>
+  <span>
+    <a href="index.html">Converter</a> ·
+    <a href="shape.html">Shape Finder</a> ·
+    <a href="pros.html">Pro Settings</a> ·
+    <a href="guide.html">DPI Guide</a>
+  </span>
+</footer>
+
+
+<script>
+  // ── QUIZ LOGIC ──
+  let q1answer = null;
+
+  function answer(question, val) {
+    if (question === 1) {
+      q1answer = val;
+      if (val === 'no') {
+        // Fingertip grip - skip Q2
+        showResult('fingertip');
+      } else {
+        // Show Q2
+        document.getElementById('q1').classList.remove('active');
+        document.getElementById('q2').classList.add('active', 'fade-in');
+      }
+    } else if (question === 2) {
+      if (val === 'yes') {
+        showResult('claw');
+      } else {
+        showResult('palm');
+      }
+    }
+  }
+
+  const gripData = {
+    palm: {
+      name: 'PALM GRIP',
+      color: '#00ff88',
+      colorBg: 'rgba(0,255,136,0.08)',
+      colorBorder: 'rgba(0,255,136,0.25)',
+      desc: 'Your whole hand cradles the mouse. The heel of your palm rests on the back, and your fingers lie mostly flat. You move the mouse as a single unit, primarily with your wrist and arm.',
+      traits: ['Palm heel: full contact', 'Fingers: flat / low arch', 'Movement: wrist + arm', 'Best for: low DPI, large pads']
+    },
+    claw: {
+      name: 'CLAW GRIP',
+      color: '#ff6b35',
+      colorBg: 'rgba(255,107,53,0.08)',
+      colorBorder: 'rgba(255,107,53,0.25)',
+      desc: 'Your palm heel rests on the mouse, but your fingers are arched upward — knuckles raised, only the fingertips touching the buttons. This enables fast clicks while keeping wrist stability.',
+      traits: ['Palm heel: resting on mouse', 'Fingers: arched — knuckles up', 'Movement: wrist + finger clicks', 'Best for: click speed + stability']
+    },
+    fingertip: {
+      name: 'FINGERTIP GRIP',
+      color: '#00d4ff',
+      colorBg: 'rgba(0,212,255,0.08)',
+      colorBorder: 'rgba(0,212,255,0.25)',
+      desc: 'Only your fingertips touch the mouse — your palm hovers free. The mouse is pinched and controlled by fingers alone, enabling maximum precision at close range.',
+      traits: ['Palm heel: floating / no contact', 'Fingers: tips only', 'Movement: finger-driven', 'Best for: high DPI, small mice']
+    }
+  };
+
+  function showResult(type) {
+    const data = gripData[type];
+    const resultEl = document.getElementById('quiz-result');
+
+    resultEl.innerHTML = `
+      <div class="fade-in" style="border:1px solid ${data.colorBorder}; background:${data.colorBg}; border-radius:14px; padding:32px 24px;">
+        <div class="result-badge" style="background:${data.colorBg}; border:1px solid ${data.colorBorder}; color:${data.color};">
+          YOUR GRIP
+        </div>
+        <div class="result-grip-name" style="color:${data.color}">${data.name}</div>
+        <p class="result-desc">${data.desc}</p>
+        <div class="result-traits">
+          ${data.traits.map(t => `<span class="trait-tag">${t}</span>`).join('')}
+        </div>
+        <button class="quiz-reset-btn" onclick="resetQuiz()">← Try again</button>
+      </div>
+    `;
+
+    document.getElementById('q1').classList.remove('active');
+    document.getElementById('q2').classList.remove('active');
+    resultEl.classList.add('visible');
+
+    // Scroll to result
+    setTimeout(() => resultEl.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+  }
+
+  function resetQuiz() {
+    q1answer = null;
+    document.getElementById('q1').classList.add('active');
+    document.getElementById('q2').classList.remove('active');
+    document.getElementById('quiz-result').classList.remove('visible');
+    document.getElementById('quiz-result').innerHTML = '';
+    document.getElementById('finder').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── FAQ TOGGLE ──
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+
+</body>
+</html>
