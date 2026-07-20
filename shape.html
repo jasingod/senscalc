@@ -628,6 +628,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="instr-num">4</div>
           <span>Results update live — adjust grip width to see different recommendations</span>
         </div>
+        <div class="instr-step">
+          <div class="instr-num">5</div>
+          <span>Hold the <strong style="color:var(--text);">same grip still for 3 seconds</strong> — the recommended mouse on the right <strong style="color:var(--cyan);">locks automatically</strong>, so you can move your hand to your actual mouse and click freely</span>
+        </div>
       </div>
 
       <div class="camera-wrap">
@@ -644,7 +648,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="dot"></div>
           <span id="scanText">WAITING</span>
         </div>
+        <div id="countdownOverlay" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Orbitron',monospace;font-weight:900;font-size:clamp(64px,22vw,120px);color:var(--purple);text-shadow:0 0 24px rgba(139,92,246,0.85),0 0 60px rgba(139,92,246,0.5);pointer-events:none;line-height:1;"></div>
       </div>
+
+      <button class="btn-start" id="scanAgainBtn" onclick="unlockResults()"
+        style="display:none;background:linear-gradient(120deg,var(--purple) 0%,var(--cyan) 100%);margin-top:10px;">
+        🔄 SCAN AGAIN
+      </button>
 
       <div id="debugPanel" style="display:none;background:#000;color:#0f0;font-family:monospace;font-size:10px;line-height:1.5;padding:8px;margin-top:8px;border-radius:6px;white-space:pre-wrap;word-break:break-all;"></div>
 
@@ -2101,13 +2111,17 @@ let stableSince    = null;
 function lockResults() {
   if (locked) return;
   locked = true;
-  const btn = document.getElementById('lockBtn');
-  const sub = document.getElementById('resultsSubtitle');
+  const btn      = document.getElementById('lockBtn');
+  const sub      = document.getElementById('resultsSubtitle');
+  const again    = document.getElementById('scanAgainBtn');
+  const cdOverlay = document.getElementById('countdownOverlay');
   btn.textContent = '🔒 Unlock';
   btn.style.borderColor = 'var(--cyan)';
   btn.style.color = 'var(--cyan)';
   if (!sub.dataset.prev) sub.dataset.prev = sub.textContent;
-  sub.textContent = 'Locked — move your hand away and use your mouse to compare or buy. Tap Unlock to scan again.';
+  sub.textContent = 'Locked — move your hand away and use your mouse to compare or buy. Tap "Scan Again" when you\'re ready for a new match.';
+  again.style.display = 'block';
+  cdOverlay.style.display = 'none';
 }
 
 function unlockResults() {
@@ -2115,12 +2129,14 @@ function unlockResults() {
   locked = false;
   stableTopMatch = null;
   stableSince = null;
-  const btn = document.getElementById('lockBtn');
-  const sub = document.getElementById('resultsSubtitle');
+  const btn   = document.getElementById('lockBtn');
+  const sub   = document.getElementById('resultsSubtitle');
+  const again = document.getElementById('scanAgainBtn');
   btn.textContent = '🔓 Lock';
   btn.style.borderColor = '';
   btn.style.color = '';
   if (sub.dataset.prev) { sub.textContent = sub.dataset.prev; delete sub.dataset.prev; }
+  again.style.display = 'none';
 }
 
 function toggleLock() {
@@ -2148,10 +2164,11 @@ function updateHandLength(val) {
 }
 
 function onResults(results) {
-  const video   = document.getElementById('videoEl');
-  const canvas  = document.getElementById('canvasEl');
-  const badge   = document.getElementById('scanBadge');
-  const scanTxt = document.getElementById('scanText');
+  const video     = document.getElementById('videoEl');
+  const canvas    = document.getElementById('canvasEl');
+  const badge     = document.getElementById('scanBadge');
+  const scanTxt   = document.getElementById('scanText');
+  const cdOverlay = document.getElementById('countdownOverlay');
 
   debugResultCount++;
   const numHands = results.landmarks ? results.landmarks.length : 0;
@@ -2172,6 +2189,7 @@ function onResults(results) {
       if (locked) {
         badge.classList.add('locked-state');
         scanTxt.textContent = 'LOCKED ✓';
+        cdOverlay.style.display = 'none';
       } else {
         const ranked = rankMice(hand);
         renderResults(ranked, hand);
@@ -2194,8 +2212,13 @@ function onResults(results) {
           scanTxt.textContent = 'LOCKED ✓';
         } else {
           badge.classList.add('counting');
-          const remain = Math.ceil((HOLD_MS - heldMs) / 1000);
+          const remainMs = HOLD_MS - heldMs;
+          const remain = Math.ceil(remainMs / 1000);
           scanTxt.textContent = 'HOLD STILL — LOCKING IN ' + remain + 's';
+          // Big on-screen countdown only ticks over in the final 3 whole
+          // seconds so it reads as a clear "3…2…1" rather than a blur.
+          cdOverlay.textContent = remain;
+          cdOverlay.style.display = 'block';
         }
       }
     }
@@ -2203,6 +2226,7 @@ function onResults(results) {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     badge.classList.remove('active', 'counting');
+    cdOverlay.style.display = 'none';
     if (!locked) { stableTopMatch = null; stableSince = null; }
     // Keep showing LOCKED (not NO HAND DETECTED) while locked, since the
     // whole point is letting the user move their hand away to click freely.
