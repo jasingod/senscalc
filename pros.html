@@ -346,7 +346,6 @@
       <a href="/" class="nav-link">Calculator</a>
       <a href="pros.html" class="nav-link nav-link-active">Pro Setups</a>
       <a href="shape.html" class="nav-link">Shape Finder</a>
-      <a href="grip.html" class="nav-link">Grip Guide</a>
       <a href="mice.html" class="nav-link">All Mice</a>
     </nav>
   </div>
@@ -355,6 +354,25 @@
     <h2 class="page-title">Pro Player Setups</h2>
     <p class="page-sub">Browse professional esports mouse settings. Click <strong>Match Sensitivity</strong> to auto-fill the calculator with any pro's setup.</p>
   </header>
+
+  <div style="max-width:820px;margin:0 auto;padding:0 20px 8px;">
+    <div style="border-top:1px solid var(--border);padding-top:26px;">
+      <h2 style="font-size:0.8rem;font-weight:700;color:var(--subtle);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">About This Database</h2>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.85;margin-bottom:12px;">
+        The settings listed here are collected from official team equipment pages, verified player interviews, and
+        configuration files players have shared publicly themselves. Hardware sponsorships and personal preferences
+        change often — sometimes mid-season — so every entry is checked against the most recent public source before
+        it's added or updated. If you spot a setting that looks out of date, let us know at
+        <a href="mailto:jasingod@gmail.com" style="color:var(--cyan);text-decoration:none;">jasingod@gmail.com</a> and we'll verify and correct it.
+      </p>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.85;">
+        We show <strong style="color:var(--subtle);">eDPI</strong> (effective DPI) alongside raw DPI because raw DPI alone
+        doesn't describe how fast a player's crosshair actually moves — it has to be paired with their in-game sensitivity
+        multiplier. eDPI = mouse DPI × in-game sensitivity, and it's the number that stays comparable across players
+        even when they use completely different DPI and sensitivity combinations to reach it.
+      </p>
+    </div>
+  </div>
 
   <div class="game-tabs">
     <button class="tab-btn tab-active" onclick="switchTab('cs2', this)">CS2</button>
@@ -474,6 +492,30 @@
           <tbody></tbody>
         </table>
       </div>
+    </div>
+  </div>
+
+  <div style="max-width:820px;margin:8px auto 0;padding:0 20px 48px;">
+    <div style="border-top:1px solid var(--border);padding-top:28px;">
+      <h2 style="font-size:0.8rem;font-weight:700;color:var(--subtle);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">Sensitivity Trends by Game</h2>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.85;margin-bottom:12px;">
+        CS2 and VALORANT pros trend toward comparatively low eDPI — most cluster between 200 and 400 — because both
+        games reward precise, controlled micro-adjustments during long-range duels, and a slower crosshair speed
+        reduces overcorrection under pressure. Fortnite and Apex Legends players tend to run noticeably higher eDPI,
+        since both games demand fast target acquisition across a wider field of view and frequent close-range flicks
+        during building or movement-heavy fights.
+      </p>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.85;margin-bottom:12px;">
+        None of this means you should copy a pro's exact number. Their sensitivity was tuned around thousands of
+        hours of muscle memory, a specific mousepad size, and a desk setup you don't share. What's actually useful
+        is the range: if your current eDPI is wildly outside what any competitive player in your game uses, that's
+        a signal worth testing a change — not a rule to follow blindly.
+      </p>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.85;">
+        Click <strong style="color:var(--subtle);">Match Sensitivity</strong> on any row to load that player's DPI
+        directly into the <a href="index.html" style="color:var(--cyan);text-decoration:none;">RealDPI calculator</a>,
+        then pick your own mouse to see the equivalent setting that preserves the same real tracking speed.
+      </p>
     </div>
   </div>
 
