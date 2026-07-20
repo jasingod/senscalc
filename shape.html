@@ -2161,14 +2161,16 @@ async function buildHandLandmarker(delegate) {
   });
 }
 
-// Mobile GPU delegates (float16) are known to lose precision at fingertip
-// landmarks on many Android/iOS devices — prefer CPU (float32) there, even
-// though it's a bit slower to initialize. Desktop keeps GPU for speed.
+// GPU delegate first everywhere — CPU delegate was found to fail to detect
+// any hand at all on some Android devices (regression observed 2026-07-20),
+// even though it initializes without throwing. GPU is the well-tested path
+// for HandLandmarker in-browser; fingertip precision is addressed via
+// higher input resolution instead of switching delegates.
 let handLandmarkerPromise = null;
 function preloadHandLandmarker() {
   if (handLandmarkerPromise) return handLandmarkerPromise;
-  const primary  = isMobileUA ? 'CPU' : 'GPU';
-  const fallback = isMobileUA ? 'GPU' : 'CPU';
+  const primary  = 'GPU';
+  const fallback = 'CPU';
   handLandmarkerPromise = buildHandLandmarker(primary)
     .then(hl => { if (DEBUG_MODE) debugLog('HandLandmarker ready (' + primary + ' delegate)'); return hl; })
     .catch(async (err) => {
