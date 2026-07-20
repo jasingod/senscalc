@@ -2125,13 +2125,29 @@ function onResults(results) {
   }
 }
 
-async function createHandLandmarker(delegate) {
-  const { HandLandmarker, FilesetResolver } = await import(
-    `https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${TASKS_VISION_VERSION}`
-  );
-  const vision = await FilesetResolver.forVisionTasks(
-    `https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${TASKS_VISION_VERSION}/wasm`
-  );
+const isMobileUA = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
+// FilesetResolver (WASM engine) is fetched once and reused across delegate
+// attempts, so a GPU→CPU fallback doesn't re-download ~11MB of WASM.
+let visionFilesetPromise = null;
+function getVisionFileset() {
+  if (!visionFilesetPromise) {
+    visionFilesetPromise = import(
+      `https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${TASKS_VISION_VERSION}`
+    ).then(({ FilesetResolver }) =>
+      FilesetResolver.forVisionTasks(
+        `https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${TASKS_VISION_VERSION}/wasm`
+      )
+    );
+  }
+  return visionFilesetPromise;
+}
+
+async function buildHandLandmarker(delegate) {
+  const [{ HandLandmarker }, vision] = await Promise.all([
+    import(`https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${TASKS_VISION_VERSION}`),
+    getVisionFileset()
+  ]);
   return HandLandmarker.createFromOptions(vision, {
     baseOptions: {
       modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task',
@@ -2145,6 +2161,30 @@ async function createHandLandmarker(delegate) {
   });
 }
 
+// Mobile GPU delegates (float16) are known to lose precision at fingertip
+// landmarks on many Android/iOS devices — prefer CPU (float32) there, even
+// though it's a bit slower to initialize. Desktop keeps GPU for speed.
+let handLandmarkerPromise = null;
+function preloadHandLandmarker() {
+  if (handLandmarkerPromise) return handLandmarkerPromise;
+  const primary  = isMobileUA ? 'CPU' : 'GPU';
+  const fallback = isMobileUA ? 'GPU' : 'CPU';
+  handLandmarkerPromise = buildHandLandmarker(primary)
+    .then(hl => { if (DEBUG_MODE) debugLog('HandLandmarker ready (' + primary + ' delegate)'); return hl; })
+    .catch(async (err) => {
+      if (DEBUG_MODE) debugLog(primary + ' delegate failed (' + (err && err.message) + '), retrying with ' + fallback + '…');
+      const hl = await buildHandLandmarker(fallback);
+      if (DEBUG_MODE) debugLog('HandLandmarker ready (' + fallback + ' delegate)');
+      return hl;
+    });
+  return handLandmarkerPromise;
+}
+
+// Kick off model download the moment the page loads — by the time the user
+// reads the instructions and taps "Enable Camera" / grants permission, the
+// ~19MB model+WASM download has usually already finished in the background.
+preloadHandLandmarker();
+
 async function startCamera() {
   const btn         = document.getElementById('startBtn');
   const placeholder = document.getElementById('cameraPlaceholder');
@@ -2152,27 +2192,25 @@ async function startCamera() {
   const scanTxt     = document.getElementById('scanText');
 
   btn.disabled    = true;
-  btn.textContent = 'LOADING MODEL…';
+  btn.textContent = handLandmarker ? 'STARTING CAMERA…' : 'LOADING MODEL…';
+
+  // Reassure the user on slow connections instead of looking frozen
+  const slowTimer = setTimeout(() => {
+    if (!handLandmarker) btn.textContent = 'STILL LOADING — UP TO 20s ON FIRST VISIT';
+  }, 4000);
 
   try {
-    // ── 1. HandLandmarker 초기화 (GPU 우선, 실패 시 CPU로 폴백) ──
-    // 일부 Android GPU/드라이버 조합은 GPU delegate를 지원하지 않음
-    if (!handLandmarker) {
-      try {
-        handLandmarker = await createHandLandmarker('GPU');
-        if (DEBUG_MODE) debugLog('HandLandmarker ready (GPU delegate)');
-      } catch (gpuErr) {
-        if (DEBUG_MODE) debugLog('GPU delegate failed (' + (gpuErr && gpuErr.message) + '), retrying with CPU…');
-        handLandmarker = await createHandLandmarker('CPU');
-        if (DEBUG_MODE) debugLog('HandLandmarker ready (CPU delegate)');
-      }
-    }
-
-    // ── 2. getUserMedia ──
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
-      audio: false
-    });
+    // Model download/init and camera permission happen in parallel —
+    // neither has to wait for the other.
+    const [hl, stream] = await Promise.all([
+      preloadHandLandmarker(),
+      navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
+        audio: false
+      })
+    ]);
+    clearTimeout(slowTimer);
+    handLandmarker = hl;
     video.srcObject = stream;
 
     await new Promise((resolve, reject) => {
@@ -2210,6 +2248,7 @@ async function startCamera() {
     requestAnimationFrame(predictWebcam);
 
   } catch (err) {
+    clearTimeout(slowTimer);
     console.error('Camera error:', err);
     btn.disabled    = false;
     btn.textContent = 'RETRY — CHECK PERMISSIONS';
