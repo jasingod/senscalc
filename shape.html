@@ -216,6 +216,18 @@
       animation: pulse 1.4s ease-in-out infinite;
     }
     .scan-badge.active { color: var(--text); border-color: rgba(0,255,136,0.3); }
+    .scan-badge.counting .dot {
+      background: var(--purple);
+      box-shadow: 0 0 6px var(--purple);
+      animation: pulse 0.6s ease-in-out infinite;
+    }
+    .scan-badge.counting { color: var(--text); border-color: rgba(139,92,246,0.4); }
+    .scan-badge.locked-state .dot {
+      background: var(--cyan);
+      box-shadow: 0 0 6px var(--cyan);
+      animation: none;
+    }
+    .scan-badge.locked-state { color: var(--cyan); border-color: rgba(0,212,255,0.4); }
     @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.4; }
@@ -2077,24 +2089,42 @@ let handLengthMm     = 185; // default: medium hand
 
 // ── LOCK — freeze the recommendation list so the user can move their hand
 // away from the camera and click "Buy"/"Match DPI" without the live-updating
-// list changing out from under them mid-click. ──
-let locked = false;
-function toggleLock() {
-  locked = !locked;
+// list changing out from under them mid-click. Most people are using their
+// only free hand for the grip gesture, so they can't reach a mouse to click
+// a "Lock" button either — auto-lock after holding a stable grip for 3s,
+// with a visible countdown. Manual button stays as an instant fallback.
+const HOLD_MS = 3000;
+let locked        = false;
+let stableTopMatch = null;
+let stableSince    = null;
+
+function lockResults() {
+  if (locked) return;
+  locked = true;
   const btn = document.getElementById('lockBtn');
   const sub = document.getElementById('resultsSubtitle');
-  if (locked) {
-    btn.textContent = '🔒 Unlock';
-    btn.style.borderColor = 'var(--cyan)';
-    btn.style.color = 'var(--cyan)';
-    if (!sub.dataset.prev) sub.dataset.prev = sub.textContent;
-    sub.textContent = 'Locked — move your hand away and use your mouse to compare or buy. Tap Unlock to scan again.';
-  } else {
-    btn.textContent = '🔓 Lock';
-    btn.style.borderColor = '';
-    btn.style.color = '';
-    if (sub.dataset.prev) { sub.textContent = sub.dataset.prev; delete sub.dataset.prev; }
-  }
+  btn.textContent = '🔒 Unlock';
+  btn.style.borderColor = 'var(--cyan)';
+  btn.style.color = 'var(--cyan)';
+  if (!sub.dataset.prev) sub.dataset.prev = sub.textContent;
+  sub.textContent = 'Locked — move your hand away and use your mouse to compare or buy. Tap Unlock to scan again.';
+}
+
+function unlockResults() {
+  if (!locked) return;
+  locked = false;
+  stableTopMatch = null;
+  stableSince = null;
+  const btn = document.getElementById('lockBtn');
+  const sub = document.getElementById('resultsSubtitle');
+  btn.textContent = '🔓 Lock';
+  btn.style.borderColor = '';
+  btn.style.color = '';
+  if (sub.dataset.prev) { sub.textContent = sub.dataset.prev; delete sub.dataset.prev; }
+}
+
+function toggleLock() {
+  if (locked) unlockResults(); else lockResults();
 }
 
 // ── DEBUG PANEL — visit shape.html?debug=1 to see live diagnostics on-device ──
@@ -2137,24 +2167,52 @@ function onResults(results) {
 
     const hand = extractHandMeasurements(landmarks, handLengthMm);
     if (hand) {
-      badge.classList.add('active');
+      badge.classList.remove('active', 'counting', 'locked-state');
+
       if (locked) {
-        scanTxt.textContent = 'LOCKED';
+        badge.classList.add('locked-state');
+        scanTxt.textContent = 'LOCKED ✓';
       } else {
-        scanTxt.textContent = 'SCANNING';
         const ranked = rankMice(hand);
         renderResults(ranked, hand);
         const lockBtn = document.getElementById('lockBtn');
         if (lockBtn.style.display === 'none') lockBtn.style.display = 'inline-block';
+
+        // Same top match held steady → count down to auto-lock.
+        // Grip changed → restart the count (still adjusting, not ready).
+        const topName = ranked[0] ? ranked[0].name : null;
+        const now = performance.now();
+        if (topName !== stableTopMatch) {
+          stableTopMatch = topName;
+          stableSince = now;
+        }
+        const heldMs = stableSince != null ? now - stableSince : 0;
+
+        if (heldMs >= HOLD_MS) {
+          lockResults();
+          badge.classList.add('locked-state');
+          scanTxt.textContent = 'LOCKED ✓';
+        } else {
+          badge.classList.add('counting');
+          const remain = Math.ceil((HOLD_MS - heldMs) / 1000);
+          scanTxt.textContent = 'HOLD STILL — LOCKING IN ' + remain + 's';
+        }
       }
     }
   } else {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    badge.classList.remove('active');
+    badge.classList.remove('active', 'counting');
+    if (!locked) { stableTopMatch = null; stableSince = null; }
     // Keep showing LOCKED (not NO HAND DETECTED) while locked, since the
     // whole point is letting the user move their hand away to click freely.
-    scanTxt.textContent = locked ? 'LOCKED' : 'NO HAND DETECTED';
+    if (locked) {
+      badge.classList.add('locked-state');
+      scanTxt.textContent = 'LOCKED ✓';
+    } else {
+      badge.classList.remove('locked-state');
+      scanTxt.textContent = 'NO HAND DETECTED';
+    }
   }
 }
 
