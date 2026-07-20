@@ -634,6 +634,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
+      <div id="debugPanel" style="display:none;background:#000;color:#0f0;font-family:monospace;font-size:10px;line-height:1.5;padding:8px;margin-top:8px;border-radius:6px;white-space:pre-wrap;word-break:break-all;"></div>
+
       <button class="btn-start" id="startBtn" onclick="startCamera()">
         ENABLE CAMERA
       </button>
@@ -2069,6 +2071,21 @@ let isRunning    = false;
 let rafId        = null;
 let handLengthMm = 185; // default: medium hand
 
+// ── DEBUG PANEL — visit shape.html?debug=1 to see live diagnostics on-device ──
+const DEBUG_MODE = /[?&]debug=1\b/.test(location.search);
+let debugFrameCount = 0;
+let debugResultCount = 0;
+function debugLog(extra) {
+  if (!DEBUG_MODE) return;
+  const panel = document.getElementById('debugPanel');
+  if (!panel) return;
+  panel.style.display = 'block';
+  panel.textContent =
+    'UA: ' + navigator.userAgent + '\n' +
+    'frames sent: ' + debugFrameCount + '  |  onResults calls: ' + debugResultCount + '\n' +
+    (extra || '');
+}
+
 function updateHandLength(val) {
   handLengthMm = parseInt(val, 10);
   document.getElementById('handLengthDisplay').textContent = val + ' mm';
@@ -2079,6 +2096,14 @@ function onResults(results) {
   const canvas  = document.getElementById('canvasEl');
   const badge   = document.getElementById('scanBadge');
   const scanTxt = document.getElementById('scanText');
+
+  debugResultCount++;
+  const numHands = results.multiHandLandmarks ? results.multiHandLandmarks.length : 0;
+  const handedness = (results.multiHandedness && results.multiHandedness[0])
+    ? results.multiHandedness[0].label + ' ' + results.multiHandedness[0].score.toFixed(2)
+    : 'none';
+  debugLog('multiHandLandmarks: ' + numHands + '  |  handedness: ' + handedness +
+    '\nvideo: ' + video.videoWidth + 'x' + video.videoHeight);
 
   if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
     const landmarks = results.multiHandLandmarks[0];
@@ -2158,6 +2183,11 @@ async function startCamera() {
     });
     mpHands.onResults(onResults); // 실제 핸들러로 교체
 
+    if (DEBUG_MODE) {
+      debugLog('modelComplexity: ' + (isMobile ? 0 : 1) + '  |  isMobile: ' + isMobile +
+        '\nvideo: ' + video.videoWidth + 'x' + video.videoHeight + '  readyState: ' + video.readyState);
+    }
+
     // ── 5. setTimeout 루프 ──
     // send() 완료 후 다음 예약 → 큐 쌓임 없음
     const interval = isMobile ? 60 : 16;
@@ -2183,9 +2213,16 @@ async function startCamera() {
         const sample = offCtx.getImageData(w >> 1, h >> 1, 1, 1).data;
         if (sample[0] + sample[1] + sample[2] > 0) {
           try {
+            debugFrameCount++;
             await mpHands.send({ image: offscreen });
-          } catch (e) { /* 개별 프레임 에러 무시 */ }
+          } catch (e) {
+            if (DEBUG_MODE) debugLog('SEND ERROR: ' + (e && e.message ? e.message : e));
+          }
+        } else if (DEBUG_MODE) {
+          debugLog('frame skipped: sampled pixel is black (' + sample[0] + ',' + sample[1] + ',' + sample[2] + ')');
         }
+      } else if (DEBUG_MODE) {
+        debugLog('NOT READY — readyState: ' + video.readyState + '  currentTime: ' + video.currentTime.toFixed(2));
       }
 
       setTimeout(processFrame, interval);
@@ -2198,6 +2235,7 @@ async function startCamera() {
     btn.disabled    = false;
     btn.textContent = 'RETRY — CHECK PERMISSIONS';
     scanTxt.textContent = 'ERROR — ' + (err.name || 'check console');
+    if (DEBUG_MODE) debugLog('STARTUP ERROR: ' + (err && err.message ? err.message : err));
   }
 }
 </script>
