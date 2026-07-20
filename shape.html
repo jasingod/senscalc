@@ -795,9 +795,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
-<!-- MediaPipe -->
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/hands.js" crossorigin="anonymous"></script>
-
 <script>
 // ─────────────────────────────────────────────
 //  MOUSE DATABASE  [brand, model, length, width, height]
@@ -2062,14 +2059,18 @@ function drawOverlay(canvas, landmarks, videoW, videoH) {
 }
 
 // ─────────────────────────────────────────────
-//  MEDIAPIPE SETUP — Mobile-compatible
-//  Uses getUserMedia directly instead of Camera utility
-//  (Camera utility has known issues on iOS Safari / Android)
+//  MEDIAPIPE TASKS VISION — HandLandmarker
+//  Replaces the deprecated @mediapipe/hands "Solutions" API,
+//  which frequently fails to detect any hand on Android Chrome
+//  and some iOS Safari versions. Tasks Vision is Google's
+//  actively maintained replacement and runs detectForVideo()
+//  directly on the <video> element — no manual frame extraction.
 // ─────────────────────────────────────────────
-let mpHands      = null;
-let isRunning    = false;
-let rafId        = null;
-let handLengthMm = 185; // default: medium hand
+const TASKS_VISION_VERSION = '0.10.35';
+let handLandmarker  = null;
+let isRunning        = false;
+let lastVideoTime    = -1;
+let handLengthMm     = 185; // default: medium hand
 
 // ── DEBUG PANEL — visit shape.html?debug=1 to see live diagnostics on-device ──
 const DEBUG_MODE = /[?&]debug=1\b/.test(location.search);
@@ -2082,7 +2083,7 @@ function debugLog(extra) {
   panel.style.display = 'block';
   panel.textContent =
     'UA: ' + navigator.userAgent + '\n' +
-    'frames sent: ' + debugFrameCount + '  |  onResults calls: ' + debugResultCount + '\n' +
+    'frames processed: ' + debugFrameCount + '  |  onResults calls: ' + debugResultCount + '\n' +
     (extra || '');
 }
 
@@ -2098,15 +2099,15 @@ function onResults(results) {
   const scanTxt = document.getElementById('scanText');
 
   debugResultCount++;
-  const numHands = results.multiHandLandmarks ? results.multiHandLandmarks.length : 0;
-  const handedness = (results.multiHandedness && results.multiHandedness[0])
-    ? results.multiHandedness[0].label + ' ' + results.multiHandedness[0].score.toFixed(2)
+  const numHands = results.landmarks ? results.landmarks.length : 0;
+  const handInfo = (results.handedness && results.handedness[0] && results.handedness[0][0])
+    ? results.handedness[0][0].categoryName + ' ' + results.handedness[0][0].score.toFixed(2)
     : 'none';
-  debugLog('multiHandLandmarks: ' + numHands + '  |  handedness: ' + handedness +
+  debugLog('hands: ' + numHands + '  |  handedness: ' + handInfo +
     '\nvideo: ' + video.videoWidth + 'x' + video.videoHeight);
 
-  if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
-    const landmarks = results.multiHandLandmarks[0];
+  if (results.landmarks && results.landmarks.length > 0) {
+    const landmarks = results.landmarks[0];
     drawOverlay(canvas, landmarks, video.videoWidth || 640, video.videoHeight || 480);
 
     const hand = extractHandMeasurements(landmarks, handLengthMm);
@@ -2124,6 +2125,26 @@ function onResults(results) {
   }
 }
 
+async function createHandLandmarker(delegate) {
+  const { HandLandmarker, FilesetResolver } = await import(
+    `https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${TASKS_VISION_VERSION}`
+  );
+  const vision = await FilesetResolver.forVisionTasks(
+    `https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${TASKS_VISION_VERSION}/wasm`
+  );
+  return HandLandmarker.createFromOptions(vision, {
+    baseOptions: {
+      modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task',
+      delegate
+    },
+    runningMode: 'VIDEO',
+    numHands: 1,
+    minHandDetectionConfidence: 0.5,
+    minHandPresenceConfidence: 0.5,
+    minTrackingConfidence: 0.5
+  });
+}
+
 async function startCamera() {
   const btn         = document.getElementById('startBtn');
   const placeholder = document.getElementById('cameraPlaceholder');
@@ -2133,21 +2154,19 @@ async function startCamera() {
   btn.disabled    = true;
   btn.textContent = 'LOADING MODEL…';
 
-  const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-
   try {
-    // ── 1. MediaPipe Hands 초기화 ──
-    mpHands = new Hands({
-      locateFile: (file) =>
-        `https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/${file}`
-    });
-    mpHands.setOptions({
-      maxNumHands: 1,
-      modelComplexity: isMobile ? 0 : 1,
-      minDetectionConfidence: 0.6,
-      minTrackingConfidence: 0.5
-    });
-    mpHands.onResults(onResults);
+    // ── 1. HandLandmarker 초기화 (GPU 우선, 실패 시 CPU로 폴백) ──
+    // 일부 Android GPU/드라이버 조합은 GPU delegate를 지원하지 않음
+    if (!handLandmarker) {
+      try {
+        handLandmarker = await createHandLandmarker('GPU');
+        if (DEBUG_MODE) debugLog('HandLandmarker ready (GPU delegate)');
+      } catch (gpuErr) {
+        if (DEBUG_MODE) debugLog('GPU delegate failed (' + (gpuErr && gpuErr.message) + '), retrying with CPU…');
+        handLandmarker = await createHandLandmarker('CPU');
+        if (DEBUG_MODE) debugLog('HandLandmarker ready (CPU delegate)');
+      }
+    }
 
     // ── 2. getUserMedia ──
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -2166,69 +2185,29 @@ async function startCamera() {
     btn.textContent = 'CAMERA ACTIVE';
     scanTxt.textContent = 'READY';
     isRunning = true;
+    lastVideoTime = -1;
 
-    // ── 3. 오프스크린 캔버스 준비 ──
-    // willReadFrequently: Android GPU → CPU 픽셀 읽기 최적화
-    const offscreen = document.createElement('canvas');
-    const offCtx    = offscreen.getContext('2d', { willReadFrequently: true });
-
-    // ── 4. 모델 첫 초기화 대기 ──
-    // Android에서 첫 send() 전에 모델이 완전히 로드되길 기다림
-    await new Promise(resolve => {
-      const warmup = document.createElement('canvas');
-      warmup.width = 64; warmup.height = 64;
-      mpHands.onResults(() => resolve());
-      mpHands.send({ image: warmup }).catch(() => resolve());
-      setTimeout(resolve, 3000); // 최대 3초 대기
-    });
-    mpHands.onResults(onResults); // 실제 핸들러로 교체
-
-    if (DEBUG_MODE) {
-      debugLog('modelComplexity: ' + (isMobile ? 0 : 1) + '  |  isMobile: ' + isMobile +
-        '\nvideo: ' + video.videoWidth + 'x' + video.videoHeight + '  readyState: ' + video.readyState);
-    }
-
-    // ── 5. setTimeout 루프 ──
-    // send() 완료 후 다음 예약 → 큐 쌓임 없음
-    const interval = isMobile ? 60 : 16;
-
-    async function processFrame() {
+    // ── 3. detectForVideo 루프 ──
+    // Tasks Vision이 video 엘리먼트에서 직접 프레임을 읽으므로
+    // 캔버스 프레임 복사/검은 프레임 필터링이 필요 없음
+    function predictWebcam() {
       if (!isRunning) return;
 
-      // Android: readyState >= 3(HAVE_FUTURE_DATA) + currentTime > 0 확인
-      // readyState >= 2만으로는 검은 프레임이 넘어갈 수 있음
-      const ready = isMobile
-        ? (video.readyState >= 3 && video.currentTime > 0)
-        : (video.readyState >= 2);
-
-      if (ready) {
-        const w = video.videoWidth  || 640;
-        const h = video.videoHeight || 480;
-        if (offscreen.width !== w)  offscreen.width  = w;
-        if (offscreen.height !== h) offscreen.height = h;
-
-        offCtx.drawImage(video, 0, 0, w, h);
-
-        // 빈 프레임 체크: 픽셀 샘플링으로 완전히 검은 캔버스 스킵
-        const sample = offCtx.getImageData(w >> 1, h >> 1, 1, 1).data;
-        if (sample[0] + sample[1] + sample[2] > 0) {
-          try {
-            debugFrameCount++;
-            await mpHands.send({ image: offscreen });
-          } catch (e) {
-            if (DEBUG_MODE) debugLog('SEND ERROR: ' + (e && e.message ? e.message : e));
-          }
-        } else if (DEBUG_MODE) {
-          debugLog('frame skipped: sampled pixel is black (' + sample[0] + ',' + sample[1] + ',' + sample[2] + ')');
+      if (video.readyState >= 2 && video.currentTime !== lastVideoTime) {
+        lastVideoTime = video.currentTime;
+        debugFrameCount++;
+        try {
+          const results = handLandmarker.detectForVideo(video, performance.now());
+          onResults(results);
+        } catch (e) {
+          if (DEBUG_MODE) debugLog('DETECT ERROR: ' + (e && e.message ? e.message : e));
         }
-      } else if (DEBUG_MODE) {
-        debugLog('NOT READY — readyState: ' + video.readyState + '  currentTime: ' + video.currentTime.toFixed(2));
       }
 
-      setTimeout(processFrame, interval);
+      requestAnimationFrame(predictWebcam);
     }
 
-    processFrame();
+    requestAnimationFrame(predictWebcam);
 
   } catch (err) {
     console.error('Camera error:', err);
