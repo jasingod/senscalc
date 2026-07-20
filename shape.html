@@ -648,7 +648,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="dot"></div>
           <span id="scanText">WAITING</span>
         </div>
-        <div id="countdownOverlay" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Orbitron',monospace;font-weight:900;font-size:clamp(64px,22vw,120px);color:var(--purple);text-shadow:0 0 24px rgba(139,92,246,0.85),0 0 60px rgba(139,92,246,0.5);pointer-events:none;line-height:1;"></div>
+        <div id="countdownOverlay" style="display:none;position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;align-items:center;justify-content:center;background:rgba(7,9,15,0.8);border:1px solid var(--purple);font-family:'Orbitron',monospace;font-weight:700;font-size:20px;color:var(--purple);pointer-events:none;"></div>
       </div>
 
       <button class="btn-start" id="scanAgainBtn" onclick="unlockResults()"
@@ -1800,6 +1800,13 @@ function isProMouse(brand, model) {
 //  No length camera measurement.
 //  targetLength comes from hand-size slider only.
 // ─────────────────────────────────────────────
+// Smoothed across frames so natural hand tremor doesn't flip the top
+// recommendation every frame — reset (see resetHandSmoothing) whenever
+// the hand leaves the frame so a fresh grip isn't biased by the old one.
+let smoothedThumbRingN = null;
+const SMOOTH_ALPHA = 0.18;
+function resetHandSmoothing() { smoothedThumbRingN = null; }
+
 function extractHandMeasurements(landmarks, handLengthMm) {
   const lm     = landmarks;
   const aspect = 4 / 3; // 640×480
@@ -1816,7 +1823,11 @@ function extractHandMeasurements(landmarks, handLengthMm) {
 
   // WIDTH ratio: thumb tip(4) ↔ ring finger tip(16)
   // Grip position typical range: ~0.8 (tight) → ~1.7 (wide)
-  const thumbRingN = d(4, 16) / palmRef;
+  const rawThumbRingN = d(4, 16) / palmRef;
+  smoothedThumbRingN = (smoothedThumbRingN == null)
+    ? rawThumbRingN
+    : smoothedThumbRingN * (1 - SMOOTH_ALPHA) + rawThumbRingN * SMOOTH_ALPHA;
+  const thumbRingN = smoothedThumbRingN;
 
   // Map ratio → mouse width (mm)
   // Calibrated so thumbRingN ~1.1 (typical grip) → 64mm (mainstream pro range)
@@ -1832,17 +1843,17 @@ function extractHandMeasurements(landmarks, handLengthMm) {
 
 // ─────────────────────────────────────────────
 //  SCORING
-//  Width: σ=2mm — extremely tight so recommendations
-//         change the moment the finger span shifts.
-//  Small σ means: ±4mm away from target → score drops to ~14%
+//  Width: σ=3mm — was 2mm, but combined with tiny natural hand tremor
+//  that made the top match flicker between near-identical widths. 3mm
+//  still favors a close width match while giving a little breathing room.
 // ─────────────────────────────────────────────
 function gauss(diff, sigma) {
   return Math.exp(-(diff * diff) / (2 * sigma * sigma));
 }
 
 function scoreMatch(hand, mouseWidth, mouseLength) {
-  // Width: σ=2mm, weight 60% — grip span drives real-time changes
-  const wScore = gauss(mouseWidth  - hand.targetWidth,  2);
+  // Width: σ=3mm, weight 60% — grip span still drives most of the score
+  const wScore = gauss(mouseWidth  - hand.targetWidth,  3);
   // Length: σ=7mm, weight 40% — hand size slider drives model selection
   // σ=7mm: ±7mm diff → 61%, ±14mm diff → 14% (clearly separates small/large models)
   const lScore = gauss(mouseLength - hand.targetLength, 7);
@@ -2215,10 +2226,8 @@ function onResults(results) {
           const remainMs = HOLD_MS - heldMs;
           const remain = Math.ceil(remainMs / 1000);
           scanTxt.textContent = 'HOLD STILL — LOCKING IN ' + remain + 's';
-          // Big on-screen countdown only ticks over in the final 3 whole
-          // seconds so it reads as a clear "3…2…1" rather than a blur.
           cdOverlay.textContent = remain;
-          cdOverlay.style.display = 'block';
+          cdOverlay.style.display = 'flex';
         }
       }
     }
@@ -2227,7 +2236,7 @@ function onResults(results) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     badge.classList.remove('active', 'counting');
     cdOverlay.style.display = 'none';
-    if (!locked) { stableTopMatch = null; stableSince = null; }
+    if (!locked) { stableTopMatch = null; stableSince = null; resetHandSmoothing(); }
     // Keep showing LOCKED (not NO HAND DETECTED) while locked, since the
     // whole point is letting the user move their hand away to click freely.
     if (locked) {
